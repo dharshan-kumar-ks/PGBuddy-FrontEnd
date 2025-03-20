@@ -1,0 +1,38 @@
+/* CHANGE: Adjust #root to not interfere with full-page background and centering */
+/* CHANGE: Simplify #root to remove all potential interference */
+#root {
+  max-width: 100%;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+  width: 100%;
+  box-sizing: border-box;
+  background-color: transparent;
+  min-height: 100vh;
+  display: flex; /* ADDED: Ensure #root uses Flexbox to pass centering to children */
+  justify-content: center; /* ADDED: Center horizontally */
+  align-items: center; /* ADDED: Center vertically */
+}
+
+/* ADDED: Ensure the entire page has the correct background color */
+html, body {
+  height: 100%; /* ADDED: Ensure full height */
+  margin: 0; /* ADDED: Remove default margins */
+  padding: 0; /* ADDED: Remove default padding */
+  background-color: #1c2526; /* ADDED: Apply background color to the entire page */
+  /* background: url('/path/to/your/background-image.jpg') no-repeat center center fixed; -> Apply background image */
+  background-size: cover; /* Ensure the background image covers the entire page */
+  /* border: 2px solid red; /*  Remove this after debugging */
+}
+
+/* CHANGE: Remove .app-wrapper styles and move centering to #root */
+.app-wrapper {
+  /* min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center; */
+  width: 100%; /* ADDED: Ensure .app-wrapper takes full width */
+  max-width: 300px; /* ADDED: Constrain .app-wrapper to match .common-container */
+  /* ADDED: Debugging border to confirm .app-wrapper is rendering */
+  /* border: 2px solid yellow; /* Remove this after debugging */
+}
