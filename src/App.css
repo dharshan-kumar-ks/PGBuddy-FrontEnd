@@ -32,7 +32,29 @@ html, body {
   justify-content: center;
   align-items: center; */
   width: 100%; /* ADDED: Ensure .app-wrapper takes full width */
-  max-width: 300px; /* ADDED: Constrain .app-wrapper to match .common-container */
+  max-width: 350px; /* ADDED: Constrain .app-wrapper to match .common-container */
   /* ADDED: Debugging border to confirm .app-wrapper is rendering */
   /* border: 2px solid yellow; /* Remove this after debugging */
+}
+
+/* ADDED: Style the header */
+.header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+/* ADDED: Style the logo */
+.logo {
+  width: 100px; /* Adjust size as needed */
+  height: 100px; /* Adjust size as needed */
+  margin-bottom: 10px;
+}
+
+/* ADDED: Style the h1 (website name) */
+h1 {
+  color: white;
+  font-size: 24px;
+  margin: 0;
 }

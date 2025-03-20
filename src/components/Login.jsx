@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import './Common.css'; // Optional: for styling
 
 function Login() {
-  const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const navigate = useNavigate();
@@ -12,12 +12,12 @@ function Login() {
     e.preventDefault();
     
     try {
-      const response = await fetch('http://localhost:8080/api/auth/login', {
+      const response = await fetch('http://localhost:8080//api/signin', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ username, password }),
+        body: JSON.stringify({ email, password }),
       });
 
       if (response.ok) {
@@ -26,7 +26,7 @@ function Login() {
         //localStorage.setItem('token', data.token); // Store token if your backend provides one
         navigate('/dashboard'); // Redirect to dashboard or home page
       } else {
-        setError('Invalid username or password');
+        setError('Invalid email or password');
       }
     } catch (err) {
       setError('An error occurred. Please try again.');
@@ -34,15 +34,15 @@ function Login() {
   };
 
   return (
-    <div className="login-container">
+    <div className="common-container">
       <h2>Login</h2>
       <form onSubmit={handleLogin}>
         <div>
-          <label>Username:</label>
+          <label>Email:</label>
           <input
-            type="text"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
+            type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
             required
           />
         </div>

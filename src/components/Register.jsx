@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import './Common.css'; // Optional: for styling
 
 function Register() {
-  const [username, setUsername] = useState('');
+  const [email, setEmail] = useState(''); // CHANGE: Renamed username to email
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
@@ -13,15 +13,17 @@ function Register() {
     e.preventDefault();
     
     try {
-      const response = await fetch('http://localhost:8080/api/auth/register', {
+      const response = await fetch('http://localhost:8080/api/signup', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ username, password }),
+        body: JSON.stringify({ email, password }), // CHANGE: Use email instead of username
       });
 
       if (response.ok) {
+        const data = await response.json(); // ADDED: Parse the response data
+        console.log('Registration response:', data); // ADDED: Log the response for debugging
         setSuccess('Registration successful! Redirecting to login...');
         setError('');
         setTimeout(() => navigate('/login'), 2000);
@@ -43,9 +45,9 @@ function Register() {
         <div>
           <label>Username:</label>
           <input
-            type="text"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
+            type="email" // CHANGE: Changed type from text to email for better validation
+            value={email} // CHANGE: Use email instead of username
+            onChange={(e) => setEmail(e.target.value)} // CHANGE: Use setEmail instead of setUsername
             required
           />
         </div>
