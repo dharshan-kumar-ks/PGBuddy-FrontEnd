@@ -10,10 +10,13 @@ function Login() {
   const [error, setError] = useState('');
   const navigate = useNavigate();
 
+  console.log('Hi');  // ADDED: Log a message for debugging
+
   const handleLogin = async (e) => {
     e.preventDefault();
     
     try {
+      console.log('Sending request with body:', { email, password }); // ADDED: Log the request body for debugging
       const response = await fetch('http://localhost:8080//api/signin', {
         method: 'POST',
         headers: {
@@ -22,6 +25,7 @@ function Login() {
         body: JSON.stringify({ email, password }),
       });
 
+      console.log('Response status:', response.status); // ADDED: Log the response status for debugging
       if (response.ok) {
         const data = await response.json();
         // Assuming your backend returns a token or success message

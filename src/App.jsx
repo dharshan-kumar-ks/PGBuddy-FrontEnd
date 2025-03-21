@@ -9,13 +9,14 @@ function App() {
   return (
     <Router>
       <div className="app-wrapper"> {/* ADDED: Wrapper div for centering */}
-        <Routes>
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
-          {/* <Route path="/dashboard" element={<Dashboard />} /> */}
-          <Route path="/" element={<Login />} /> {/* Default route */}
-        </Routes>
-      </div>
+        {/* ADDED: Add logo and website name */}
+          <Routes>
+            <Route path="/login" element={<Login />} />
+            <Route path="/register" element={<Register />} />
+            {/* <Route path="/dashboard" element={<Dashboard />} /> */}
+            <Route path="/" element={<Login />} /> {/* Default route */}
+          </Routes>
+        </div>
     </Router>
   );
 }
