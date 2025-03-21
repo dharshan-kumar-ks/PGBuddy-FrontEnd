@@ -32,7 +32,7 @@ html, body {
   justify-content: center;
   align-items: center; */
   width: 100%; /* ADDED: Ensure .app-wrapper takes full width */
-  max-width: 350px; /* ADDED: Constrain .app-wrapper to match .common-container */
+  max-width: 600px; /* ADDED: Constrain .app-wrapper to match .common-container */
   /* ADDED: Debugging border to confirm .app-wrapper is rendering */
   /* border: 2px solid yellow; /* Remove this after debugging */
 }

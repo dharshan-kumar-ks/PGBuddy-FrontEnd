@@ -44,6 +44,10 @@ function Food() {
           <span className="icon">⚡️</span>
           <span>Services</span>
         </div>
+        <div className="nav-item">
+          <span className="icon">👤</span>
+          <span>Account</span>
+        </div>
       </nav>
 
       {/* Header */}
@@ -92,6 +96,12 @@ function Food() {
           onClick={() => setMealType('Breakfast')}
         >
           Breakfast
+        </button>
+        <button
+          className={mealType === 'Lunch' ? 'active' : ''}
+          onClick={() => setMealType('Lunch')}
+        >
+          Lunch
         </button>
         <button
           className={mealType === 'Dinner' ? 'active' : ''}
