@@ -11,7 +11,10 @@
   color: white;
   box-sizing: border-box;
   /* ADDED: Debugging border to confirm .common-container width */
-  border: 2px solid green; /* Remove this after debugging */
+  /*border: 2px solid green;  Remove this after debugging */
+  display: flex; /* ADDED: Use flexbox to stack the logo and form */
+  flex-direction: column; /* ADDED: Stack items vertically */
+  align-items: center; /* ADDED: Center items horizontally */
 }
 
 div {
@@ -64,3 +67,11 @@ button:hover {
 .link:hover {
   text-decoration: underline;
 }
+
+/* ADDED: Style the logo inside the form */
+.form-logo {
+  width: 100px; /* Adjust size as needed */
+  height: 140px; /* Adjust size as needed */
+  margin-bottom: 15px; /* Space between the logo and the heading */
+}
+

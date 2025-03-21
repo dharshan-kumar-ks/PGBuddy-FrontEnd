@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './Common.css'; // Optional: for styling
+// ADDED: Import the logo image
+import logo from '/Users/dharshan.kumar/PGBuddy-FrontEnd/public/logo-1.png';
 
 function Register() {
   const [email, setEmail] = useState(''); // CHANGE: Renamed username to email
@@ -40,10 +42,12 @@ function Register() {
 
   return (
     <div className="common-container">
+      {/* ADDED: Add the logo image */}
+      <img src={logo} alt="PG Buddy Logo" className="form-logo" />
       <h2>Register</h2>
       <form onSubmit={handleRegister}>
         <div>
-          <label>Username:</label>
+          <label>Email:</label>
           <input
             type="email" // CHANGE: Changed type from text to email for better validation
             value={email} // CHANGE: Use email instead of username
