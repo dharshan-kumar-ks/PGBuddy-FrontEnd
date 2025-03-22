@@ -2,12 +2,16 @@
 .cafe-container {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  width: 100%;
-  padding-bottom: 80px; /* Space for cart footer */
+  align-items: center; /* Center the contents */
+  justify-content: flex-start; /* Align content to the top */
+  width: 100%; /* Ensure the container spans the full width */
+  padding: 20px 0; /* Add vertical padding */
+  background-color: #1c2526; /* Ensure consistent background */
+  min-height: 100vh; /* Ensure it covers the full viewport height */
+  box-sizing: border-box;
 }
 
-/* Fix: Filters stay below navigation bar */
+/* Filter Buttons */
 .filter-buttons {
   display: flex;
   justify-content: center;
@@ -17,6 +21,8 @@
   background: white;
   padding: 10px;
   z-index: 1000; /* Ensures it stays above other content */
+  width: 100%; /* Full width */
+  box-sizing: border-box;
 }
 
 .filter-buttons button {
@@ -33,25 +39,27 @@
   color: white;
 }
 
-/* Cafe Items Grid */
+/* Cafe Grid */
 .cafe-grid {
   display: grid;
-  grid-template-columns: repeat(5, 1fr); /* 5 items per row */
-  gap: 20px;
-  padding: 20px;
-  width: 90%;
-  max-width: 1200px;
-  margin-top: 20px;
+  grid-template-columns: repeat(5, 1fr); /* Create 5 equal-width columns */
+  gap: 20px; /* Add spacing between items */
+  padding: 20px; /* Add padding to prevent items from touching the edges */
+  width: 100%; /* Extend the grid to full width */
+  box-sizing: border-box; /* Include padding and border in width calculation */
 }
 
 /* Cafe Item Box */
 .cafe-item {
   background: white;
-  padding: 15px;
+  padding: 20px; /* Add padding inside the item */
   border-radius: 10px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   text-align: center;
   transition: transform 0.2s ease-in-out;
+  width: 100%; /* Ensure the item spans the full width of its grid column */
+  min-width: 220px; /* Increase the minimum width to make items wider */
+  box-sizing: border-box; /* Include padding and border in width calculation */
 }
 
 .cafe-item:hover {
@@ -70,18 +78,21 @@
   height: 100px;
   object-fit: cover;
   border-radius: 10px;
+  margin-bottom: 10px; /* Add spacing below the image */
 }
 
 /* Price */
 .price {
   font-weight: bold;
   color: #333;
+  margin: 10px 0; /* Add spacing above and below */
 }
 
 /* Description */
 .description {
   font-size: 14px;
   color: #666;
+  margin-bottom: 10px; /* Add spacing below the description */
 }
 
 /* Add Button */
@@ -121,4 +132,17 @@
   border-radius: 5px;
   margin-left: 10px;
   cursor: pointer;
+}
+
+/* Responsive Cafe Grid */
+@media (max-width: 768px) {
+  .cafe-grid {
+    grid-template-columns: repeat(2, 1fr); /* Show 2 items per row on smaller screens */
+  }
+}
+
+@media (max-width: 480px) {
+  .cafe-grid {
+    grid-template-columns: repeat(1, 1fr); /* Show 1 item per row on very small screens */
+  }
 }
