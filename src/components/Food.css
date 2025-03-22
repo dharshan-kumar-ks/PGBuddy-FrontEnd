@@ -11,6 +11,7 @@
   width: 100%;
   max-width: 600px;
   margin: 0 auto;
+  margin-top: 200px; /* Adjust this based on your navbar height */
 }
 
 /* Header */
