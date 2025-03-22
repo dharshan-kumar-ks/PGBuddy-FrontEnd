@@ -1,234 +1,227 @@
-/* Home.css */
+/* Food.css */
 
 .home-container {
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-    background-color: #1c2526;
-    font-family: Arial, sans-serif;
-    color: white;
-    padding-top: 60px;
-    width: 100%; /* ADDED: Ensure the container takes full width of its parent */
-    max-width: 600px; /* ADDED: Match the max-width of .app-wrapper */
-    margin: 0 auto; /* ADDED: Center the container */
-  }
-  
-  /* Header */
-  .home-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 15px 20px;
-    background-color: #2c3e50;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    width: 100%; /* ADDED: Ensure full width within the container */
-  }
-  
-  .home-header h1 {
-    margin: 0;
-    font-size: 24px;
-    color: white;
-  }
-  
-  .menu-icon {
-    font-size: 24px;
-    cursor: pointer;
-    color: white;
-  }
-  
-  /* Menu for the Week */
-  .menu-week {
-    padding: 20px;
-    width: 100%; /* ADDED: Ensure full width within the container */
-  }
-  
-  .menu-week h2 {
-    font-size: 18px;
-    margin-bottom: 15px;
-    color: white;
-  }
-  
-  .days-list {
-    display: flex;
-    justify-content: space-between;
-    gap: 10px;
-    width: 100%; /* ADDED: Ensure full width */
-  }
-  
-  .day {
-    flex: 1;
-    padding: 10px;
-    background-color: #2c3e50;
-    border-radius: 8px;
-    text-align: center;
-    font-size: 14px;
-    color: white;
-  }
-  
-  .day.active {
-    background-color: #a8e6cf;
-    color: #333;
-  }
-  
-  .day span {
-    display: block;
-  }
-  
-  .counter {
-    margin-top: 5px;
-    font-size: 12px;
-    color: #ccc;
-  }
-  
-  /* Notification */
-  .notification {
-    display: flex;
-    align-items: center;
-    padding: 10px 20px;
-    background-color: #ff9999;
-    margin: 0 20px;
-    border-radius: 8px;
-    font-size: 14px;
-    color: #333;
-    width: calc(100% - 40px); /* ADDED: Ensure full width minus padding */
-  }
-  
-  .clock-icon {
-    margin-right: 10px;
-    font-size: 18px;
-  }
-  
-  /* Meal Type Tabs */
-  .meal-type-tabs {
-    display: flex;
-    justify-content: space-between;
-    margin: 20px;
-    width: calc(100% - 40px); /* ADDED: Ensure full width minus margin */
-  }
-  
-  .meal-type-tabs button {
-    flex: 1;
-    padding: 10px;
-    border: none;
-    background-color: #2c3e50;
-    font-size: 16px;
-    color: white;
-    cursor: pointer;
-    border-radius: 8px;
-    margin: 0 5px;
-  }
-  
-  .meal-type-tabs button.active {
-    background-color: #007bff;
-  }
-  
-  /* Meal Options */
-  .meal-options {
-    flex: 1;
-    padding: 0 20px;
-    width: calc(100% - 40px); /* ADDED: Ensure full width minus padding */
-  }
-  
-  .meal-option {
-    display: flex;
-    align-items: center;
-    padding: 15px;
-    background-color: #2c3e50;
-    border-radius: 8px;
-    margin-bottom: 10px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    width: 100%; /* ADDED: Ensure full width */
-  }
-  
-  .meal-image {
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    margin-right: 15px;
-    display: none;
-  }
-  
-  .meal-details {
-    flex: 1;
-  }
-  
-  .meal-details h3 {
-    margin: 0;
-    font-size: 16px;
-    color: white;
-  }
-  
-  .meal-details p {
-    margin: 5px 0 0;
-    font-size: 14px;
-    color: #ccc;
-  }
-  
-  .meal-option input[type="radio"] {
-    margin-left: 10px;
-  }
-  
-  .default-label {
-    margin-left: 10px;
-    font-size: 12px;
-    color: #ccc;
-  }
-  
-  .skip-option {
-    display: flex;
-    align-items: center;
-    padding: 15px;
-    background-color: #2c3e50;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    width: 100%; /* ADDED: Ensure full width */
-  }
-  
-  .skip-option span {
-    flex: 1;
-    font-size: 16px;
-    color: white;
-  }
-  
-  .skip-note {
-    font-size: 12px;
-    color: #ccc;
-    margin: 5px 0 0 65px;
-  }
-  
-  /* CHANGE: Update styles for top navigation */
-  .top-nav {
-    display: flex;
-    justify-content: space-evenly; /* CHANGE: Use space-evenly for even distribution */
-    padding: 10px 0; /* CHANGE: Remove side padding to use full width */
-    background-color: #2c3e50;
-    position: fixed;
-    top: 0;
-    left: 0; /* ADDED: Ensure it starts from the left edge */
-    right: 0; /* ADDED: Ensure it extends to the right edge */
-    width: 100%;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    z-index: 1000;
-    box-sizing: border-box;
-  }
-  
-  .nav-item {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    color: #fff;
-    font-size: 12px;
-    /* CHANGE: Remove flex: 1 to prevent stretching */
-    padding: 0 10px; /* ADDED: Add padding to each item for better spacing */
-  }
-  
-  .nav-item.active {
-    color: #a8e6cf;
-  }
-  
-  .nav-item .icon {
-    font-size: 20px;
-    margin-bottom: 5px;
-  }
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background-color: #1c2526;
+  font-family: Arial, sans-serif;
+  color: white;
+  padding-top: 60px;
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+}
 
+/* Header */
+.home-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 20px;
+  background-color: #2c3e50;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  width: 100%;
+}
 
+.home-header h1 {
+  margin: 0;
+  font-size: 24px;
+  color: white;
+}
+
+.menu-icon {
+  font-size: 24px;
+  cursor: pointer;
+  color: white;
+}
+
+/* Menu for the Week */
+.menu-week {
+  padding: 20px;
+  width: 100%;
+}
+
+.menu-week h2 {
+  font-size: 18px;
+  margin-bottom: 15px;
+  color: white;
+}
+
+.days-list {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  width: 100%;
+}
+
+.day {
+  flex: 1;
+  padding: 10px;
+  background-color: #2c3e50;
+  border-radius: 8px;
+  text-align: center;
+  font-size: 14px;
+  color: white;
+}
+
+.day.active {
+  background-color: #a8e6cf;
+  color: #333;
+}
+
+.day span {
+  display: block;
+}
+
+.counter {
+  margin-top: 5px;
+  font-size: 12px;
+  color: #ccc;
+}
+
+/* Notification */
+.notification {
+  display: flex;
+  align-items: center;
+  padding: 10px 20px;
+  background-color: #ff9999;
+  margin: 0 20px;
+  border-radius: 8px;
+  font-size: 14px;
+  color: #333;
+  width: calc(100% - 40px);
+}
+
+/* Meal Type Tabs */
+.meal-type-tabs {
+  display: flex;
+  justify-content: space-between;
+  margin: 20px;
+  width: calc(100% - 40px);
+}
+
+.meal-type-tabs button {
+  flex: 1;
+  padding: 10px;
+  border: none;
+  background-color: #2c3e50;
+  font-size: 16px;
+  color: white;
+  cursor: pointer;
+  border-radius: 8px;
+  margin: 0 5px;
+}
+
+.meal-type-tabs button.active {
+  background-color: #007bff;
+}
+
+/* Meal Options */
+.meal-options {
+  flex: 1;
+  padding: 0 20px;
+  width: calc(100% - 40px);
+}
+
+.meal-option {
+  display: flex;
+  align-items: center;
+  padding: 15px;
+  background-color: #2c3e50;
+  border-radius: 8px;
+  margin-bottom: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  width: 100%;
+}
+
+.meal-image {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  margin-right: 15px;
+  /* CHANGE: Remove display: none to show the image */
+}
+
+.meal-details {
+  flex: 1;
+}
+
+.meal-details h3 {
+  margin: 0;
+  font-size: 16px;
+  color: white;
+}
+
+.meal-details p {
+  margin: 5px 0 0;
+  font-size: 14px;
+  color: #ccc;
+}
+
+.meal-option input[type="radio"] {
+  margin-left: 10px;
+}
+
+.default-label {
+  margin-left: 10px;
+  font-size: 12px;
+  color: #ccc;
+}
+
+.skip-option {
+  display: flex;
+  align-items: center;
+  padding: 15px;
+  background-color: #2c3e50;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  width: 100%;
+}
+
+.skip-option span {
+  flex: 1;
+  font-size: 16px;
+  color: white;
+}
+
+.skip-note {
+  font-size: 12px;
+  color: #ccc;
+  margin: 5px 0 0 65px;
+}
+
+/* Top Navigation */
+.top-nav {
+  display: flex;
+  justify-content: space-evenly;
+  padding: 10px 0;
+  background-color: #2c3e50;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+  box-sizing: border-box;
+}
+
+.nav-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: #fff;
+  font-size: 12px;
+  padding: 0 10px;
+  text-decoration: none; /* Remove default underline from Link */
+}
+
+.nav-item.active {
+  color: #a8e6cf;
+}
+
+.nav-item .icon {
+  font-size: 20px;
+  margin-bottom: 5px;
+}

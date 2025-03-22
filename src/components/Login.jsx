@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './Common.css'; // Optional: for styling
 // ADDED: Import the logo image
-import logo from '/Users/dharshan.kumar/PGBuddy-FrontEnd/public/logo-1.png';
+//import logo from '/logo-1.png';
 
 function Login() {
   const [email, setEmail] = useState('');
@@ -10,7 +10,7 @@ function Login() {
   const [error, setError] = useState('');
   const navigate = useNavigate();
 
-  console.log('Hi');  // ADDED: Log a message for debugging
+  //console.log('Hi');  // ADDED: Log a message for debugging
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -41,8 +41,7 @@ function Login() {
 
   return (
     <div className="common-container">
-      {/* ADDED: Add the logo image */}
-      <img src={logo} alt="PG Buddy Logo" className="form-logo" />
+      {/* ADDED: Add the logo image - <img src={logo} alt="PG Buddy Logo" className="form-logo" /> - */}
       <h2>Login</h2>
       <form onSubmit={handleLogin}>
         <div>

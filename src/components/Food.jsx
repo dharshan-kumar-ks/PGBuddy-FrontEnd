@@ -1,9 +1,12 @@
 import React, { useState } from 'react';
+//import { Link, useLocation } from 'react-router-dom'; // Import Link from react-router-dom
 import './Food.css';
+import TopNavigationBar from './TopNavigationBar';
 
 function Food() {
   const [mealType, setMealType] = useState('Breakfast');
   const [selectedMeal, setSelectedMeal] = useState('default');
+  //const location = useLocation(); // Get the current route
 
   const mealOptions = [
     {
@@ -22,33 +25,8 @@ function Food() {
 
   return (
     <div className="home-container">
-      {/* CHANGE: Move Bottom Navigation to Top */}
-      <nav className="top-nav">
-        <div className="nav-item">
-          <span className="icon">🏠</span>
-          <span>Home</span>
-        </div>
-        <div className="nav-item active">
-          <span className="icon">🍽️</span>
-          <span>Food</span>
-        </div>
-        <div className="nav-item">
-          <span className="icon">🏡</span>
-          <span>Stay</span>
-        </div>
-        <div className="nav-item">
-          <span className="icon">☕</span>
-          <span>Cafe</span>
-        </div>
-        <div className="nav-item">
-          <span className="icon">⚡️</span>
-          <span>Services</span>
-        </div>
-        <div className="nav-item">
-          <span className="icon">👤</span>
-          <span>Account</span>
-        </div>
-      </nav>
+      {/* Top Navigation */}
+      <TopNavigationBar />
 
       {/* Header */}
       <header className="home-header">
