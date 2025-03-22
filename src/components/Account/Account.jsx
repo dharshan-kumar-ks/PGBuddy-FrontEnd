@@ -1,6 +1,6 @@
 import React from 'react';
 import './Account.css';
-import TopNavigationBar from './TopNavigationBar';
+import TopNavigationBar from '../TopNavigationBar';
 import { FaUserCircle } from 'react-icons/fa';
 import { IoSettingsSharp } from 'react-icons/io5';
 import { MdSupport, MdFeedback, MdRateReview } from 'react-icons/md';

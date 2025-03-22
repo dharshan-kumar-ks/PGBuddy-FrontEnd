@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './Home.css';
-import TopNavigationBar from './TopNavigationBar';
+import TopNavigationBar from '../TopNavigationBar';
 
 function Home() {
   // Sample notices data

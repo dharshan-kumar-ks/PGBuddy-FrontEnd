@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 //import { Link, useLocation } from 'react-router-dom'; // Import Link from react-router-dom
 import './Food.css';
-import TopNavigationBar from './TopNavigationBar';
+import TopNavigationBar from '../TopNavigationBar';
 
 function Food() {
   const [mealType, setMealType] = useState('Breakfast');

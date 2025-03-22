@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './Cafe.css';
 
-import TopNavigationBar from './TopNavigationBar';
+import TopNavigationBar from '../TopNavigationBar';
 
 function Cafe() {
   const [cartItems, setCartItems] = useState(0);

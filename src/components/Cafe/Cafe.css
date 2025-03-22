@@ -47,6 +47,7 @@
   padding: 20px; /* Add padding to prevent items from touching the edges */
   width: 100%; /* Extend the grid to full width */
   box-sizing: border-box; /* Include padding and border in width calculation */
+  justify-content: center; /* Center the components as a group */
 }
 
 /* Cafe Item Box */

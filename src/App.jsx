@@ -1,13 +1,13 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 //import ErrorBoundary from './errorHandling/ErrorBoundary';
-import Login from './components/Login';
-import Home from './components/Home';
-import Food from './components/Food';
-import Stay from './components/Stay';
-import Cafe from './components/Cafe';
-import Services from './components/Services';
-import Account from './components/Account';
+import Login from './components/Authentication/Login';
+import Home from './components/Home/Home';
+import Food from './components/Food/Food';
+import Stay from './components/Stay/Stay';
+import Cafe from './components/Cafe/Cafe';
+import Services from './components/Services/Services';
+import Account from './components/Account/Account';
 import './App.css';
 
 function App() {

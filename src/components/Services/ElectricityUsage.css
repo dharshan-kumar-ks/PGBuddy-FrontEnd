@@ -1,0 +1,73 @@
+/* Electricity Usage Container */
+.electricity-usage-container {
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    box-sizing: border-box;
+    width: 100%;
+    display: flex;
+    flex-direction: column; /* Stack items vertically */
+    gap: 16px; /* Add spacing between items */
+    width: 100%; /* Ensure it stretches to match the parent */
+    max-width: 100%; /* Remove any unnecessary constraints */
+  }
+  
+  /* Heading */
+  .electricity-usage-container h3 {
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+    margin: 0 0 15px 0;
+  }
+  
+  /* Usage Details */
+  .usage-details {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .usage-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .usage-label {
+    font-size: 14px;
+    color: #666;
+  }
+  
+  .usage-value {
+    font-size: 14px;
+    font-weight: bold;
+    color: #333;
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 600px) {
+    .electricity-usage-container {
+      padding: 15px;
+    }
+  
+    .electricity-usage-container h3 {
+      font-size: 16px;
+    }
+  
+    .usage-label,
+    .usage-value {
+      font-size: 12px;
+    }
+  }
+
+.electricityusage-container {
+  width: 100%; /* Ensure it takes full width of the parent */
+  min-width: 350px; /* Set a minimum width */
+  max-width: 100%; /* Remove any unnecessary constraints */
+  margin: 0 auto; /* Center the container */
+  padding: 16px; /* Add some padding for spacing */
+  box-sizing: border-box; /* Include padding in width calculation */
+  display: flex; /* Ensure it behaves as a flex container */
+  flex-direction: column; /* Stack items vertically */
+}

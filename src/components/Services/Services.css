@@ -1,0 +1,114 @@
+/* Services Page Styles */
+
+/* Services Section */
+.services-section {
+    width: 100%;
+    max-width: 2000px; 
+    padding: 0px;
+    margin: 0; /* Center the section horizontally */
+    box-sizing: border-box;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center horizontally */
+    justify-content: flex-start; /* Align to the top */
+    height: 100vh; /* Full viewport height */
+    padding-top: 0px; /* Add some spacing from the top */
+  }
+
+  .internetusage-section {
+    width: 100%;
+    min-width: 350px;
+    max-width: 2000px; 
+    padding: 0px;
+    margin: 0; /* Center the section horizontally */
+    box-sizing: border-box;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center horizontally */
+    justify-content: flex-start; /* Align to the top */
+    height: 100vh; /* Full viewport height */
+    padding-top: 0px; /* Add some spacing from the top */
+  }
+
+  .electricityusage-section {
+    width: 100%;
+    min-width: 350px;
+    max-width: 2000px; 
+    padding: 0px;
+    margin: 0; /* Center the section horizontally */
+    box-sizing: border-box;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center horizontally */
+    justify-content: flex-start; /* Align to the top */
+    height: 100vh; /* Full viewport height */
+    padding-top: 0px; /* Add some spacing from the top */
+  }
+  
+  /* Ensure the home-container is styled consistently (optional override) */
+  .services-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start; /* Align content to the top */
+    width: 100%; /* Ensure the container spans the full width */
+    padding: 0;
+    margin: 0;
+    padding-bottom: 100px;
+    box-sizing: border-box;
+    background-color: #1c2526; /* Consistent dark background */
+    margin-top: 0; /* Remove unnecessary top margin */
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 600px) {
+    .services-section {
+      padding: 10px;
+    }
+
+    /* Stack ElectricityUsage components vertically on smaller screens */
+    .electricity-usage-wrapper {
+      flex-direction: column;
+      gap: 15px;
+      max-width: 100%; /* Allow full width on smaller screens */
+    }
+
+    .electricity-usage-wrapper .electricity-usage-container {
+      flex: none; /* Reset flex to allow natural width */
+      width: 100%; /* Full width on smaller screens */
+    }
+  }
+
+  /* Internet Usage Wrapper (Side by Side) */
+.internet-usage-wrapper {
+  display: flex;
+  gap: 200px; /* Space between components */
+  width: 100%; /* Allow the wrapper to span the full width */
+  margin: 0; /* Remove centering to allow components to stretch */
+  justify-content: center; /* Center the components as a group */
+  margin-top: 250px;
+}
+
+/* Ensure each InternetUsage component takes equal width */
+.internet-usage-wrapper .internet-usage-container {
+  flex: 1; /* Each component takes equal width */
+  min-width: 300px; /* Set a minimum width to prevent excessive shrinking */
+}
+
+/* Electricity Usage Wrapper (Side by Side) */
+.electricity-usage-wrapper {
+  display: flex;
+  gap: 20px; /* Space between the two ElectricityUsage components */
+  width: 100%;
+  max-width: 400px; /* Match the width of WifiStats and InternetPlans */
+  margin: 0 auto; /* Center the wrapper */
+}
+
+/* Ensure each ElectricityUsage component takes equal width */
+.electricity-usage-wrapper .electricity-usage-container {
+  flex: 1; /* Each component takes equal width */
+  min-width: 0; /* Prevent overflow */
+}
+

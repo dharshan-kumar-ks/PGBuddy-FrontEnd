@@ -1,0 +1,95 @@
+.booking-details-container {
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    box-sizing: border-box;
+    width: 100%;
+    max-width: 400px;
+    margin: 0 auto;
+  }
+  
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+  }
+  
+  .header h3 {
+    font-size: 16px;
+    font-weight: bold;
+    color: #333;
+    margin: 0;
+  }
+  
+  .view-details {
+    font-size: 14px;
+    color: #26a69a; /* Teal color */
+    text-decoration: none;
+  }
+  
+  .view-details:hover {
+    text-decoration: underline;
+  }
+  
+  .details {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .detail-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .label {
+    font-size: 14px;
+    color: #666;
+  }
+  
+  .value {
+    font-size: 14px;
+    font-weight: bold;
+    color: #333;
+  }
+  
+  .discount-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  
+  .discount-badge {
+    background: #f8bbd0; /* Pink background */
+    color: #d81b60; /* Darker pink text */
+    padding: 5px 10px;
+    border-radius: 15px;
+    font-size: 12px;
+    font-weight: 500;
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 600px) {
+    .booking-details-container {
+      padding: 15px;
+      max-width: 100%;
+    }
+  
+    .header h3 {
+      font-size: 14px;
+    }
+  
+    .view-details,
+    .label,
+    .value {
+      font-size: 12px;
+    }
+  
+    .discount-badge {
+      font-size: 10px;
+      padding: 4px 8px;
+    }
+  }
