@@ -1,0 +1,31 @@
+/* Services Page Styles */
+
+/* Services Section */
+.services-section {
+    width: 100%;
+    max-width: 1200px; /* Match the max-width of noticeboard for consistency */
+    padding: 20px;
+    margin: 0 auto; /* Center the section horizontally */
+    box-sizing: border-box;
+  }
+  
+  /* Ensure the home-container is styled consistently (optional override) */
+  .services-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start; /* Align content to the top */
+    width: 100%; /* Ensure the container spans the full width */
+    padding: 0;
+    margin: 0;
+    padding-bottom: 100px;
+    box-sizing: border-box;
+    background-color: #1c2526; /* Consistent dark background */
+    margin-top: 0; /* Remove unnecessary top margin */
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 600px) {
+    .services-section {
+      padding: 10px;
+    }
+  }

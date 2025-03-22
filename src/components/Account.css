@@ -4,11 +4,11 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    background: linear-gradient(to bottom, #dff6e4, #ffffff);
+    background: #1c2526;
     min-height: 100vh;
     padding: 20px;
     font-family: 'Arial', sans-serif;
-    color: #333; /* Dark Gray */
+    color: #f3f3f3; /* Dark Gray */
     margin-top: 180px; /* Adjust this based on your navbar height */
   }
   
@@ -17,7 +17,7 @@
     flex-direction: column;
     align-items: center;
     text-align: center;
-    background: white;
+    background: #2c3e50;
     width: 90%;
     padding: 20px;
     border-radius: 12px;
@@ -30,7 +30,7 @@
     height: 80px;
     border-radius: 50%;
     object-fit: cover;
-    border: 3px solid #ffffff;
+    border: 3px solid #2c3e50;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
   }
   
@@ -65,7 +65,7 @@
   }
   
   .option-card {
-    background: white;
+    background: #1d2833;
     padding: 15px;
     display: flex;
     align-items: center;
@@ -85,7 +85,7 @@
   
   .support-section {
     width: 90%;
-    background: white;
+    background: #2c3e50;
     padding: 15px;
     border-radius: 12px;
     margin-top: 20px;
@@ -113,7 +113,7 @@
   
   .feedback-button {
     flex: 1;
-    background: white;
+    background: white ;
     padding: 15px;
     margin: 5px;
     text-align: center;

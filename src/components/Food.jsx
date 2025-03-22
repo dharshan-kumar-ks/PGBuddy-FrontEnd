@@ -24,15 +24,9 @@ function Food() {
   ];
 
   return (
-    <div className="home-container">
+    <div className="food-container">
       {/* Top Navigation */}
       <TopNavigationBar />
-
-      {/* Header */}
-      <header className="home-header">
-        <h1>Food</h1>
-        <div className="menu-icon">☰</div>
-      </header>
 
       {/* Menu for the Week */}
       <section className="menu-week">

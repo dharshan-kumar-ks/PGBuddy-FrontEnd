@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import './Cafe.css';
-import './Food.css';
+
 import TopNavigationBar from './TopNavigationBar';
 
 function Cafe() {

@@ -1,0 +1,219 @@
+/* Home Container */
+.home-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start; /* Align content to the top */
+  width: 100%; /* Ensure the container spans the full width */
+  padding: 0;
+  margin: 0;
+  padding-bottom: 100px;
+  box-sizing: border-box;
+  background-color: #1c2526; /* Consistent background */
+  margin-top: 200px; /* Remove unnecessary top margin */
+}
+
+/* Noticeboard Section */
+.noticeboard {
+  width: 100%;
+  max-width: 1200px; /* Limit the width for better readability */
+  padding: 20px;
+  margin: 0 auto; /* Center horizontally */
+  box-sizing: border-box; /* Include padding and border in width calculation */
+}
+
+/* Search Bar */
+.search-bar-container {
+  position: relative; /* For positioning the emoji */
+  margin-bottom: 20px; /* Space between search bar and notice box */
+}
+
+.search-bar {
+  width: 100%;
+  max-width: 400px; /* Limit the width of the search bar */
+  padding: 10px 15px 10px 35px; /* Extra padding on the left for the emoji */
+  border: 1px solid #19212a;
+  border-radius: 5px;
+  font-size: 14px;
+  background-color: #2c3e50;
+  color: #333;
+  box-sizing: border-box;
+  outline: none;
+}
+
+.search-bar::placeholder {
+  color: #999;
+}
+
+.search-bar:focus {
+  border-color: #26a69a; /* Blue border on focus */
+  box-shadow: 0 0 5px rgba(30, 136, 229, 0.3);
+}
+
+/* Magnifying Glass Emoji */
+.search-bar-container::before {
+  content: '🔍'; /* Magnifying glass emoji */
+  position: absolute;
+  left: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 16px;
+  color: #999;
+}
+
+/* No Results Message */
+.no-results {
+  text-align: center;
+  padding: 20px;
+  color: #666;
+  font-size: 16px;
+}
+
+.noticeboard h2 {
+  font-size: 20px;
+  font-weight: bold;
+  color: #ffffff ;
+  margin: 20px 0;
+  text-align: left;
+}
+
+/* Notice Box */
+.notice-box {
+  background: #2c3e50;
+  border: 1px solid #19212a;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  padding: 0; /* Padding is handled by table cells */
+  width: 100%;
+}
+
+/* Notice Table */
+.notice-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.notice-item {
+  border-bottom: 1px solid #1c2526;
+}
+
+.notice-item:last-child {
+  border-bottom: none; /* Remove border from the last row */
+}
+
+.notice-item td {
+  padding: 15px;
+  vertical-align: middle;
+  font-size: 14px;
+  color: #fffdfd ; /*text color*/
+}
+
+/* Columns */
+.bookmark-column {
+  width: 40px;
+  text-align: center;
+}
+
+.bookmark-icon {
+  cursor: pointer;
+  font-size: 16px;
+  color: #ccc;
+}
+
+.bookmark-icon.bookmarked {
+  color: #ff9800; /* Orange when bookmarked */
+}
+
+.author-column {
+  width: 150px;
+  font-weight: 500;
+}
+
+.title-column {
+  width: auto;
+}
+
+.notice-title {
+  font-weight: bold;
+  color: #1e88e5; /* Blue to match the screenshot */
+  text-decoration: none;
+}
+
+.notice-title:hover {
+  text-decoration: underline;
+}
+
+.day-column {
+  width: 100px;
+  text-align: center;
+}
+
+.time-column {
+  width: 80px;
+  text-align: center;
+}
+
+/* Pagination */
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 15px;
+  gap: 5px;
+}
+
+.pagination button {
+  padding: 5px 10px;
+  border: 1px solid #2c3e50;
+  border-radius: 5px;
+  background: #1d2833;
+  cursor: pointer;
+  font-size: 14px;
+  color: rgb(255, 255, 255);
+}
+
+.pagination button:hover {
+  background: #f0f0f0;
+}
+
+.pagination button:disabled {
+  cursor: not-allowed;
+}
+
+.pagination button.active {
+  background: #26a69a;
+  color: white;
+  border-color: #26a69a;
+}
+
+/* Responsive Design */
+@media (max-width: 600px) {
+  .noticeboard {
+    padding: 10px;
+  }
+
+  .search-bar {
+    max-width: 100%; /* Full width on smaller screens */
+  }
+
+  .notice-item td {
+    padding: 10px;
+    font-size: 12px;
+  }
+
+  .author-column {
+    width: 100px;
+  }
+
+  .day-column,
+  .time-column {
+    width: 60px;
+  }
+
+  .pagination button {
+    padding: 5px 8px;
+    font-size: 12px;
+  }
+}
+
+
+

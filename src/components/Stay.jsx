@@ -1,5 +1,4 @@
 import React from 'react';
-import './Food.css';
 import TopNavigationBar from './TopNavigationBar';
 
 function Stay() {

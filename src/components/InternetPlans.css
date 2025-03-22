@@ -1,0 +1,145 @@
+/* Internet Plans Container */
+.internet-plans-container {
+    width: 100%;
+    max-width: 400px; /* Match the width of WifiStats */
+    margin: 20px auto; /* Center the container */
+  }
+  
+  /* Tabs */
+  .tabs {
+    display: flex;
+    margin-bottom: 20px;
+  }
+  
+  .tab {
+    flex: 1;
+    padding: 10px;
+    border: none;
+    background: #e0e0e0; /* Light gray background for inactive tab */
+    color: #333;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    border-radius: 5px 5px 0 0;
+    transition: background 0.3s ease;
+  }
+  
+  .tab.active {
+    background: #26a69a; /* Teal background for active tab */
+    color: white;
+  }
+  
+  .tab:not(.active):hover {
+    background: #d0d0d0;
+  }
+  
+  /* Plans List */
+  .plans-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  /* Plan Item */
+  .plan-item {
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    padding: 15px;
+    box-sizing: border-box;
+  }
+  
+  /* Plan Header */
+  .plan-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+  
+  .plan-price {
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+  }
+  
+  .plan-badge {
+    background: #e0f7fa; /* Light teal background */
+    color: #26a69a; /* Teal text */
+    padding: 5px 10px;
+    border-radius: 15px;
+    font-size: 12px;
+    font-weight: 500;
+  }
+  
+  /* Plan Details */
+  .plan-details {
+    margin-bottom: 15px;
+  }
+  
+  .plan-detail-item {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 8px;
+  }
+  
+  .detail-label {
+    font-size: 14px;
+    color: #666;
+  }
+  
+  .detail-value {
+    font-size: 14px;
+    font-weight: bold;
+    color: #333;
+  }
+  
+  /* Buy Button */
+  .buy-button {
+    width: 100%;
+    padding: 10px;
+    background: #1c2526; /* Dark background */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.3s ease;
+  }
+  
+  .buy-button:hover {
+    background: #2e3b3e; /* Slightly lighter dark background on hover */
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 600px) {
+    .internet-plans-container {
+      max-width: 100%;
+    }
+  
+    .tab {
+      font-size: 12px;
+      padding: 8px;
+    }
+  
+    .plan-item {
+      padding: 10px;
+    }
+  
+    .plan-price,
+    .detail-label,
+    .detail-value {
+      font-size: 12px;
+    }
+  
+    .plan-badge {
+      font-size: 10px;
+      padding: 4px 8px;
+    }
+  
+    .buy-button {
+      font-size: 12px;
+      padding: 8px;
+    }
+  }
