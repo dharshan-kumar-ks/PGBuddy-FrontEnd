@@ -11,24 +11,24 @@ function BookingDetails() {
 
   return (
     <div className="booking-details-container">
-      <div className="header">
+      <div className="booking-header">
         <h3>BOOKING DETAILS</h3>
-        <a href="#" className="view-details">View details</a>
+        <a href="#" className="booking-view-details">View details</a>
       </div>
-      <div className="details">
-        <div className="detail-item">
-          <span className="label">Tenure</span>
-          <span className="value">{details.tenure}</span>
+      <div className="booking-details">
+        <div className="booking-detail-item">
+          <span className="booking-label">Tenure</span>
+          <span className="booking-value">{details.tenure}</span>
         </div>
-        <div className="detail-item">
-          <span className="label">Average Monthly Fee (incl. taxes)</span>
-          <span className="value">{details.monthlyFee}</span>
+        <div className="booking-detail-item">
+          <span className="booking-label">Average Monthly Fee (incl. taxes)</span>
+          <span className="booking-value">{details.monthlyFee}</span>
         </div>
-        <div className="detail-item">
-          <span className="label">Total Discount</span>
-          <div className="discount-wrapper">
-            <span className="discount-badge">{details.discount}</span>
-            <span className="value">{details.discountAmount}</span>
+        <div className="booking-detail-item">
+          <span className="booking-label">Total Discount</span>
+          <div className="booking-discount-wrapper">
+            <span className="booking-discount-badge">{details.discount}</span>
+            <span className="booking-value">{details.discountAmount}</span>
           </div>
         </div>
       </div>

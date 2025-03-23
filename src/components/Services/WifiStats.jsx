@@ -25,7 +25,7 @@ function WifiStats() {
       </div>
 
       {/* User ID */}
-      <p className="user-id">User ID: {stats.userId}</p>
+      <p className="wifi-stats-user-id">User ID: {stats.userId}</p>
 
       {/* Stats */}
       <div className="wifi-stats-details">

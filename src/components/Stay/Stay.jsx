@@ -17,7 +17,7 @@ function Stay() {
   };
 
   return (
-    <div className="home-container">
+    <div className="stay-container">
       {/* Top Navigation */}
       <TopNavigationBar />
 
@@ -37,15 +37,15 @@ function Stay() {
         />
 
         {/* Tabs */}
-        <div className="tabs">
+        <div className="stay-tabs">
           <button
-            className={`tab ${activeTab === 'ledger' ? 'active' : ''}`}
+            className={`stay-tab ${activeTab === 'ledger' ? 'active' : ''}`}
             onClick={() => setActiveTab('ledger')}
           >
             Ledger
           </button>
           <button
-            className={`tab ${activeTab === 'penalty-structure' ? 'active' : ''}`}
+            className={`stay-tab ${activeTab === 'penalty-structure' ? 'active' : ''}`}
             onClick={() => setActiveTab('penalty-structure')}
           >
             Penalty Structure 

@@ -1,0 +1,33 @@
+ .tickets {
+    width: 100%;
+    max-width: 800px; /* Match the max-width of NoticeBoard for consistency */
+    padding: 20px;
+    margin: 0 auto;
+    box-sizing: border-box;
+    margin-top: 10px; /* Adjust this value based on the navbar height */
+    z-index: 1; /* Ensure it doesn't overlap with the navbar */
+  }
+  
+  .tickets h2 {
+    font-size: 20px;
+    font-weight: bold;
+    color: #ffffff;
+    margin: 20px 0;
+    text-align: left;
+  }
+  
+  /* Add spacing between ActiveTickets and CreateTicket */
+  .tickets > *:not(:last-child) {
+    margin-bottom: 20px;
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 600px) {
+    .tickets {
+      padding: 10px;
+    }
+  
+    .tickets h2 {
+      font-size: 18px;
+    }
+  }

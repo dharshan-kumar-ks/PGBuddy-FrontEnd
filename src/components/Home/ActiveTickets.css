@@ -1,0 +1,142 @@
+.active-tickets-box {
+    background: #2c3e50;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    width: 100%;
+    box-sizing: border-box;
+    min-width: 350px;
+    color: #ffffff !important; /* Set default text color to white */
+  }
+  
+  .active-tickets-box .tickets-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    color: #ffffff !important; /* Scoped to ActiveTickets */
+  }
+  
+  .active-tickets-box .ticket-item {
+    border-bottom: 1px solid #e0e0e0;
+    padding-bottom: 15px;
+    color: #ffffff !important; /* Scoped to ActiveTickets */
+  }
+  
+  .active-tickets-box .ticket-item:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+  }
+  
+  .active-tickets-box .ticket-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+    color: #ffffff !important; /* Scoped to ActiveTickets */
+  }
+  
+  .active-tickets-box .ticket-number {
+    font-size: 16px;
+    font-weight: bold;
+    color: #ffffff; /* Scoped to ActiveTickets */
+  }
+  
+  .active-tickets-box .status {
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 14px;
+    font-weight: 500;
+  }
+  
+  .active-tickets-box .status.open {
+    background-color: #a8e6cf;
+    color: #26a69a; /* Scoped to ActiveTickets */
+  }
+  
+  .active-tickets-box .ticket-details {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    color: #ffffff !important; /* Scoped to ActiveTickets */
+    margin-bottom: 0; /* Ensure no extra margin below ticket details */
+    padding-bottom: 0; /* Ensure no extra padding below ticket details */
+  }
+  
+  .active-tickets-box .detail-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: #ffffff !important; /* Scoped to ActiveTickets */
+  }
+  
+  .active-tickets-box .label {
+    font-size: 14px;
+    color: #b5c3ad  !important; /* Scoped to ActiveTickets */
+  }
+  
+  .active-tickets-box .value {
+    font-size: 14px;
+    font-weight: 500;
+    color: #ffffff !important; /* Scoped to ActiveTickets */
+  }
+  
+  .active-tickets-box .no-tickets {
+    text-align: center;
+    padding: 20px;
+    color: #ffffff !important; /* Scoped to ActiveTickets */
+  }
+  
+  /* See All Tickets Button */
+  .active-tickets-box .see-all-tickets-btn {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    margin-top: 0; /* Ensure no margin above the button */
+    padding: 0;
+    border: none;
+    background: none;
+    font-size: 14px;
+    font-weight: 500;
+    color: #26a69a; /* Scoped to ActiveTickets */
+    cursor: pointer;
+    transition: color 0.2s ease;
+    justify-content: flex-end; /* Align button to the right */
+  }
+  
+  .active-tickets-box .see-all-tickets-btn:hover {
+    color: #ffffff; /* Darker blue on hover */
+  }
+  
+  .active-tickets-box .arrow {
+    font-size: 16px;
+    color: #26a69a; /* Set the arrow color */
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 600px) {
+    .active-tickets-box {
+      padding: 15px;
+    }
+  
+    .active-tickets-box .ticket-number {
+      font-size: 14px;
+    }
+  
+    .active-tickets-box .status {
+      font-size: 12px;
+      padding: 4px 8px;
+    }
+  
+    .active-tickets-box .label,
+    .active-tickets-box .value {
+      font-size: 12px;
+    }
+  
+    .active-tickets-box .see-all-tickets-btn {
+      font-size: 12px;
+    }
+  
+    .active-tickets-box .arrow {
+      font-size: 14px;
+    }
+  }

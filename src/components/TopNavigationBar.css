@@ -36,6 +36,11 @@
     background-color: transparent !important;
     box-shadow: none !important;
   }
+
+  .nav-item:hover {
+    color: #71776f; /* Dark green color */
+    text-decoration: none; /* Ensure no underline appears */
+ }
   
   .nav-item .icon {
     font-size: 20px;

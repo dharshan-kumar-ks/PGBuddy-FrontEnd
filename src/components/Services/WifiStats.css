@@ -1,6 +1,6 @@
 /* Wi-Fi Stats Container */
 .wifi-stats-container {
-    background: white; /* White background */
+    background: #2c3e50; /* White background */
     border-radius: 10px; /* Rounded corners */
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow */
     padding: 20px;
@@ -21,7 +21,7 @@
   .wifi-stats-header h3 {
     font-size: 18px;
     font-weight: bold;
-    color: #333; /* Dark text */
+    color: #f8f4f4; /* Dark text */
     margin: 0;
   }
   
@@ -35,9 +35,9 @@
   }
   
   /* User ID */
-  .user-id {
+  .wifi-stats-user-id {
     font-size: 14px;
-    color: #666; /* Gray text */
+    color: #b5c3ad; /* Gray text */
     margin-bottom: 20px;
   }
   
@@ -56,13 +56,13 @@
   
   .stat-label {
     font-size: 14px;
-    color: #666; /* Gray text */
+    color: #b5c3ad; /* Gray text */
   }
   
   .stat-value {
     font-size: 14px;
     font-weight: bold;
-    color: #333; /* Dark text */
+    color: #f5f1f1; /* Dark text */
   }
   
   /* Data Left Section */

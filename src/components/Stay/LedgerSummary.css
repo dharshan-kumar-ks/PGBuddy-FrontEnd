@@ -1,5 +1,5 @@
 .ledger-summary-container {
-  background: white;
+  background: #2c3e50;
   border-radius: 10px; /* Rounded corners all around */
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
   box-sizing: border-box;
@@ -11,52 +11,52 @@
   padding: 20px; /* Padding for the entire container */
 }
 
-.summary-items {
+.ledger-summary-items {
   display: flex;
   justify-content: space-between;
   gap: 10px;
 }
 
-.summary-item {
+.ledger-summary-item {
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
 }
 
-.label {
+.ledger-summary-label {
   font-size: 14px;
-  color: #666;
+  color: #b5c3ad;
   margin-bottom: 5px;
 }
 
-.value {
+.ledger-summary-value {
   font-size: 16px;
   font-weight: bold;
-  color: #333;
+  color: #ffffff;
 }
 
-.value.dues {
+.ledger-summary-value.dues {
   color: #e53935; /* Red for dues */
 }
 
-.outstanding-wrapper {
+.ledger-summary-outstanding-wrapper {
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
-.no-dues {
+.ledger-summary-no-dues {
   font-size: 12px;
-  color: #666;
+  color: #ffffff;
   margin-top: 5px;
 }
 
-.button-wrapper {
+.ledger-summary-button-wrapper {
   margin-top: 10px; /* Space between summary-items and button */
 }
 
-.pay-bill-button {
+.ledger-summary-pay-bill-button {
   background: #1c2526; /* Dark background to match the app's theme */
   color: white;
   font-size: 14px;
@@ -69,8 +69,8 @@
   transition: background 0.3s ease;
 }
 
-.pay-bill-button:hover {
-  background: #2c3e50; /* Slightly lighter on hover */
+.ledger-summary-pay-bill-button:hover {
+  background: #d0d0d0; /* Slightly lighter on hover */
 }
 
 /* Responsive Design */
@@ -80,24 +80,24 @@
     padding: 15px;
   }
 
-  .summary-items {
+  .ledger-summary-items {
     flex-direction: column;
     gap: 15px;
   }
 
-  .label {
+  .ledger-summary-label {
     font-size: 12px;
   }
 
-  .value {
+  .ledger-summary-value {
     font-size: 14px;
   }
 
-  .no-dues {
+  .ledger-summary-no-dues {
     font-size: 10px;
   }
 
-  .pay-bill-button {
+  .ledger-summary-pay-bill-button {
     font-size: 12px;
     padding: 8px;
   }

@@ -5,27 +5,27 @@ function LedgerSummary({ dues = '₹0', amountPaid = '₹0', outstanding = '₹0
   return (
     <div className="ledger-summary-container">
       {/* Summary Items */}
-      <div className="summary-items">
-        <div className="summary-item">
-          <span className="label">DUES TILL DATE</span>
-          <span className="value dues">{dues}</span>
+      <div className="ledger-summary-items">
+        <div className="ledger-summary-item">
+          <span className="ledger-summary-label">DUES TILL DATE</span>
+          <span className="ledger-summary-value dues">{dues}</span>
         </div>
-        <div className="summary-item">
-          <span className="label">Amount Paid</span>
-          <span className="value">{amountPaid}</span>
+        <div className="ledger-summary-item">
+          <span className="ledger-summary-label">Amount Paid</span>
+          <span className="ledger-summary-value">{amountPaid}</span>
         </div>
-        <div className="summary-item">
-          <span className="label">OUTSTANDING</span>
-          <div className="outstanding-wrapper">
-            <span className="value">{outstanding}</span>
-            {outstanding === '₹0' && <span className="no-dues">NO DUES</span>}
+        <div className="ledger-summary-item">
+          <span className="ledger-summary-label">OUTSTANDING</span>
+          <div className="ledger-summary-outstanding-wrapper">
+            <span className="ledger-summary-value">{outstanding}</span>
+            {outstanding === '₹0' && <span className="ledger-summary-no-dues">NO DUES</span>}
           </div>
         </div>
       </div>
 
       {/* Pay Bill Button */}
       {outstanding >= '₹0' && (
-        <button className="pay-bill-button">Pay Rent</button>
+        <button className="ledger-summary-pay-bill-button">Pay Rent</button>
       )}
     </div>
   );

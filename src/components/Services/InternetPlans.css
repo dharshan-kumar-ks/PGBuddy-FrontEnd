@@ -15,8 +15,8 @@
     flex: 1;
     padding: 10px;
     border: none;
-    background: #e0e0e0; /* Light gray background for inactive tab */
-    color: #333;
+    background: #2c3e50 ; /* Light gray background for inactive tab */
+    color: #b5c3ad;
     font-size: 14px;
     font-weight: 500;
     cursor: pointer;
@@ -42,7 +42,7 @@
   
   /* Plan Item */
   .plan-item {
-    background: white;
+    background: #2c3e50;
     border-radius: 10px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     padding: 15px;
@@ -60,7 +60,7 @@
   .plan-price {
     font-size: 18px;
     font-weight: bold;
-    color: #333;
+    color: #f6efef;
   }
   
   .plan-badge {
@@ -85,13 +85,13 @@
   
   .detail-label {
     font-size: 14px;
-    color: #666;
+    color: #b5c3ad ;
   }
   
   .detail-value {
     font-size: 14px;
     font-weight: bold;
-    color: #333;
+    color: #f6eaea;
   }
   
   /* Buy Button */
@@ -109,7 +109,7 @@
   }
   
   .buy-button:hover {
-    background: #2e3b3e; /* Slightly lighter dark background on hover */
+    background: #d0d0d0; /* Slightly lighter dark background on hover */
   }
   
   /* Responsive Design */
