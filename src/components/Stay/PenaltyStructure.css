@@ -1,51 +1,94 @@
 .penalty-structure-container {
-    background: white;
-    border-radius: 10px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    padding: 20px;
-    box-sizing: border-box;
-    width: 100%;
-    max-width: 400px;
-    margin: 0 auto;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 400px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.minimum-due h2,
+.penalty-structure h2 {
+  font-size: 18px;
+  font-weight: bold;
+  color: #333;
+  margin: 0 0 10px 0;
+}
+
+.minimum-due p,
+.penalty-structure p {
+  font-size: 14px;
+  color: #666;
+  margin: 0;
+  line-height: 1.5;
+}
+
+.penalty-table {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.table-header {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 0;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.header-date,
+.header-amount {
+  font-size: 14px;
+  font-weight: bold;
+  color: #333;
+}
+
+.header-amount {
+  text-align: right;
+}
+
+.table-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 0;
+}
+
+.row-date,
+.row-amount {
+  font-size: 14px;
+  color: #666;
+}
+
+.row-amount {
+  text-align: right;
+}
+
+/* Responsive Design */
+@media (max-width: 600px) {
+  .penalty-structure-container {
+    padding: 15px;
+    max-width: 100%;
   }
-  
-  .header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 15px;
-  }
-  
-  .header h3 {
+
+  .minimum-due h2,
+  .penalty-structure h2 {
     font-size: 16px;
-    font-weight: bold;
-    color: #333;
-    margin: 0;
   }
-  
-  .arrow {
-    font-size: 16px;
-    color: #333;
+
+  .minimum-due p,
+  .penalty-structure p {
+    font-size: 12px;
   }
-  
-  p {
-    font-size: 14px;
-    color: #333;
-    margin: 5px 0;
+
+  .header-date,
+  .header-amount,
+  .row-date,
+  .row-amount {
+    font-size: 12px;
   }
-  
-  /* Responsive Design */
-  @media (max-width: 600px) {
-    .penalty-structure-container {
-      padding: 15px;
-      max-width: 100%;
-    }
-  
-    .header h3 {
-      font-size: 14px;
-    }
-  
-    p {
-      font-size: 12px;
-    }
-  }
+}

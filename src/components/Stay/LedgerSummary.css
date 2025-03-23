@@ -1,70 +1,104 @@
 .ledger-summary-container {
-    background: white;
-    border-radius: 10px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    padding: 20px;
-    box-sizing: border-box;
-    width: 100%;
-    max-width: 400px;
-    margin: 0 auto;
-    display: flex;
-    justify-content: space-between;
-    gap: 10px;
+  background: white;
+  border-radius: 10px; /* Rounded corners all around */
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 400px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column; /* Stack summary-items and button-wrapper vertically */
+  padding: 20px; /* Padding for the entire container */
+}
+
+.summary-items {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.summary-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.label {
+  font-size: 14px;
+  color: #666;
+  margin-bottom: 5px;
+}
+
+.value {
+  font-size: 16px;
+  font-weight: bold;
+  color: #333;
+}
+
+.value.dues {
+  color: #e53935; /* Red for dues */
+}
+
+.outstanding-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.no-dues {
+  font-size: 12px;
+  color: #666;
+  margin-top: 5px;
+}
+
+.button-wrapper {
+  margin-top: 10px; /* Space between summary-items and button */
+}
+
+.pay-bill-button {
+  background: #1c2526; /* Dark background to match the app's theme */
+  color: white;
+  font-size: 14px;
+  font-weight: 500;
+  padding: 10px;
+  border: none;
+  border-radius: 5px; /* Regular rounded corners */
+  cursor: pointer;
+  width: 100%; /* Full width of the container */
+  transition: background 0.3s ease;
+}
+
+.pay-bill-button:hover {
+  background: #2c3e50; /* Slightly lighter on hover */
+}
+
+/* Responsive Design */
+@media (max-width: 600px) {
+  .ledger-summary-container {
+    max-width: 100%;
+    padding: 15px;
   }
-  
-  .summary-item {
-    display: flex;
+
+  .summary-items {
     flex-direction: column;
-    align-items: center;
-    text-align: center;
+    gap: 15px;
   }
-  
+
   .label {
-    font-size: 14px;
-    color: #666;
-    margin-bottom: 5px;
-  }
-  
-  .value {
-    font-size: 16px;
-    font-weight: bold;
-    color: #333;
-  }
-  
-  .value.dues {
-    color: #e53935; /* Red for dues */
-  }
-  
-  .outstanding-wrapper {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-  
-  .no-dues {
     font-size: 12px;
-    color: #666;
-    margin-top: 5px;
   }
-  
-  /* Responsive Design */
-  @media (max-width: 600px) {
-    .ledger-summary-container {
-      padding: 15px;
-      max-width: 100%;
-      flex-direction: column;
-      gap: 15px;
-    }
-  
-    .label {
-      font-size: 12px;
-    }
-  
-    .value {
-      font-size: 14px;
-    }
-  
-    .no-dues {
-      font-size: 10px;
-    }
+
+  .value {
+    font-size: 14px;
   }
+
+  .no-dues {
+    font-size: 10px;
+  }
+
+  .pay-bill-button {
+    font-size: 12px;
+    padding: 8px;
+  }
+}

@@ -1,0 +1,88 @@
+.room-cleaning-container {
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 320px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.room-cleaning-container h2 {
+  font-size: 18px;
+  font-weight: bold;
+  color: #333;
+  margin: 0;
+}
+
+.cleaning-info {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.info-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.label {
+  font-size: 14px;
+  color: #666;
+}
+
+.value {
+  font-size: 14px;
+  font-weight: bold;
+  color: #333;
+}
+
+.request-button {
+  background: #1c2526;
+  color: white;
+  font-size: 14px;
+  font-weight: 500;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  width: 100%;
+  transition: background 0.3s ease;
+}
+
+.request-button:hover {
+  background: #2c3e50;
+}
+
+@media (max-width: 600px) {
+  .room-cleaning-container {
+    padding: 15px;
+    max-width: 100%;
+  }
+
+  .room-cleaning-container h2 {
+    font-size: 16px;
+  }
+
+  .label,
+  .value {
+    font-size: 12px;
+  }
+
+  .request-button {
+    font-size: 12px;
+    padding: 8px;
+  }
+}
+
+h2 {
+  margin-bottom: 16px; /* Add spacing below the heading */
+  text-align: center; /* Center align the heading */
+  font-size: 24px; /* Adjust font size if needed */
+  color: #fffefe; /* Ensure consistent text color */
+}
