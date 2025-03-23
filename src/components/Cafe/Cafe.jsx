@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import './Cafe.css';
 
 import TopNavigationBar from '../TopNavigationBar';
+import FoodPreference from './FoodPreference';
+import CafeGrid from './CafeGrid';
 
 function Cafe() {
   const [cartItems, setCartItems] = useState(0);
@@ -24,36 +26,14 @@ function Cafe() {
 
   const handleFilterChange = (type) => {
     setFilter(filter === type ? null : type);
-    // Prevent scrolling issues
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   return (
     <div className="cafe-container">
       <TopNavigationBar />
-
-      {/* Filter buttons placed right below navbar */}
-      <div className="filter-buttons">
-        <button onClick={() => handleFilterChange(null)} className={!filter ? 'active' : ''}>All</button>
-        <button onClick={() => handleFilterChange('veg')} className={filter === 'veg' ? 'active' : ''}>🟢 Veg</button>
-        <button onClick={() => handleFilterChange('non-veg')} className={filter === 'non-veg' ? 'active' : ''}>🔴 Non-Veg</button>
-      </div>
-
-      <section className="cafe-grid">
-        {cafeItems
-          .filter(item => !filter || (filter === 'veg' && item.isVeg) || (filter === 'non-veg' && !item.isVeg))
-          .map((item) => (
-            <div key={item.id} className="cafe-item">
-              {item.isSpicy && <span className="spicy-icon">🌶️</span>}
-              <img src={item.image} alt={item.name} className="item-image" />
-              <h3>{item.name}</h3>
-              <p className="price">₹{item.price}</p>
-              <p className="description">{item.description}</p>
-              <button className="add-button" onClick={handleAddItem}>+ ADD</button>
-            </div>
-        ))}
-      </section>
-
+      <FoodPreference filter={filter} onFilterChange={handleFilterChange} />
+      <CafeGrid cafeItems={cafeItems} filter={filter} onAddItem={handleAddItem} />
       {cartItems > 0 && (
         <div className="cart-footer">
           <span className="cart-count">{cartItems} item{cartItems > 1 ? 's' : ''} added</span>

@@ -1,11 +1,12 @@
 /* General Container */
 .cafe-container {
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center; /* Center the contents */
   justify-content: flex-start; /* Align content to the top */
   width: 100%; /* Ensure the container spans the full width */
-  padding: 20px 0; /* Add vertical padding */
+  padding: 80px 0 20px; /* Add padding-top to account for navbar height */
   background-color: #1c2526; /* Ensure consistent background */
   min-height: 100vh; /* Ensure it covers the full viewport height */
   box-sizing: border-box;
@@ -16,11 +17,12 @@
   display: flex;
   justify-content: center;
   gap: 15px;
-  position: sticky;
+  position: relative;
+  z-index: 1; /* Ensure it stays above CafeGrid */
+  margin-bottom: 1rem;
   top: 60px; /* Adjusted to stay below navbar */
   background: #2c3e50;
   padding: 10px;
-  z-index: 1000; /* Ensures it stays above other content */
   width: 100%; /* Full width */
   box-sizing: border-box;
 }
@@ -41,6 +43,9 @@
 
 /* Cafe Grid */
 .cafe-grid {
+  position: relative;
+  z-index: 0; /* Ensure it stays below FoodPreference */
+  margin-top: 1rem;
   display: grid;
   grid-template-columns: repeat(5, 1fr); /* Create 5 equal-width columns */
   gap: 20px; /* Add spacing between items */

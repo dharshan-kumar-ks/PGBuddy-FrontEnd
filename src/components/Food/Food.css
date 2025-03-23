@@ -49,7 +49,7 @@
   color: white;
 }
 
-.days-list {
+.days-list-tabs {
   display: flex;
   justify-content: space-between;
   gap: 10px;
@@ -68,6 +68,11 @@
 
 .day.active {
   background-color: #26a69a;
+  color: #333;
+}
+
+.day:not(.active):hover  {
+  background-color: #d0d0d0;
   color: #333;
 }
 
@@ -116,6 +121,11 @@
 
 .meal-type-tabs button.active {
   background-color: #26a69a;
+}
+
+.meal-type-tabs button:not(.active):hover {
+  background-color: #d0d0d0;
+  color: #333;
 }
 
 /* Meal Options */

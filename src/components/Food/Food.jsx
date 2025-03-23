@@ -6,6 +6,7 @@ import TopNavigationBar from '../TopNavigationBar';
 function Food() {
   const [mealType, setMealType] = useState('Breakfast');
   const [selectedMeal, setSelectedMeal] = useState('default');
+  const [selectedDay, setSelectedDay] = useState('Today'); // Add state for selected day
   //const location = useLocation(); // Get the current route
 
   const mealOptions = [
@@ -23,45 +24,48 @@ function Food() {
     },
   ];
 
+  const weekMenu = [
+    { day: 'Today', date: '21 Mar', counter: '0/2' },
+    { day: 'Tom', date: '22 Mar', counter: '0/3' },
+    { day: 'Sun', date: '23 Mar', counter: '0/3' },
+    { day: 'Mon', date: '24 Mar', counter: '0/2' },
+  ];
+
+  const handleDayClick = (day) => {
+    setSelectedDay(day);
+    console.log(`Navigating to page for: ${day}`);
+    // Add navigation logic here, e.g., using react-router-dom's useNavigate
+  };
+
   return (
     <div className="food-container">
       {/* Top Navigation */}
-      <TopNavigationBar />
+        <TopNavigationBar />
 
-      {/* Menu for the Week */}
-      <section className="menu-week">
-        <h2>Menu for the week</h2>
-        <div className="days-list">
-          <div className="day active">
-            <span>Today</span>
-            <span>21 Mar</span>
-            <span className="counter">0/2</span>
+        {/* Menu for the Week */}
+        <section className="menu-week">
+          <h2>Menu for the week</h2>
+          <div className="days-list-tabs">
+            {weekMenu.map((menu, index) => (
+          <button
+            key={index}
+            className={`day ${menu.day === selectedDay ? 'active' : ''}`}
+            onClick={() => handleDayClick(menu.day)} // Update click handler
+          >
+            <span>{menu.day}</span>
+            <span>{menu.date}</span>
+            <span className="counter">{menu.counter}</span>
+          </button>
+            ))}
           </div>
-          <div className="day">
-            <span>Tom</span>
-            <span>22 Mar</span>
-            <span className="counter">0/3</span>
-          </div>
-          <div className="day">
-            <span>Sun</span>
-            <span>23 Mar</span>
-            <span className="counter">0/3</span>
-          </div>
-          <div className="day">
-            <span>Mon</span>
-            <span>24 Mar</span>
-            <span className="counter">0/2</span>
-          </div>
+        </section>
+
+        <div className="notification">
+          <span className="clock-icon">⏰</span>
+          <span>Your window to set preferences will close at 5 PM today</span>
         </div>
-      </section>
 
-      {/* Preference Window Notification */}
-      <div className="notification">
-        <span className="clock-icon">⏰</span>
-        <span>Your window to set preferences closed at 5 PM yesterday</span>
-      </div>
-
-      {/* Meal Type Tabs */}
+        {/* Meal Type Tabs */}
       <div className="meal-type-tabs">
         <button
           className={mealType === 'Breakfast' ? 'active' : ''}

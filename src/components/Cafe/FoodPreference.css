@@ -1,0 +1,28 @@
+.filter-buttons {
+  display: flex;
+  justify-content: center;
+  margin: 1rem 0;
+  background-color: #1c2526;
+  margin-top: 60px; /* Add margin to push below the navbar */
+}
+
+.filter-buttons button {
+  margin: 0 0.5rem;
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  background-color: #f0f0f0;
+  font-size: 1rem;
+  transition: background-color 0.3s ease;
+}
+
+.filter-buttons button.active {
+  background-color: #007bff;
+  color: white;
+}
+
+.filter-buttons button:hover {
+  background-color: #0056b3;
+  color: white;
+}
