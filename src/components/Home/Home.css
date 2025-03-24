@@ -19,14 +19,23 @@
   width: 100%;
   max-width: 1200px;
   margin: 0 auto;
-  margin-top: 250px; /* Adjust this value based on the navbar height */
+  margin-top: 200px; /* Adjust this value based on the navbar height */
   z-index: 1; /* Ensure it doesn't overlap with the navbar */
 }
 
-.left-column,
+.left-column {
+  flex: 1;
+  max-width: 1200px; /* Match the max-width of NoticeBoard and Tickets */
+  min-width: 800px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
 .right-column {
   flex: 1;
-  max-width: 600px; /* Match the max-width of NoticeBoard and Tickets */
+  max-width: 1200px; /* Match the max-width of NoticeBoard and Tickets */
+  min-width: none;
   display: flex;
   flex-direction: column;
   gap: 20px;

@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react';
 import './NoticeBoard.css';
 
 function NoticeBoard() {
-  // Sample notices data
-  const notices = [
+  // Move notices to state
+  const [notices, setNotices] = useState([
     {
       id: 1,
       author: "PG Incharge",
@@ -60,19 +60,24 @@ function NoticeBoard() {
       time: "11:00 AM",
       bookmarked: false,
     },
-  ];
-  
+  ]);
 
   // State for search term and pagination
   const [searchTerm, setSearchTerm] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
-  const noticesPerPage = 5; // Number of notices per page
+  const noticesPerPage = 7; // Ensure this is set to 7
 
-  // Filter notices based on search term
-  const filteredNotices = notices.filter((notice) =>
-    notice.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    notice.author.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  // State to toggle filter mode
+  const [filterBookmarked, setFilterBookmarked] = useState(false);
+
+  // Filter notices based on search term and bookmarked state
+  const filteredNotices = notices.filter((notice) => {
+    const matchesSearch =
+      notice.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      notice.author.toLowerCase().includes(searchTerm.toLowerCase());
+    const matchesFilter = !filterBookmarked || notice.bookmarked;
+    return matchesSearch && matchesFilter;
+  });
 
   // Calculate total pages based on filtered notices
   const totalPages = Math.ceil(filteredNotices.length / noticesPerPage);
@@ -88,9 +93,9 @@ function NoticeBoard() {
   }, [searchTerm]);
 
   // Calculate the notices to display on the current page
-  const indexOfLastNotice = currentPage * noticesPerPage;
-  const indexOfFirstNotice = indexOfLastNotice - noticesPerPage;
-  const currentNotices = filteredNotices.slice(indexOfFirstNotice, indexOfLastNotice);
+  const startIndex = (currentPage - 1) * noticesPerPage;
+  const endIndex = startIndex + noticesPerPage;
+  const currentNotices = filteredNotices.slice(startIndex, endIndex);
 
   // Handle search input change
   const handleSearchChange = (e) => {
@@ -99,8 +104,10 @@ function NoticeBoard() {
 
   // Handle bookmark toggle (placeholder functionality)
   const toggleBookmark = (id) => {
-    console.log(`Toggling bookmark for notice ${id}`);
-    // Add logic to update the bookmarked state in the notices array
+    const updatedNotices = notices.map((notice) =>
+      notice.id === id ? { ...notice, bookmarked: !notice.bookmarked } : notice
+    );
+    setNotices(updatedNotices); // Update state to trigger re-render
   };
 
   // Handle page change
@@ -156,15 +163,24 @@ function NoticeBoard() {
       {/* Heading */}
       <h2>Notice Board</h2>
 
-      {/* Search Bar */}
+      {/* Search Bar and Filter Button */}
       <div className="search-bar-container">
-        <input
-          type="text"
-          className="search-bar"
-          placeholder="Search notices..."
-          value={searchTerm}
-          onChange={handleSearchChange}
-        />
+        <button
+          className="filter-button"
+          onClick={() => setFilterBookmarked(!filterBookmarked)}
+        >
+          {filterBookmarked ? "Show All" : "Filter"}
+        </button>
+        <div className="search-bar-wrapper">
+          <span className="search-icon">🔍</span>
+          <input
+            type="text"
+            className="search-bar"
+            placeholder="Search notices..."
+            value={searchTerm}
+            onChange={handleSearchChange}
+          />
+        </div>
       </div>
 
       {/* Notice List Box */}
@@ -181,7 +197,17 @@ function NoticeBoard() {
                       className={`bookmark-icon ${notice.bookmarked ? 'bookmarked' : ''}`}
                       onClick={() => toggleBookmark(notice.id)}
                     >
-                      📑
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="24"
+                        height="24"
+                        fill={notice.bookmarked ? "currentColor" : "none"}
+                        stroke="currentColor"
+                        strokeWidth="2"
+                        viewBox="0 0 24 24"
+                      >
+                        <path d="M6 4v16l6-6 6 6V4z" />
+                      </svg>
                     </span>
                   </td>
                   <td className="author-column">{notice.author}</td>

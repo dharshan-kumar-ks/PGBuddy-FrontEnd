@@ -5,23 +5,62 @@
     padding: 20px;
     margin: 0 auto; /* Center horizontally */
     box-sizing: border-box; /* Include padding and border in width calculation */
+    max-height: calc(120px * 7 + 40px); /* 80px per row + padding/margins */
+    overflow-y: auto; /* Add vertical scrolling if content exceeds height */
   }
   
   /* Search Bar */
   .search-bar-container {
-    position: relative; /* For positioning the emoji */
-    margin-bottom: 20px; /* Space between search bar and notice box */
+    display: flex;
+    align-items: center;
+    justify-content: flex-start; /* Align items to the left */
+    gap: 10px; /* Space between filter button and search bar */
+    margin-bottom: 0px; /* Space between search bar and notice box */
+  }
+  
+  .filter-button {
+    padding: 10px 12px;
+    background-color: #1d2833;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    max-width: 200px; /* Limit the width of the filter button */
+    margin-top: -11px;
+  }
+  
+  .filter-button:hover {
+    background-color: #d0d0d0;
+  }
+  
+  .search-bar-wrapper {
+    display: flex;
+    align-items: center;
+    position: relative;
+    flex-grow: 1; /* Allow the search bar to take up remaining space */
+  }
+  
+  .search-icon {
+    position: absolute;
+    left: 10px;
+    font-size: 16px;
+    color: #888;
   }
   
   .search-bar {
+    padding-left: 30px; /* Add space for the search icon */
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
     width: 100%;
-    max-width: 400px; /* Limit the width of the search bar */
+    max-width: 550px; /* Limit the width of the search bar */
+    background-color: #2c3e50;
+    color: #dacbcb;
     padding: 10px 15px 10px 35px; /* Extra padding on the left for the emoji */
     border: 1px solid #19212a;
     border-radius: 5px;
     font-size: 14px;
-    background-color: #2c3e50;
-    color: #333;
     box-sizing: border-box;
     outline: none;
   }
@@ -35,15 +74,9 @@
     box-shadow: 0 0 5px rgba(30, 136, 229, 0.3);
   }
   
-  /* Magnifying Glass Emoji */
+  /* Remove the ::before pseudo-element */
   .search-bar-container::before {
-    content: '🔍'; /* Magnifying glass emoji */
-    position: absolute;
-    left: 10px;
-    top: 50%;
-    transform: translateY(-50%);
-    font-size: 16px;
-    color: #999;
+    content: none; /* Remove the magnifying glass emoji */
   }
   
   /* No Results Message */
@@ -80,6 +113,7 @@
   
   .notice-item {
     border-bottom: 1px solid #1c2526;
+    height: 80px; /* Adjust row height if necessary for better spacing */
   }
   
   .notice-item:last-child {
@@ -120,12 +154,13 @@
   
   .notice-title {
     font-weight: bold;
-    color: #1e88e5; /* Blue to match the screenshot */
+    color: #b5c3ad; /* Blue to match the screenshot */
     text-decoration: none;
   }
   
   .notice-title:hover {
     text-decoration: underline;
+    color: #71776f; /* Blue to match the screenshot */
   }
   
   .day-column {
