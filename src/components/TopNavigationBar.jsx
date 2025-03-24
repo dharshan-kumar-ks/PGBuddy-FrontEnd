@@ -7,7 +7,13 @@ function TopNavigationBar() {
 
   return (
     <nav className="top-nav">
-      <Link to="/home" className={`nav-item ${location.pathname === '/home' ? 'active' : ''}`}>
+      {/* Keep the Home icon to be highlighted when Home page is clicked or if Create tickets page is clicked */}
+      <Link
+        to="/home"
+        className={`nav-item ${
+          location.pathname === '/home' || location.pathname.includes('/create-ticket-full-page') ? 'active' : ''
+        }`}
+      >
         <span className="icon">🏠</span>
         <span>Home</span>
       </Link>

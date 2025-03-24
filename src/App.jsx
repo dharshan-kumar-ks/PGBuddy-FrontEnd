@@ -9,6 +9,7 @@ import Stay from './components/Stay/Stay';
 import Cafe from './components/Cafe/Cafe';
 import Services from './components/Services/Services';
 import Account from './components/Account/Account';
+import CreateTicketFullPage from './components/Home/CreateTicketFullPage';
 import './App.css';
 
 function App() {
@@ -25,6 +26,7 @@ function App() {
             <Route path="/cafe" element={<Cafe />} />
             <Route path="/services" element={<Services />} />
             <Route path="/account" element={<Account />} />
+            <Route path="/create-ticket-full-page" element={<CreateTicketFullPage />} />
 
             <Route path="/" element={<Login />} /> {/* Default route */}
           </Routes>

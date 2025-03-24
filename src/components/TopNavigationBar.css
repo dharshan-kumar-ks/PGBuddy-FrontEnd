@@ -29,7 +29,8 @@
   }
   
   .nav-item.active {
-    color: #a8e6cf; 
+    color: #26a69a; /* Green color for active state */
+    font-weight: bold;
     border-radius: 0; /* Prevents any rounded effect */
     padding: 0; /* Ensures no extra space is added */
 

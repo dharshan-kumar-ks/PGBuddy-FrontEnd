@@ -1,0 +1,197 @@
+.create-ticket-full-page {
+    padding: 20px;
+    max-width: 1000px; /* Adjusted to match the reference image width */
+    margin: 0 auto;
+    background-color: #1a2526; /* Dark background as in the reference */
+    color: #ffffff; /* White text for contrast */
+    min-height: 100vh; /* Full height for better centering */
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Centers horizontally */
+    justify-content: flex-start; /* Aligns to the top vertically */
+    padding-top: 200px; /* Adds some spacing from the top */
+  }
+  
+  .create-ticket-full-page h2 {
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 24px;
+    color: #ffffff;
+  }
+  
+  /* Two-column layout using CSS Grid */
+  .form-grid {
+    display: flex;
+    flex-direction: row;
+    gap: 60px; /* Increased gap between left and right columns */
+    width: 80%; /* Restricts the width of the form */
+    max-width: 1200px; /* Adds a max width for larger screens */
+    margin-bottom: 20px;
+  }
+  
+  /* Left Column Adjustments */
+  .left-column {
+    margin-left: -20px; /* Shift the left section slightly to the left */
+    flex: 1;
+    width: 100%; /* Match the width of the right column */
+    margin-left: 0; /* Remove the negative margin for proper alignment */
+  }
+  
+  /* Right Column Adjustments */
+  .right-column {
+    padding-right: 20px; /* Add padding to the right to create space from the edge */
+    flex: 1;
+  }
+  
+  /* Box around right column elements */
+  .right-column-box {
+    background-color: #2c3e50 ; /* Slightly lighter background for the box */
+    /* border: 1px solid #444; /* Subtle border to match the reference */
+    border-radius: 5px;
+    padding: 20px; /* Inner padding for the box */
+    display: flex;
+    flex-direction: column;
+    gap: 15px; /* Adds spacing between form groups */
+  }
+  
+  /* Form group styling */
+  .form-group {
+    margin-bottom: 20px;
+  }
+  
+  .form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: normal;
+    color: #b0b0b0; /* Light gray for labels */
+  }
+  
+  .form-group input,
+  .form-group textarea,
+  .form-group select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #2c3e50; /* Darker border for contrast */
+    border-radius: 5px;
+    background-color: #2a3435 ; /* Dark input background */
+    color: #b0b0b0; /* Light gray placeholder text */
+    font-size: 14px;
+  }
+  
+  .form-group input::placeholder,
+  .form-group textarea::placeholder {
+    color: #b0b0b0;
+  }
+  
+  .form-group textarea {
+    resize: vertical;
+    height: auto; /* Reset any fixed height */
+    min-height: 400px; /* Increase the minimum height to match the right-side box */
+  }
+  
+  /* Priority buttons styling */
+  .priority-buttons {
+    display: flex;
+    gap: 10px;
+  }
+  
+  .priority-button {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.2s;
+  }
+  
+  .priority-low {
+    background-color: #d4edda; /* Light green */
+    color: #155724;
+  }
+  
+  .priority-medium {
+    background-color: #fff3cd; /* Light yellow */
+    color: #856404;
+  }
+  
+  .priority-high {
+    background-color: #f8d7da; /* Light red */
+    color: #721c24;
+  }
+  
+  .priority-button.selected {
+    opacity: 1;
+    font-weight: bold;
+  }
+  
+  .priority-button:not(.selected) {
+    opacity: 0.6;
+  }
+  
+  /* Select dropdown styling */
+  .form-group select {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background: url('data:image/svg+xml;utf8,<svg fill="%23b0b0b0" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/></svg>') no-repeat right 10px center;
+    background-color: #2a3435;
+    padding-right: 30px;
+  }
+  
+  /* Action buttons styling */
+  .form-actions {
+    display: flex;
+    justify-content: center; /* Center the buttons horizontally */
+    gap: 20px; /* Add spacing between the buttons */
+    width: auto; /* Remove the width restriction */
+    margin-top: 20px; /* Keep spacing above the buttons */
+    align-items: center; /* Vertically center the buttons */
+    margin-right: 300px;
+  }
+  
+  .form-actions button {
+    flex: 1;
+    padding: 12px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+  }
+  
+  .cancel-button {
+    background-color: #6c757d; /* Gray for Cancel */
+    color: #ffffff;
+    max-width: 300px;
+  }
+  
+  .cancel-button:hover {
+    background-color: #5a6268;
+  }
+  
+  .submit-button {
+    background-color: #26a69a ; /* Blue for Submit */
+    color: #ffffff;
+    max-width: 300px;
+  }
+  
+  .submit-button:hover {
+    background-color: #0056b3;
+  }
+
+  .page-header {
+    font-size: 32px;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 20px;
+    color: #ffffff; /* Matches the page's text color */
+  }
+
+  .category-text {
+    font-size: 18px;
+    font-weight: normal;
+    text-align: center;
+    margin-bottom: 20px;
+    color: #b0b0b0; /* Light gray to differentiate from the header */
+    margin-top: -10px;
+  }
