@@ -73,7 +73,8 @@ pg-buddy/
 ## 📸 Screenshots
 
 ### Home Page
-<img width="1457" alt="image" src="https://github.com/user-attachments/assets/3c86b2ec-2118-4c31-afb5-8da9e06fdada" />
+<img width="1457" alt="image" src="https://github.com/user-attachments/assets/572c428f-5801-4314-9837-b74b216921ea" />
+<img width="1457" alt="image" src="https://github.com/user-attachments/assets/492c2a04-9c4b-4d5c-82b1-ade5655430f0" />
 
 ### Food Page
 <img width="1457" alt="image" src="https://github.com/user-attachments/assets/5e7dcbb5-4e70-4f05-9450-95d3fe490b8b" />
@@ -88,7 +89,35 @@ pg-buddy/
 <img width="1457" alt="image" src="https://github.com/user-attachments/assets/1cb13f38-0843-4e1b-a658-33abfd0f19d6" />
 
 ### Accounts Page
-<img width="1457" alt="image" src="https://github.com/user-attachments/assets/4836a963-f377-4e73-b429-7b1d5efa1bc8" />
+<img width="1457" alt="image" src="https://github.com/user-attachments/assets/5384625a-f6d3-4fa7-b57e-69217731ebad" />
+
+---
+## 🎨 Color Scheme
+
+This project follows a structured color scheme for a consistent and visually appealing UI. Below are the defined colors used across various components:
+
+ 🌍 Navigation Bar
+- **Primary Navigation Bar Color:** ![#2c3e50](https://img.shields.io/badge/-%232c3e50-2c3e50?style=flat-square&logoColor=white)
+- **Light Green Accent:** ![#a8e6cf](https://img.shields.io/badge/-%23a8e6cf-a8e6cf?style=flat-square&logoColor=black)
+
+ 🔘 Buttons
+- **Selected Button (Green):** ![#26a69a](https://img.shields.io/badge/-%2326a69a-26a69a?style=flat-square&logoColor=white)
+- **Unselected Button (Darker Green):** ![#1d2833](https://img.shields.io/badge/-%231d2833-1d2833?style=flat-square&logoColor=white)
+- **Hover Effect (Lite White):** ![#d0d0d0](https://img.shields.io/badge/-%23d0d0d0-d0d0d0?style=flat-square&logoColor=black) _(Text turns **black** when hovered)_
+
+ 🎨 Background Colors
+- **Little Darker Background:** ![#2c3e50](https://img.shields.io/badge/-%232c3e50-2c3e50?style=flat-square&logoColor=white)
+- **Much Darker Background:** ![#19212a](https://img.shields.io/badge/-%2319212a-19212a?style=flat-square&logoColor=white)
+- **Original Background Color:** ![#1c2526](https://img.shields.io/badge/-%231c2526-1c2526?style=flat-square&logoColor=white)
+
+ 🔤 Text Colors
+- **Full White:** ![#ffffff](https://img.shields.io/badge/-%23ffffff-ffffff?style=flat-square&logoColor=black)
+- **Grey:** ![#c6c0c0](https://img.shields.io/badge/-%23c6c0c0-c6c0c0?style=flat-square&logoColor=black)
+- **Greenish Grey (Recommended):** ![#b5c3ad](https://img.shields.io/badge/-%23b5c3ad-b5c3ad?style=flat-square&logoColor=black)
+- **Darker Greenish Grey:** ![#71776f](https://img.shields.io/badge/-%2371776f-71776f?style=flat-square&logoColor=white)
+
+ 💬 Message Boxes
+- **Slightly Lighter Background for Message Box:** ![#2a3435](https://img.shields.io/badge/-%232a3435-2a3435?style=flat-square&logoColor=white)
 
 ---
 ## ⚙️ Setup Instructions
