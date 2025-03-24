@@ -2,6 +2,7 @@ import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 //import ErrorBoundary from './errorHandling/ErrorBoundary';
 import Login from './components/Authentication/Login';
+import Register from './components/Authentication/Register';
 import Home from './components/Home/Home';
 import Food from './components/Food/Food';
 import Stay from './components/Stay/Stay';
@@ -16,7 +17,9 @@ function App() {
       <div className="app-wrapper"> {/* ADDED: Wrapper div for centering */}
         {/* If a component fails to render, the ErrorBoundary will catch the error and display a message instead of showing a blank page. */}
           <Routes>
-          <Route path="/home" element={<Home />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/register" element={<Register />} />
+            <Route path="/home" element={<Home />} />
             <Route path="/food" element={<Food />} />
             <Route path="/stay" element={<Stay />} />
             <Route path="/cafe" element={<Cafe />} />

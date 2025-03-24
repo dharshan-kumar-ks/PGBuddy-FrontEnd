@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './Common.css'; // Optional: for styling
 // ADDED: Import the logo image
-//import logo from '/logo-1.png';
+import logo from '/logo-1.png';
 
 function Login() {
   const [email, setEmail] = useState('');
@@ -17,7 +17,8 @@ function Login() {
     
     try {
       console.log('Sending request with body:', { email, password }); // ADDED: Log the request body for debugging
-      const response = await fetch('http://localhost:8080//api/signin', {
+
+      const response = await fetch('http://localhost:8081/api/signin', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -25,16 +26,37 @@ function Login() {
         body: JSON.stringify({ email, password }),
       });
 
+      // ADDED: Mocked response for testing
+      /*
+      const response = {
+        ok: true,
+        status: 200,
+        json: async () => ({
+          token: 'mocked-jwt-token',
+          email,
+          password,
+        }),
+      }; 
+      */
+
       console.log('Response status:', response.status); // ADDED: Log the response status for debugging
-      if (response.ok) {
-        const data = await response.json();
-        // Assuming your backend returns a token or success message
-        //localStorage.setItem('token', data.token); // Store token if your backend provides one
-        navigate('/dashboard'); // Redirect to dashboard or home page
-      } else {
+      
+      if (!response.ok) {
         setError('Invalid email or password');
+        return;
+      }
+  
+      // Extract JSON response and check if login is successful
+      const responseBody = await response.json();
+      console.log('Response body:', responseBody);
+  
+      if (responseBody === true) {  // Check if backend returned `true`
+        navigate('/home');  // Redirect to home page on successful login
+      } else {
+        setError('Invalid email or password'); // Show error if credentials are wrong
       }
     } catch (err) {
+      console.error('Error:', err);
       setError('An error occurred. Please try again.');
     }
   };
@@ -42,6 +64,7 @@ function Login() {
   return (
     <div className="common-container">
       {/* ADDED: Add the logo image - <img src={logo} alt="PG Buddy Logo" className="form-logo" /> - */}
+      <img src={logo} alt="PG Buddy Logo" className="form-logo" />  
       <h2>Login</h2>
       <form onSubmit={handleLogin}>
         <div>

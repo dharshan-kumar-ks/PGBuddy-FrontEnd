@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './Common.css'; // Optional: for styling
 // ADDED: Import the logo image
-import logo from '/Users/dharshan.kumar/PGBuddy-FrontEnd/public/logo-1.png';
+//import logo from '/Users/dharshan.kumar/PGBuddy-FrontEnd/public/logo-1.png';
+import logo from '/logo-1.png';
 
 function Register() {
   const [email, setEmail] = useState(''); // CHANGE: Renamed username to email
@@ -11,34 +12,38 @@ function Register() {
   const [success, setSuccess] = useState('');
   const navigate = useNavigate();
 
-  const handleRegister = async (e) => {
+const handleRegister = async (e) => {
     e.preventDefault();
-    
-    try {
-      const response = await fetch('http://localhost:8080/api/signup', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ email, password }), // CHANGE: Use email instead of username
-      });
 
-      if (response.ok) {
-        const data = await response.json(); // ADDED: Parse the response data
-        console.log('Registration response:', data); // ADDED: Log the response for debugging
-        setSuccess('Registration successful! Redirecting to login...');
-        setError('');
-        setTimeout(() => navigate('/login'), 2000);
-      } else {
-        const errorData = await response.json();
-        setError(errorData.message || 'Registration failed');
-        setSuccess('');
-      }
-    } catch (err) {
-      setError('An error occurred. Please try again.');
-      setSuccess('');
+
+  try {
+    console.log('Sending request with body:', { email, password }); // ADDED: Log the request body for debugging
+
+    const response = await fetch('http://localhost:8081/api/signup', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ email, password }),
+    });
+
+    console.log('Response status:', response.status); // ADDED: Log the response status for debugging
+    
+    if (!response.ok) {
+      setError('User with this email already exists! Try logging in');
+      return;
     }
-  };
+
+    // Extract JSON response and check if login is successful
+    const responseBody = await response.json();
+    console.log('Response body:', responseBody);
+
+    navigate('/login');  // Redirect to login page on successful registration
+  } catch (err) {
+    console.error('Error:', err);
+    setError('An error occurred. Please try again.');
+  }
+};
 
   return (
     <div className="common-container">

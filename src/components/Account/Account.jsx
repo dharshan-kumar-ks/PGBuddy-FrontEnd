@@ -1,6 +1,8 @@
 import React from 'react';
 import './Account.css';
 import TopNavigationBar from '../TopNavigationBar';
+//import Login from '../Authentication/Login';
+import { useNavigate } from 'react-router-dom';
 import { FaUserCircle } from 'react-icons/fa';
 import { IoSettingsSharp } from 'react-icons/io5';
 import { MdSupport, MdFeedback, MdRateReview } from 'react-icons/md';
@@ -8,6 +10,8 @@ import { BsHouseDoor } from 'react-icons/bs';
 import { AiOutlineLogout } from 'react-icons/ai';
 
 function Account() {
+  const navigate = useNavigate();
+
   return (
     <div className="account-container">
       {/* Top Navigation */}
@@ -18,25 +22,26 @@ function Account() {
         <h2>K S Dharsharkumar</h2>
         <p className="user-id">User ID: 23SETBA020</p>
         <p className="location"><BsHouseDoor /> Seattle House</p>
+        <button className="logout-section" onClick={() => navigate('/login')}>
+          <AiOutlineLogout className="logout-icon" /> Log out
+        </button>
       </div>
 
       <div className="options-section">
-        <div className="option-card"><IoSettingsSharp /> Profile Information</div>
-        <div className="option-card"><IoSettingsSharp /> Knowledge Centre</div>
-        <div className="option-card"><IoSettingsSharp /> App Settings</div>
+        <button className="option-card"><IoSettingsSharp /> Profile Information</button>
+        <button className="option-card"><IoSettingsSharp /> Knowledge Centre</button>
+        {/*<button className="option-card"><IoSettingsSharp /> App Settings</button> */}
+        <button className="option-card"><IoSettingsSharp /> Support</button>
       </div>
 
       <div className="support-section">
-        <h3><MdSupport className="support-icon" /> Support</h3>
-        <p>Looking for a quick resolution?</p>
         <div className="support-options">
-          <div className="option-card"><MdFeedback /> Share Feedback</div>
-          <div className="option-card"><MdRateReview /> Rate our App</div>
+          <button className="option-card"><MdFeedback /> Share Feedback</button>
+          <button className="option-card"><MdRateReview /> Rate our App</button>
         </div>
-      </div>
-
-      <div className="logout-section">
-        <AiOutlineLogout className="logout-icon" /> Log out
+        <p>Made with ❤️ by</p>
+        <h3>Dharshan Kumar</h3>
+        {/* <MdSupport className="support-icon" /> */}
       </div>
     </div>
   );
