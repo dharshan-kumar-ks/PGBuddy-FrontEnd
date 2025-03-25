@@ -10,6 +10,8 @@ import Cafe from './components/Cafe/Cafe';
 import Services from './components/Services/Services';
 import Account from './components/Account/Account';
 import CreateTicketFullPage from './components/Home/CreateTicketFullPage';
+import ActiveTickets from './components/Home/ActiveTickets';
+import TicketListFullPage from './components/Home/TicketListFullPage';
 import './App.css';
 
 function App() {
@@ -27,6 +29,7 @@ function App() {
             <Route path="/services" element={<Services />} />
             <Route path="/account" element={<Account />} />
             <Route path="/create-ticket-full-page" element={<CreateTicketFullPage />} />
+            <Route path="/ticket-list-full-page" element={<TicketListFullPage />} />
 
             <Route path="/" element={<Login />} /> {/* Default route */}
           </Routes>

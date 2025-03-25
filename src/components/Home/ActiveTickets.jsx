@@ -1,7 +1,11 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom'; // Added import for useNavigate
+import TicketListFullPage from './TicketListFullPage'; // Added import for TicketListFullPage
 import './ActiveTickets.css';
 
 function ActiveTickets() {
+  const navigate = useNavigate(); // Initialize useNavigate
+
   const tickets = [
     {
       id: 1,
@@ -11,6 +15,10 @@ function ActiveTickets() {
       category: 'Payment & Billing',
     },
   ];
+
+  const handleTicketListClick = () => {
+    navigate('/ticket-list-full-page'); // Correct navigation logic
+  };
 
   return (
     <div className="active-tickets-box">
@@ -40,7 +48,7 @@ function ActiveTickets() {
           ))}
         </div>
       )}
-      <button className="see-all-tickets-btn">
+      <button className="see-all-tickets-btn" onClick={() => handleTicketListClick()}>
         See all your tickets <span className="arrow">→</span>
       </button>
     </div>
@@ -48,3 +56,4 @@ function ActiveTickets() {
 }
 
 export default ActiveTickets;
+

@@ -11,7 +11,7 @@ function TopNavigationBar() {
       <Link
         to="/home"
         className={`nav-item ${
-          location.pathname === '/home' || location.pathname.includes('/create-ticket-full-page') ? 'active' : ''
+          location.pathname === '/home' || location.pathname.includes('/create-ticket-full-page') ? 'active' : '' || location.pathname.includes('/ticket-list-full-page') ? 'active' : ''
         }`}
       >
         <span className="icon">🏠</span>

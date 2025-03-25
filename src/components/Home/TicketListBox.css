@@ -1,0 +1,158 @@
+.ticket-list-box {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start; /* Align content to the left inside the ticket list box */
+  justify-content: flex-start; /* Align content to the top */
+  width: 100%; /* Ensure it spans the allocated space */
+  max-width: 100%; /* Allow it to take up the full width of its container */
+  box-sizing: border-box; /* Include padding in width calculations */
+  padding: 10px; /* Add some padding for better spacing */
+  background-color: #ffffff; /* Add a background color for clarity */
+  border: 1px solid #ddd; /* Add a border for separation */
+  border-radius: 5px; /* Add rounded corners */
+  overflow-x: auto; /* Prevent horizontal overflow */
+}
+
+/* Search Bar */
+.search-bar {
+    margin-bottom: 20px;
+  }
+  
+  .search-bar input {
+    width: 200px;
+    padding: 8px 12px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 14px;
+    background: url('data:image/svg+xml;utf8,<svg fill="%23999" height="16" viewBox="0 0 16 16" width="16" xmlns="http://www.w3.org/2000/svg"><path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/></svg>') no-repeat 10px center;
+    padding-left: 30px;
+  }
+  
+  .search-bar input::placeholder {
+    color: #999;
+  }
+  
+  /* Tickets Table */
+  .tickets-table {
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+  }
+  
+  .tickets-table table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .tickets-table th,
+  .tickets-table td {
+    padding: 12px 15px;
+    text-align: left;
+    font-size: 14px;
+  }
+  
+  .tickets-table th {
+    background-color: #f9f9f9;
+    color: #666;
+    font-weight: 500;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .tickets-table td {
+    border-bottom: 1px solid #eee;
+    color: #333;
+  }
+  
+  .tickets-table tr:hover {
+    background-color: #f5f5f5;
+  }
+  
+  /* Checkbox Column */
+  .tickets-table th:first-child,
+  .tickets-table td:first-child {
+    width: 40px;
+    text-align: center;
+  }
+  
+  /* Priority Badges */
+  .priority {
+    padding: 4px 8px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: 500;
+  }
+  
+  .priority.low {
+    background-color: #d4edda;
+    color: #155724;
+  }
+  
+  .priority.medium {
+    background-color: #fff3cd;
+    color: #856404;
+  }
+  
+  .priority.high {
+    background-color: #f8d7da;
+    color: #721c24;
+  }
+  
+  /* Category with Icons */
+  .category {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 14px;
+  }
+  
+  .icon-incident::before {
+    content: '⚠️';
+    font-size: 12px;
+  }
+  
+  .icon-suggestion::before {
+    content: '💡';
+    font-size: 12px;
+  }
+  
+  .icon-question::before {
+    content: '❓';
+    font-size: 12px;
+  }
+  
+  .icon-problem::before {
+    content: '⚙️';
+    font-size: 12px;
+  }
+  
+  /* Status Badges */
+  .status {
+    padding: 4px 8px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: 500;
+  }
+  
+  .status.resolved {
+    background-color: #d4edda;
+    color: #155724;
+  }
+  
+  .status.pending {
+    background-color: #f8d7da;
+    color: #721c24;
+  }
+  
+  /* More Options Button */
+  .more-options {
+    background: none;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+    color: #666;
+  }
+  
+  .more-options:hover {
+    color: #333;
+  }
