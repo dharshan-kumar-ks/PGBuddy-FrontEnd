@@ -11,6 +11,7 @@
     gap: 16px; /* Add spacing between items */
     width: 100%; /* Ensure it stretches to match the parent */
     max-width: 100%; /* Remove any unnecessary constraints */
+    min-width: 400px;
   }
   
   /* Heading */

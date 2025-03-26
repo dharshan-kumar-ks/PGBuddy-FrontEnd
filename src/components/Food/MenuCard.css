@@ -1,0 +1,99 @@
+.menu-card {
+    display: flex;
+    align-items: center;
+    padding: 15px;
+    background-color: #2c3e50;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    min-height: 80px;
+    position: relative; /* Add position relative to position the count */
+  }
+  
+  .meal-image {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    margin-right: 15px;
+  }
+  
+  .meal-details {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  
+  .meal-details h3 {
+    margin: 0;
+    font-size: 16px;
+    color: white;
+  }
+  
+  .meal-details p {
+    margin: 5px 0 0;
+    font-size: 14px;
+    color: #ccc;
+  }
+  
+  .meal-selection {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  
+  /* Custom Radio Button Styling */
+  .menu-card input[type="radio"] {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    border: 2px solid #ccc;
+    border-radius: 50%;
+    background-color: transparent;
+    cursor: pointer;
+    position: relative;
+  }
+  
+  .menu-card input[type="radio"]:checked {
+    border-color: #26a69a;
+    background-color: #26a69a;
+  }
+  
+  .menu-card input[type="radio"]:checked::after {
+    content: '';
+    width: 10px;
+    height: 10px;
+    background-color: white;
+    border-radius: 50%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  
+  .default-label {
+    font-size: 12px;
+    color: #ccc;
+  }
+  
+  .skip-option .meal-details {
+    flex: 1;
+  }
+  
+  .skip-option p {
+    margin: 5px 0 0 0;
+  }
+  
+  /* Style for the count in the bottom-right corner */
+  .meal-count {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    font-size: 12px;
+    color: #ccc;
+    background-color: rgba(0, 0, 0, 0.5);
+    padding: 2px 6px;
+    border-radius: 10px;
+  }

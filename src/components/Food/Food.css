@@ -11,7 +11,7 @@
   width: 100%;
   max-width: 600px;
   margin: 0 auto;
-  margin-top: 100px; /* Adjust this based on your navbar height */
+  align-items: center;
 }
 
 /* Header */
@@ -23,9 +23,10 @@
   background-color: #2c3e50;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   width: 100%;
+  max-width: 600px;
 }
 
-.home-header h1 {
+.food-header h1 {
   margin: 0;
   font-size: 24px;
   color: white;
@@ -39,14 +40,16 @@
 
 /* Menu for the Week */
 .menu-week {
-  padding: 20px;
+  padding: 20px 0;
   width: 100%;
+  max-width: 560px;
 }
 
 .menu-week h2 {
   font-size: 18px;
   margin-bottom: 15px;
   color: white;
+  text-align: center;
 }
 
 .days-list-tabs {
@@ -71,7 +74,7 @@
   color: #333;
 }
 
-.day:not(.active):hover  {
+.day:not(.active):hover {
   background-color: #d0d0d0;
   color: #333;
 }
@@ -90,21 +93,52 @@
 .notification {
   display: flex;
   align-items: center;
+  justify-content: space-between; /* Align text and close button */
   padding: 10px 20px;
   background-color: #ff9999;
-  margin: 0 20px;
   border-radius: 8px;
   font-size: 14px;
   color: #333;
-  width: calc(100% - 40px);
+  width: 100%;
+  max-width: 520px;
+  margin: 0 auto;
+  position: relative;
+  white-space: nowrap; /* Prevent text from wrapping */
+}
+
+.notification span {
+  flex: 1; /* Ensure the text takes up available space */
+  text-align: left; /* Align text to the left */
+  white-space: nowrap; /* Prevent text from wrapping */
+  overflow: visible; /* Ensure text is fully visible */
+}
+
+.notification .close-btn {
+  font-size: 16px;
+  font-weight: bold;
+  color: #333;
+  background: none;
+  border: none;
+  cursor: pointer;
+  margin-left: 40px; /* Add spacing between text and button */
+}
+
+/* Clock Icon */
+.notification .clock-icon {
+  font-size: 16px;
+  margin-right: 10px; /* Add spacing between the icon and the text */
+  color: #333;
+  padding-right: 10px;
 }
 
 /* Meal Type Tabs */
 .meal-type-tabs {
   display: flex;
   justify-content: space-between;
-  margin: 20px;
-  width: calc(100% - 40px);
+  margin: 20px 0;
+  /*width: 100%;*/
+  max-width: 1600px;
+  min-width: 570px;
 }
 
 .meal-type-tabs button {
@@ -131,75 +165,9 @@
 /* Meal Options */
 .meal-options {
   flex: 1;
-  padding: 0 20px;
-  width: calc(100% - 40px);
-}
-
-.meal-option {
-  display: flex;
-  align-items: center;
-  padding: 15px;
-  background-color: #2c3e50;
-  border-radius: 8px;
-  margin-bottom: 10px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 0;
   width: 100%;
-}
-
-.meal-image {
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  margin-right: 15px;
-  /* CHANGE: Remove display: none to show the image */
-}
-
-.meal-details {
-  flex: 1;
-}
-
-.meal-details h3 {
-  margin: 0;
-  font-size: 16px;
-  color: white;
-}
-
-.meal-details p {
-  margin: 5px 0 0;
-  font-size: 14px;
-  color: #ccc;
-}
-
-.meal-option input[type="radio"] {
-  margin-left: 10px;
-}
-
-.default-label {
-  margin-left: 10px;
-  font-size: 12px;
-  color: #ccc;
-}
-
-.skip-option {
-  display: flex;
-  align-items: center;
-  padding: 15px;
-  background-color: #2c3e50;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  width: 100%;
-}
-
-.skip-option span {
-  flex: 1;
-  font-size: 16px;
-  color: white;
-}
-
-.skip-note {
-  font-size: 12px;
-  color: #ccc;
-  margin: 5px 0 0 65px;
+  max-width: 560px;
 }
 
 /* Top Navigation */
@@ -225,7 +193,7 @@
   color: #fff;
   font-size: 12px;
   padding: 0 10px;
-  text-decoration: none; /* Remove default underline from Link */
+  text-decoration: none;
 }
 
 .nav-item.active {
