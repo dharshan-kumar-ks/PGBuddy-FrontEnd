@@ -1,11 +1,11 @@
-.cafe-grid {
+.cafe-grid-container {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   gap: 1rem;
   padding: 1rem;
 }
 
-.cafe-item {
+.cafe-grid-item {
   border: 1px solid #ddd;
   border-radius: 8px;
   padding: 1rem;
@@ -14,18 +14,18 @@
   transition: box-shadow 0.3s ease;
 }
 
-.cafe-item:hover {
+.cafe-grid-item:hover {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-.item-image {
+.cafe-grid-item-image {
   width: 100%;
   height: auto;
   border-radius: 8px;
   margin-bottom: 0.5rem;
 }
 
-.spicy-icon {
+.cafe-grid-spicy-icon {
   position: absolute;
   top: 10px;
   right: 10px;
@@ -33,18 +33,18 @@
   color: red;
 }
 
-.price {
+.cafe-grid-item-price {
   font-weight: bold;
   margin: 0.5rem 0;
 }
 
-.description {
+.cafe-grid-item-description {
   font-size: 0.9rem;
   color: #555;
   margin-bottom: 1rem;
 }
 
-.add-button {
+.cafe-grid-add-button {
   padding: 0.5rem 1rem;
   border: none;
   border-radius: 5px;
@@ -54,6 +54,6 @@
   transition: background-color 0.3s ease;
 }
 
-.add-button:hover {
+.cafe-grid-add-button:hover {
   background-color: #218838;
 }

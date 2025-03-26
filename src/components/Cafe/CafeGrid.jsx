@@ -8,14 +8,16 @@ function CafeGrid({ cafeItems, filter, onAddItem }) {
         .filter(item => !filter || (filter === 'veg' && item.isVeg) || (filter === 'non-veg' && !item.isVeg))
         .map((item) => (
           <div key={item.id} className="cafe-item">
-            {item.isSpicy && <span className="spicy-icon">🌶️</span>}
-            <img src={item.image} alt={item.name} className="item-image" />
+            <div className="image-container">
+              <img src={item.image} alt={item.name} className="item-image" />
+              {item.isSpicy && <span className="spicy-icon">🌶️</span>}
+            </div>
             <h3>{item.name}</h3>
             <p className="price">₹{item.price}</p>
             <p className="description">{item.description}</p>
-            <button className="add-button" onClick={onAddItem}>+ ADD</button>
+            <button className="add-button" onClick={() => onAddItem(item)}>+ ADD</button>
           </div>
-      ))}
+        ))}
     </section>
   );
 }

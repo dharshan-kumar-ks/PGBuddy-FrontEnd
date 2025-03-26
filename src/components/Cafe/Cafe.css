@@ -3,7 +3,6 @@
   position: relative;
   display: flex;
   flex-direction: column;
-  align-items: center; /* Center the contents */
   justify-content: flex-start; /* Align content to the top */
   width: 100%; /* Ensure the container spans the full width */
   padding: 80px 0 20px; /* Add padding-top to account for navbar height */
@@ -12,13 +11,25 @@
   box-sizing: border-box;
 }
 
+/* Content Wrapper for Grid and Order Summary */
+.cafe-content {
+  display: flex;
+  flex-direction: row; /* Ensure horizontal layout */
+  width: 100%;
+  max-width: 1200px; /* Limit the maximum width of the content */
+  padding: 0 20px;
+  gap: 20px; /* Add space between CafeGrid and OrderSummary */
+  box-sizing: border-box;
+  align-items: flex-start; /* Ensure items align to the top */
+  justify-content: flex-start; /* Ensure content aligns to the left */
+}
+
 /* Filter Buttons */
 .filter-buttons {
   display: flex;
   justify-content: center;
   gap: 15px;
   position: relative;
-  z-index: 1; /* Ensure it stays above CafeGrid */
   margin-bottom: 1rem;
   top: 60px; /* Adjusted to stay below navbar */
   background: #2c3e50;
@@ -32,27 +43,25 @@
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  background-color:#1d2833;
+  background-color: #1d2833;
   font-weight: bold;
 }
 
 .filter-buttons .active {
-  background-color: #26a69a ;
+  background-color: #26a69a;
   color: white;
 }
 
 /* Cafe Grid */
 .cafe-grid {
-  position: relative;
-  z-index: 0; /* Ensure it stays below FoodPreference */
-  margin-top: 1rem;
+  flex: 1; /* Allow CafeGrid to take remaining space */
   display: grid;
-  grid-template-columns: repeat(5, 1fr); /* Create 5 equal-width columns */
+  grid-template-columns: repeat(4, 1fr); /* Reduce the number of columns to make boxes wider */
   gap: 20px; /* Add spacing between items */
   padding: 20px; /* Add padding to prevent items from touching the edges */
-  width: 100%; /* Extend the grid to full width */
-  box-sizing: border-box; /* Include padding and border in width calculation */
-  justify-content: center; /* Center the components as a group */
+  box-sizing: border-box;
+  margin: 0; /* Remove any centering margin */
+  align-self: flex-start; /* Ensure the grid aligns to the top-left */
 }
 
 /* Cafe Item Box */
@@ -64,8 +73,12 @@
   text-align: center;
   transition: transform 0.2s ease-in-out;
   width: 100%; /* Ensure the item spans the full width of its grid column */
-  min-width: 220px; /* Increase the minimum width to make items wider */
+  min-width: 250px; /* Increase the minimum width of each box */
   box-sizing: border-box; /* Include padding and border in width calculation */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 410px; /* Ensure the item takes full height */
 }
 
 .cafe-item:hover {
@@ -74,24 +87,39 @@
 
 /* Spicy Icon */
 .spicy-icon {
-  font-size: 20px;
+  position: absolute;
+  bottom: 5px;
+  right: 5px;
+  font-size: 18px;
   color: red;
+  background: rgba(255, 255, 255, 0.8); /* Optional: Add a background for better visibility */
+  border-radius: 50%;
+  padding: 2px;
 }
 
 /* Item Image */
+.image-container {
+  position: relative;
+  display: flex; /* Use flexbox for centering */
+  justify-content: center; /* Center horizontally */
+  align-items: center; /* Center vertically */
+  width: 180px; /* Match the updated image width */
+  height: 150px; /* Match the updated image height */
+  margin: 0 auto; /* Center the container horizontally */
+}
+
 .item-image {
-  width: 100px;
-  height: 100px;
+  width: 180px;
+  height: 150px;
   object-fit: cover;
   border-radius: 10px;
-  margin-bottom: 10px; /* Add spacing below the image */
 }
 
 /* Price */
 .price {
   font-weight: bold;
-  color: #cfc9c9;
-  margin: 10px 0; /* Add spacing above and below */
+  color: #b5c3ad;
+  margin: 0px 0; /* Add spacing above and below */
 }
 
 /* Description */
@@ -99,6 +127,12 @@
   font-size: 14px;
   color: #b0aeae;
   margin-bottom: 10px; /* Add spacing below the description */
+  min-height: 40px; /* Adjust based on the expected height of two lines */
+  overflow: hidden; /* Prevent overflow for long text */
+  text-overflow: ellipsis; /* Add ellipsis for long text */
+  display: -webkit-box;
+  -webkit-line-clamp: 2; /* Limit to 2 lines */
+  -webkit-box-orient: vertical;
 }
 
 /* Add Button */
@@ -109,38 +143,31 @@
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  margin-top: 10px;
+  margin-top: auto; /* Push the button to the bottom */
 }
 
 .add-button:hover {
   background-color: #1f7970;
 }
 
-/* Cart Footer */
-.cart-footer {
-  position: fixed;
-  bottom: 0;
-  width: 100%;
-  background: #26a69a;
-  color: white;
-  text-align: center;
-  padding: 10px;
-}
-
-.cart-count {
-  font-weight: bold;
-}
-
-.continue-button {
-  background: white;
-  color: #26a69a;
-  padding: 5px 15px;
-  border-radius: 5px;
-  margin-left: 10px;
-  cursor: pointer;
-}
-
 /* Responsive Cafe Grid */
+@media (max-width: 1024px) {
+  .cafe-content {
+    flex-direction: column; /* Stack grid and order summary on smaller screens */
+  }
+
+  .cafe-grid {
+    grid-template-columns: repeat(3, 1fr); /* Show 3 items per row on medium screens */
+    width: 100%; /* Take full width on smaller screens */
+  }
+
+  .order-summary {
+    width: 100%; /* Take full width on smaller screens */
+    max-width: 400px;
+    margin: 0 auto;
+  }
+}
+
 @media (max-width: 768px) {
   .cafe-grid {
     grid-template-columns: repeat(2, 1fr); /* Show 2 items per row on smaller screens */
@@ -150,5 +177,47 @@
 @media (max-width: 480px) {
   .cafe-grid {
     grid-template-columns: repeat(1, 1fr); /* Show 1 item per row on very small screens */
+  }
+}
+
+.cafe-container .cafe-wrapper {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  margin-top: 80px; /* Adjust this value based on the navbar height */
+  box-sizing: border-box;
+}
+
+.cafe-container .left-column {
+  flex: 1;
+  max-width: 1200px;
+  min-width: 800px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.cafe-container .right-column {
+  flex: 1;
+  max-width: 400px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  margin-left: 300px;
+}
+
+/* Responsive Design */
+@media (max-width: 600px) {
+  .cafe-wrapper {
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .left-column,
+  .right-column {
+    max-width: 100%;
   }
 }
