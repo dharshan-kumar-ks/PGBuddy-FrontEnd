@@ -28,7 +28,7 @@ function Account() {
       </div>
 
       <div className="options-section">
-        <button className="option-card"><IoSettingsSharp /> Profile Information</button>
+        <button className="option-card" onClick={() => navigate('/profile')}><IoSettingsSharp /> Profile Information</button>
         <button className="option-card"><IoSettingsSharp /> Knowledge Centre</button>
         {/*<button className="option-card"><IoSettingsSharp /> App Settings</button> */}
         <button className="option-card"><IoSettingsSharp /> Support</button>

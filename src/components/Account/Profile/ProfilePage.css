@@ -1,0 +1,167 @@
+/* Profile Page Container */
+.profile-page-container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start; /* Align content to the top */
+  align-items: center; /* Center content horizontally */
+  width: 100%;
+  padding: 80px 0 20px; /* Add padding-top to account for navbar height */
+  background-color: #1c2526; /* Match the background color of your project */
+  min-height: 100vh; /* Ensure it covers the full viewport height */
+  box-sizing: border-box;
+}
+
+/* Profile Content */
+.profile-content {
+  width: 100%;
+  max-width: 600px; /* Limit the width for better readability */
+  padding: 20px;
+  box-sizing: border-box;
+  text-align: center;
+}
+
+.profile-content h1 {
+  color: #faf7f7; /* White text for the heading */
+  font-size: 28px;
+  margin-bottom: 20px;
+}
+
+/* Profile Card */
+.profile-card {
+  background: #2c3e50; /* Match the background of CafeGrid items */
+  border-radius: 10px;
+  box-shadow: 0 2px 5px rgba(228, 225, 225, 0.1);
+  padding: 20px;
+  margin-top: 20px;
+}
+
+/* Profile Header */
+.profile-header {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.profile-avatar {
+  width: 60px;
+  height: 60px;
+  background-color: #26a69a; /* Teal background for the avatar */
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 24px;
+  font-weight: bold;
+  color: #1c2526; /* Dark text for contrast */
+}
+
+.profile-name h2 {
+  color: #faf7f7; /* White text for the name */
+  font-size: 20px;
+  margin: 0;
+}
+
+.profile-name p {
+  color: #b0aeae; /* Light gray for the email */
+  font-size: 14px;
+  margin: 5px 0 0;
+}
+
+/* Profile Details */
+.profile-details {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.detail-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 0;
+  border-bottom: 1px solid rgba(228, 225, 225, 0.1);
+}
+
+.detail-item label {
+  color: #b0aeae; /* Light gray for labels */
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.detail-item span {
+  color: #faf7f7; /* White text for values */
+  font-size: 14px;
+}
+
+/* Editable Fields */
+.detail-item input,
+.detail-item select,
+.detail-item textarea {
+  background-color: #1d2833; /* Dark background for inputs */
+  border: 1px solid #26a69a; /* Teal border */
+  border-radius: 5px;
+  padding: 5px;
+  color: #faf7f7; /* White text */
+  font-size: 14px;
+  width: 60%; /* Adjust width for better alignment */
+}
+
+.detail-item textarea {
+  resize: vertical; /* Allow vertical resizing only */
+  min-height: 60px;
+}
+
+.detail-item select {
+  background-color: #1d2833;
+  cursor: pointer;
+}
+
+/* Edit Button */
+.edit-button {
+  background-color: #26a69a; /* Teal background */
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 20px;
+  width: 100%;
+  font-size: 16px;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+}
+
+.edit-button:hover {
+  background-color: #1f7970; /* Darker teal on hover */
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .profile-content {
+    padding: 10px;
+  }
+
+  .profile-card {
+    padding: 15px;
+  }
+
+  .profile-header {
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .detail-item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 5px;
+  }
+
+  .detail-item input,
+  .detail-item select,
+  .detail-item textarea {
+    width: 100%; /* Full width on smaller screens */
+  }
+}
