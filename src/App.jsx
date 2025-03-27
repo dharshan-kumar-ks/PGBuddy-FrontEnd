@@ -12,6 +12,7 @@ import Account from './components/Account/Account';
 import CreateTicketFullPage from './components/Home/CreateTicketFullPage';
 import ActiveTickets from './components/Home/ActiveTickets';
 import TicketListFullPage from './components/Home/TicketListFullPage';
+import OrderHistoryPage from './components/Cafe/OrderHistoryPage'; // Import the HistoryPage component
 import './App.css';
 
 function App() {
@@ -30,7 +31,7 @@ function App() {
             <Route path="/account" element={<Account />} />
             <Route path="/create-ticket-full-page" element={<CreateTicketFullPage />} />
             <Route path="/ticket-list-full-page" element={<TicketListFullPage />} />
-
+            <Route path="/order-history" element={<OrderHistoryPage />} /> {/* Added HistoryPage route */}
             <Route path="/" element={<Login />} /> {/* Default route */}
           </Routes>
       </div>

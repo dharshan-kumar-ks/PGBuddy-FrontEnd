@@ -25,7 +25,7 @@ function TopNavigationBar() {
         <span className="icon">🛏️</span>
         <span>Stay</span>
       </Link>
-      <Link to="/cafe" className={`nav-item ${location.pathname === '/cafe' ? 'active' : ''}`}>
+      <Link to="/cafe" className={`nav-item ${location.pathname === '/cafe' ? 'active' : '' || location.pathname === '/order-history' ? 'active' : ''}`}>
         <span className="icon">☕</span>
         <span>Cafe</span>
       </Link>

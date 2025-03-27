@@ -1,0 +1,14 @@
+.history-page {
+  padding: 20px;
+  color: white;
+  text-align: center;
+}
+
+.history-page h1 {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.history-page p {
+  font-size: 16px;
+}
