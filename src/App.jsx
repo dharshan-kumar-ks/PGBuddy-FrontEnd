@@ -14,6 +14,8 @@ import ActiveTickets from './components/Home/ActiveTickets';
 import TicketListFullPage from './components/Home/TicketListFullPage';
 import OrderHistoryPage from './components/Cafe/OrderHistoryPage'; // Import the HistoryPage component
 import ProfilePage from './components/Account/Profile/ProfilePage';
+import KnowledgeCentre from './components/Account/KC/KnowledgeCentre';
+import Feedback from './components/Account/Feedback/Feedback';
 import './App.css';
 
 function App() {
@@ -34,6 +36,8 @@ function App() {
             <Route path="/ticket-list-full-page" element={<TicketListFullPage />} />
             <Route path="/order-history" element={<OrderHistoryPage />} /> {/* Added HistoryPage route */}
             <Route path="/profile" element={<ProfilePage />} />
+            <Route path="/knowledge-centre" element={<KnowledgeCentre />} />
+            <Route path="/feedback" element={<Feedback />} />
             <Route path="/" element={<Login />} /> {/* Default route */}
           </Routes>
       </div>

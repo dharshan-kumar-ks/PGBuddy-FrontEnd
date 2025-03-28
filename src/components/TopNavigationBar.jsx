@@ -33,7 +33,7 @@ function TopNavigationBar() {
         <span className="icon">⚡️</span>
         <span>Services</span>
       </Link>
-      <Link to="/account" className={`nav-item ${location.pathname === '/account' ? 'active' : '' || location.pathname === '/profile' ? 'active' : ''}`}>
+      <Link to="/account" className={`nav-item ${location.pathname === '/account' ? 'active' : '' || location.pathname === '/profile' ? 'active' : '' || location.pathname === '/knowledge-centre' ? 'active' : '' || location.pathname === '/feedback' ? 'active' : ''}`}>
         <span className="icon">👤</span>
         <span>Account</span>
       </Link>
