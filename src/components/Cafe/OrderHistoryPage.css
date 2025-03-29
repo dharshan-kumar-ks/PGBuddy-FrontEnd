@@ -1,14 +1,195 @@
+/* History Page Container */
 .history-page {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start; /* Align content to the top */
+  align-items: center; /* Center content horizontally */
+  width: 100%;
+  padding: 80px 0 20px; /* Add padding-top to account for navbar height */
+  background-color: #1c2526; /* Match the background color of your project */
+  min-height: 100vh; /* Ensure it covers the full viewport height */
+  box-sizing: border-box;
+}
+
+/* History Content */
+.history-content {
+  width: 100%;
+  max-width: 800px; /* Limit the width for better readability */
   padding: 20px;
-  color: white;
+  box-sizing: border-box;
   text-align: center;
 }
 
-.history-page h1 {
-  font-size: 24px;
+.history-content h1 {
+  color: #faf7f7; /* White text for the heading */
+  font-size: 28px;
   margin-bottom: 10px;
 }
 
-.history-page p {
+.history-content p {
+  color: #b0aeae; /* Light gray for the description */
   font-size: 16px;
+  margin-bottom: 20px;
+}
+
+/* No Orders Message */
+.no-orders {
+  color: #b0aeae;
+  font-size: 16px;
+  margin-top: 20px;
+}
+
+/* Order List */
+.order-list {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+/* Order Card */
+.order-card {
+  background: #2c3e50; /* Match the background of CafeGrid items */
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 2px 5px rgba(228, 225, 225, 0.1);
+  transition: transform 0.2s ease-in-out;
+}
+
+.order-card:hover {
+  transform: scale(1.02);
+}
+
+/* Order Header */
+.order-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+  border-bottom: 1px solid rgba(228, 225, 225, 0.1);
+  padding-bottom: 10px;
+}
+
+.order-date {
+  color: #faf7f7; /* White text */
+  font-size: 16px;
+}
+
+.order-date span {
+  color: #b0aeae; /* Light gray for the label */
+  margin-right: 5px;
+}
+
+.order-status {
+  font-size: 14px;
+  font-weight: bold;
+  padding: 5px 10px;
+  border-radius: 5px;
+}
+
+.order-status.delivered {
+  background-color: #26a69a; /* Teal for Delivered */
+  color: #1c2526; /* Dark text for contrast */
+}
+
+.order-status.cancelled {
+  background-color: #d32f2f; /* Red for Cancelled */
+  color: #faf7f7; /* White text */
+}
+
+/* Order Items */
+.order-items {
+  margin-bottom: 15px;
+}
+
+.order-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 5px 0;
+  color: #faf7f7; /* White text */
+  font-size: 14px;
+}
+
+.item-name {
+  flex: 2;
+  text-align: left;
+}
+
+.item-quantity {
+  flex: 1;
+  text-align: center;
+  color: #b0aeae; /* Light gray for quantity */
+}
+
+.item-price {
+  flex: 1;
+  text-align: right;
+  color: #b5c3ad; /* Light green for price, matching Cafe.jsx */
+}
+
+/* Order Footer */
+.order-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 1px solid rgba(228, 225, 225, 0.1);
+  padding-top: 10px;
+}
+
+.order-total {
+  color: #faf7f7; /* White text */
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.order-total span {
+  color: #b0aeae; /* Light gray for the label */
+  margin-right: 5px;
+}
+
+.view-details-button {
+  background-color: #26a69a; /* Teal background */
+  color: white;
+  padding: 8px 15px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  transition: background-color 0.3s ease;
+  max-width: 140px;
+}
+
+.view-details-button:hover {
+  background-color: #1f7970; /* Darker teal on hover */
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .history-content {
+    padding: 10px;
+  }
+
+  .order-card {
+    padding: 15px;
+  }
+
+  .order-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 5px;
+  }
+
+  .order-footer {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .view-details-button {
+    width: 100%;
+    justify-content: center;
+  }
 }
