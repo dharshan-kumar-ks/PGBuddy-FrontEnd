@@ -10,8 +10,9 @@ import Cafe from './components/Cafe/Cafe';
 import Services from './components/Services/Services';
 import Account from './components/Account/Account';
 import CreateTicketFullPage from './components/Home/CreateTicketFullPage';
-import ActiveTickets from './components/Home/ActiveTickets';
+//import ActiveTickets from './components/Home/ActiveTickets';
 import TicketListFullPage from './components/Home/TicketListFullPage';
+import IndividualTicketPage from './components/Home/IndividualTicketPage';
 import OrderHistoryPage from './components/Cafe/OrderHistoryPage'; // Import the HistoryPage component
 import ProfilePage from './components/Account/Profile/ProfilePage';
 import KnowledgeCentre from './components/Account/KC/KnowledgeCentre';
@@ -34,6 +35,7 @@ function App() {
             <Route path="/account" element={<Account />} />
             <Route path="/create-ticket-full-page" element={<CreateTicketFullPage />} />
             <Route path="/ticket-list-full-page" element={<TicketListFullPage />} />
+            <Route path="/ticket/:id" element={<IndividualTicketPage />} />
             <Route path="/order-history" element={<OrderHistoryPage />} /> {/* Added HistoryPage route */}
             <Route path="/profile" element={<ProfilePage />} />
             <Route path="/knowledge-centre" element={<KnowledgeCentre />} />

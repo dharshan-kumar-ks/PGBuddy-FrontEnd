@@ -1,7 +1,10 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom'; // Import useNavigate
 import './TicketListBox.css';
 
 function TicketListBox({ tickets, searchQuery, filters, onSearchChange }) {
+  const navigate = useNavigate(); // Define navigate using useNavigate
+
   // Filter tickets based on search query and filters
   const filteredTickets = tickets.filter((ticket) => {
     const matchesSearch =
@@ -29,6 +32,10 @@ function TicketListBox({ tickets, searchQuery, filters, onSearchChange }) {
     return matchesSearch && matchesPriority && matchesCategory && matchesStatus && matchesDate;
   });
 
+  const handleTicketClick = (ticket) => {
+    navigate(`/ticket/${ticket.id}`, { state: { ticket } });
+  };
+
   return (
     <div className="ticket-list-box">
       <div className="search-bar">
@@ -43,9 +50,7 @@ function TicketListBox({ tickets, searchQuery, filters, onSearchChange }) {
         <table>
           <thead>
             <tr>
-              <th>
-                <input type="checkbox" />
-              </th>
+              {/*<th><input type="checkbox" /></th>*/}
               <th>Ticket ID</th>
               <th>Subject</th>
               <th>Priority</th>
@@ -58,10 +63,11 @@ function TicketListBox({ tickets, searchQuery, filters, onSearchChange }) {
           </thead>
           <tbody>
             {filteredTickets.map((ticket) => (
-              <tr key={ticket.id}>
-                <td>
-                  <input type="checkbox" />
-                </td>
+              <tr
+              key={ticket.id}
+              onClick={() => handleTicketClick(ticket)}
+              style={{ cursor: 'pointer' }}>
+                {/*<td><input type="checkbox" /></td>*/}
                 <td>#{ticket.id}</td>
                 <td>{ticket.title}</td>
                 <td>
