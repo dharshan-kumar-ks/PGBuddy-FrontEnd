@@ -1,5 +1,5 @@
 import React from 'react';
-import './Cafe.css';
+import '../Cafe.css';
 
 function FoodPreference({ filter, onFilterChange }) {
   return (

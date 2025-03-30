@@ -1,5 +1,5 @@
 import React from 'react';
-import './Cafe.css';
+import '../Cafe.css';
 
 function CafeGrid({ cafeItems, filter, onAddItem, onUpdateQuantity, cartItems }) {
   // Helper function to get the quantity of an item in the cart

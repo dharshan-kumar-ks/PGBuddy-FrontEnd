@@ -2,10 +2,10 @@ import React, { useState } from 'react';
 import './Cafe.css';
 import { useNavigate } from 'react-router-dom'; // Import useNavigate for navigation
 
-import TopNavigationBar from '../TopNavigationBar';
-import FoodPreference from './FoodPreference';
-import CafeGrid from './CafeGrid';
-import OrderSummary from './OrderSummary';
+import TopNavigationBar from '../Navigation/TopNavigationBar';
+import FoodPreference from './CafeGrid/FoodPreference';
+import CafeGrid from './CafeGrid/CafeGrid';
+import OrderSummary from './OrderSummary/OrderSummary';
 
 function Cafe() {
   const [cartItems, setCartItems] = useState([]); // Array to store cart items with quantities

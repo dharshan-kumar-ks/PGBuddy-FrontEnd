@@ -1,5 +1,5 @@
 import React from 'react';
-import LedgerSummary from './LedgerSummary';
+import LedgerSummary from '../SummaryBox/LedgerSummary';
 import PaymentHistory from './PaymentHistory';
 import './Ledger.css';
 

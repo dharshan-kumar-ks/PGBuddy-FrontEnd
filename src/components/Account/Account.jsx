@@ -1,6 +1,6 @@
 import React from 'react';
 import './Account.css';
-import TopNavigationBar from '../TopNavigationBar';
+import TopNavigationBar from '../Navigation/TopNavigationBar';
 import { useNavigate } from 'react-router-dom';
 import { FaUserCircle } from 'react-icons/fa';
 import { IoSettingsSharp } from 'react-icons/io5';

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import './ProfilePage.css';
-import TopNavigationBar from '../../TopNavigationBar';
+import TopNavigationBar from '../../Navigation/TopNavigationBar';
 
 function ProfilePage() {
   // Sample user data (you can replace this with actual data from a backend or state management)

@@ -1,8 +1,8 @@
 import React from 'react';
-import TopNavigationBar from '../TopNavigationBar';
-import InternetUsage from './InternetUsage';
-import ElectricityUsage from './ElectricityUsage';
-import RoomCleaningService from './RoomCleaningService';
+import TopNavigationBar from '../Navigation/TopNavigationBar';
+import InternetUsage from './InternetPlans/InternetUsage';
+import ElectricityUsage from './ElectricityUsage/ElectricityUsage';
+import RoomCleaningService from './RoomCleaningService/RoomCleaningService';
 import './Services.css';
 
 function Services() {

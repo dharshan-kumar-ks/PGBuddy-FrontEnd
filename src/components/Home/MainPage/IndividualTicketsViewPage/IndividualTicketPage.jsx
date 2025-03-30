@@ -1,6 +1,6 @@
 import React from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import TopNavigationBar from '../TopNavigationBar';
+import TopNavigationBar from '../../../Navigation/TopNavigationBar';
 import './IndividualTicketPage.css';
 
 function IndividualTicketPage() {

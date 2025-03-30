@@ -1,6 +1,6 @@
 import React from 'react';
 import './KnowledgeCentre.css';
-import TopNavigationBar from '../../TopNavigationBar';
+import TopNavigationBar from '../../Navigation/TopNavigationBar';
 
 // Sample staff data (you can replace this with actual data from a backend)
 const staffData = [

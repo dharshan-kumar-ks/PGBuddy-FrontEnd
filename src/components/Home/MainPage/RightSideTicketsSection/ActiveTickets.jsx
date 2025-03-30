@@ -1,6 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom'; // Added import for useNavigate
-import TicketListFullPage from './TicketListFullPage'; // Added import for TicketListFullPage
+//import TicketListFullPage from '../AllTicketsListPage/TicketListFullPage'; // Added import for TicketListFullPage
 import './ActiveTickets.css';
 
 function ActiveTickets() {

@@ -9,11 +9,11 @@ import Stay from './components/Stay/Stay';
 import Cafe from './components/Cafe/Cafe';
 import Services from './components/Services/Services';
 import Account from './components/Account/Account';
-import CreateTicketFullPage from './components/Home/CreateTicketFullPage';
+import CreateTicketFullPage from './components/Home/MainPage/CreateTicketsPage/CreateTicketFullPage';
 //import ActiveTickets from './components/Home/ActiveTickets';
-import TicketListFullPage from './components/Home/TicketListFullPage';
-import IndividualTicketPage from './components/Home/IndividualTicketPage';
-import OrderHistoryPage from './components/Cafe/OrderHistoryPage'; // Import the HistoryPage component
+import TicketListFullPage from './components/Home/MainPage/AllTicketsListPage/TicketListFullPage';
+import IndividualTicketPage from './components/Home/MainPage/IndividualTicketsViewPage/IndividualTicketPage';
+import OrderHistoryPage from './components/Cafe/OrderHistory/OrderHistoryPage'; // Import the HistoryPage component
 import ProfilePage from './components/Account/Profile/ProfilePage';
 import KnowledgeCentre from './components/Account/KC/KnowledgeCentre';
 import Feedback from './components/Account/Feedback/Feedback';

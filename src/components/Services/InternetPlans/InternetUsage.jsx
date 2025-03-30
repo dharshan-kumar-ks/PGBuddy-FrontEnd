@@ -1,8 +1,8 @@
 import React from 'react';
-import TopNavigationBar from '../TopNavigationBar';
+//import TopNavigationBar from '../../Navigation/TopNavigationBar';
 import WifiStats from './WifiStats';
 import InternetPlans from './InternetPlans';
-import './Services.css';
+import '../Services.css';
 
 function InternetUsage() {
   return (

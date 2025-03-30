@@ -1,6 +1,6 @@
 import React from 'react';
 import './ElectricityUsage.css';
-import './Services.css';
+import '../Services.css';
 
 function ElectricityUsage() {
   // Placeholder data (you can replace this with real data from an API or props)

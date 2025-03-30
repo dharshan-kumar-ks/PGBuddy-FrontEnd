@@ -1,6 +1,6 @@
 import React from 'react';
 import './OrderHistoryPage.css';
-import TopNavigationBar from '../TopNavigationBar';
+import TopNavigationBar from '../../Navigation/TopNavigationBar';
 import { useNavigate } from 'react-router-dom';
 import { FaRedo } from 'react-icons/fa'; // Icon for "Order Again"
 

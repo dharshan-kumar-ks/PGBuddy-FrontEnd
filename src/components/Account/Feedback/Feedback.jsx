@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import './Feedback.css';
-import TopNavigationBar from '../../TopNavigationBar';
+import TopNavigationBar from '../../Navigation/TopNavigationBar';
 import { FaStar } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
 

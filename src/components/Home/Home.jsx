@@ -1,7 +1,7 @@
 import React from 'react';
-import TopNavigationBar from '../TopNavigationBar';
-import NoticeBoard from './NoticeBoard';
-import Tickets from './Tickets';
+import TopNavigationBar from '../Navigation/TopNavigationBar';
+import NoticeBoard from './MainPage/LeftSideNoticeBoardSection/NoticeBoard';
+import Tickets from './MainPage/RightSideTicketsSection/Tickets';
 import './Home.css';
 
 function Home() {

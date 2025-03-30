@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import TopNavigationBar from '../TopNavigationBar';
-import BookingDetails from './BookingDetails';
-import PenaltyStructure from './PenaltyStructure';
-import Ledger from './Ledger';
-import LedgerSummary from './LedgerSummary';
+import TopNavigationBar from '../Navigation/TopNavigationBar';
+import BookingDetails from './BookingDetailsBox/BookingDetails';
+import PenaltyStructure from './PaymentHistory/PenaltyStructure';
+import Ledger from './PaymentHistory/Ledger';
+import LedgerSummary from './SummaryBox/LedgerSummary';
 import './Stay.css';
 
 function Stay() {

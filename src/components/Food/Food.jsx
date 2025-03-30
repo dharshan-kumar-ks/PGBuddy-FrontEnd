@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './Food.css';
-import TopNavigationBar from '../TopNavigationBar';
-import MenuCard from './MenuCard';
+import TopNavigationBar from '../Navigation/TopNavigationBar';
+import MenuCard from './MenuCard/MenuCard';
 
 function Food() {
   const [mealType, setMealType] = useState('Breakfast');
