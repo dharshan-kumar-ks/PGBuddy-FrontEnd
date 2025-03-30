@@ -54,25 +54,37 @@ pg-buddy/
 ├── public/                 # Static assets (e.g., index.html, favicon)
 ├── src/                    # Source code
 │   ├── components/         # Reusable React components
-│   │   ├── ActiveTickets/  # ActiveTickets component and styles
-│   │   │   ├── ActiveTickets.jsx
-│   │   │   └── ActiveTickets.css
-│   │   ├── CreateTicket/   # CreateTicket component and styles
-│   │   │   ├── CreateTicket.jsx
-│   │   │   └── CreateTicket.css
-│   │   ├── NoticeBoard/    # NoticeBoard component and styles
-│   │   │   ├── NoticeBoard.jsx
-│   │   │   └── NoticeBoard.css
-│   │   ├── Tickets/        # Tickets component and styles
-│   │   │   ├── Tickets.jsx
-│   │   │   └── Tickets.css
-│   │   └── TopNavigationBar/ # TopNavigationBar component
-│   │       ├── TopNavigationBar.jsx
-│   │       └── TopNavigationBar.css
-│   ├── pages/              # Page components
-│   │   ├── Home/           # Home page and styles
+│   │   ├── Authentication/ # Authentication components
+│   │   │   ├── Login.jsx
+│   │   │   ├── Register.jsx
+│   │   ├── Home/           # Home page components
 │   │   │   ├── Home.jsx
-│   │   │   └── Home.css
+│   │   │   ├── MainPage/   # Main page subcomponents
+│   │   │   │   ├── CreateTicketsPage/
+│   │   │   │   │   ├── CreateTicketFullPage.jsx
+│   │   │   │   ├── AllTicketsListPage/
+│   │   │   │   │   ├── TicketListFullPage.jsx
+│   │   │   │   ├── IndividualTicketsViewPage/
+│   │   │   │       ├── IndividualTicketPage.jsx
+│   │   ├── Food/           # Food-related components
+│   │   │   ├── Food.jsx
+│   │   ├── Stay/           # Stay-related components
+│   │   │   ├── Stay.jsx
+│   │   ├── Cafe/           # Cafe-related components
+│   │   │   ├── Cafe.jsx
+│   │   │   ├── OrderHistory/
+│   │   │       ├── OrderHistoryPage.jsx
+│   │   ├── Services/       # Services-related components
+│   │   │   ├── Services.jsx
+│   │   ├── Account/        # Account-related components
+│   │   │   ├── Account.jsx
+│   │   │   ├── Profile/
+│   │   │   │   ├── ProfilePage.jsx
+│   │   │   ├── KC/         # Knowledge Centre
+│   │   │   │   ├── KnowledgeCentre.jsx
+│   │   │   ├── Feedback/
+│   │   │       ├── Feedback.jsx
+│   ├── pages/              # Page components (if applicable)
 │   ├── App.jsx             # Main App component
 │   ├── index.jsx           # Entry point
 │   └── index.css           # Global styles
