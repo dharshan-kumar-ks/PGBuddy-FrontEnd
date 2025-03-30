@@ -18,6 +18,19 @@ Staying in a PG in a city like Bengaluru can be a real hassle—think about the 
 
 ---
 
+## ☁️ Hosting
+
+This project is hosted on **Vercel** cloud and can be accessed at:  
+🔗 [PG Buddy Website](https://pg-buddy-front-end.vercel.app)
+
+**Test Credentials:**  
+- **Username:** `guestuser`  
+- **Password:** `guestuser`  
+
+Or, you can create your own profile using the **Registration** page.
+
+---
+
 ## ✨ Features
 
 ### Resident View (PG Mates)
@@ -73,23 +86,28 @@ pg-buddy/
 ## 📸 Screenshots
 
 ### Home Page
-<img width="1457" alt="image" src="https://github.com/user-attachments/assets/572c428f-5801-4314-9837-b74b216921ea" />
-<img width="1457" alt="image" src="https://github.com/user-attachments/assets/492c2a04-9c4b-4d5c-82b1-ade5655430f0" />
+<img width="1559" alt="image" src="https://github.com/user-attachments/assets/56859744-0fef-461a-b433-b086cdaf24c3" />
+<img width="1559" alt="image" src="https://github.com/user-attachments/assets/f42538d4-4148-45c4-95f3-7a4d1381de30" />
+<img width="1559" alt="Screenshot 2025-03-30 at 7 23 54 PM" src="https://github.com/user-attachments/assets/2d462f6e-17e7-4ea5-9563-f03e82f5c22c" />
+<img width="1559" alt="Screenshot 2025-03-30 at 7 24 09 PM" src="https://github.com/user-attachments/assets/7a94c8af-921a-4f9e-b851-3ec8a53fbaa3" />
 
 ### Food Page
-<img width="1457" alt="image" src="https://github.com/user-attachments/assets/5e7dcbb5-4e70-4f05-9450-95d3fe490b8b" />
+<img width="1559" alt="Screenshot 2025-03-30 at 7 24 20 PM" src="https://github.com/user-attachments/assets/0dec20a1-fd38-4d92-af05-16869d9a4092" />
 
 ### Stay Page
-<img width="1457" alt="image" src="https://github.com/user-attachments/assets/f5b5f030-7b02-42ce-be79-e344834a9a69" />
+<img width="1559" alt="Screenshot 2025-03-30 at 7 24 42 PM" src="https://github.com/user-attachments/assets/515057c0-47c7-405c-a702-a39d945412ef" />
 
 ### Cafe Page
-<img width="1457" alt="image" src="https://github.com/user-attachments/assets/641e2913-9b01-4d3d-bda0-915c6c4d480a" />
+<img width="1559" alt="Screenshot 2025-03-30 at 7 25 08 PM" src="https://github.com/user-attachments/assets/c8c269db-13f2-4cc4-ad9d-4e8266515b3b" />
+<img width="1559" alt="Screenshot 2025-03-30 at 7 26 15 PM" src="https://github.com/user-attachments/assets/65b0f3fc-1265-4032-bae1-628971241a3c" />
 
 ### Services Page
-<img width="1457" alt="image" src="https://github.com/user-attachments/assets/1cb13f38-0843-4e1b-a658-33abfd0f19d6" />
+<img width="1559" alt="Screenshot 2025-03-30 at 7 25 21 PM" src="https://github.com/user-attachments/assets/a631c834-15f2-4e2c-a743-f165abddce43" />
 
 ### Accounts Page
-<img width="1457" alt="image" src="https://github.com/user-attachments/assets/5384625a-f6d3-4fa7-b57e-69217731ebad" />
+<img width="1559" alt="Screenshot 2025-03-30 at 7 25 33 PM" src="https://github.com/user-attachments/assets/e9a39115-f02e-4314-af0f-ce9427a698be" />
+<img width="1559" alt="Screenshot 2025-03-30 at 7 25 45 PM" src="https://github.com/user-attachments/assets/d156763e-dc45-4856-92d8-398e7013e10d" />
+<img width="1559" alt="Screenshot 2025-03-30 at 7 25 58 PM" src="https://github.com/user-attachments/assets/b5f1f777-2d90-4900-8d03-898d7cc3b94e" />
 
 ---
 ## 🎨 Color Scheme
