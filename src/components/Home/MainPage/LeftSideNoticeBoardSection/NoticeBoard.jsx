@@ -1,27 +1,20 @@
 import React, { useState, useEffect } from 'react';
 import './NoticeBoard.css';
+import axios from 'axios'; // Import axios for API calls
 
 function NoticeBoard() {
-  // Move notices to state
+  /*
   const [notices, setNotices] = useState([
     { id: 1, author: "PG Incharge", title: "Dinner Menu Update: Special Paneer Dish Added Tonight", day: "Today", time: "08:00 AM", bookmarked: false },
     { id: 2, author: "PG Incharge", title: "Hot Water Supply Interruption: 9 AM - 11 AM", day: "Today", time: "07:30 AM", bookmarked: false },
     { id: 3, author: "PG Incharge", title: "Room Cleaning Schedule: 2nd Floor Cleaning at 3 PM", day: "Tomorrow", time: "10:00 AM", bookmarked: false },
     { id: 4, author: "PG Incharge", title: "Laundry Service Delay: Collection at 6 PM Instead of 5 PM", day: "Sept 18", time: "12:00 PM", bookmarked: false },
     { id: 5, author: "PG Incharge", title: "WiFi Maintenance: Network Downtime from 2 AM - 4 AM", day: "Sept 17", time: "09:00 PM", bookmarked: false },
-    { id: 6, author: "PG Incharge", title: "New PG Rules: Lights-Out Extended to 11:30 PM on Weekends", day: "Sept 17", time: "05:00 PM", bookmarked: false },
-    { id: 7, author: "PG Incharge", title: "Power Cut Notice: No Electricity from 1 PM - 2 PM Due to Maintenance", day: "Sept 16", time: "11:00 AM", bookmarked: false },
-    { id: 8, author: "PG Incharge", title: "Gym Equipment Maintenance: Closed from 10 AM - 12 PM", day: "Sept 19", time: "06:00 AM", bookmarked: false },
-    { id: 9, author: "PG Incharge", title: "Fire Drill Scheduled: Evacuation Practice at 4 PM", day: "Sept 20", time: "03:00 PM", bookmarked: false },
-    { id: 10, author: "PG Incharge", title: "Newspaper Delivery Delay: Expected by 9 AM", day: "Sept 21", time: "07:00 AM", bookmarked: false },
-    { id: 11, author: "PG Incharge", title: "Cultural Event: Music Night at 7 PM in the Common Hall", day: "Sept 22", time: "02:00 PM", bookmarked: false },
-    { id: 12, author: "PG Incharge", title: "Water Tank Cleaning: No Water Supply from 11 AM - 1 PM", day: "Sept 23", time: "09:00 AM", bookmarked: false },
-    { id: 13, author: "PG Incharge", title: "Maintenance Work: Elevator Out of Service from 2 PM - 5 PM", day: "Sept 24", time: "10:00 AM", bookmarked: false },
-    { id: 14, author: "PG Incharge", title: "Health Checkup Camp: Free Checkups from 10 AM - 4 PM", day: "Sept 25", time: "08:00 AM", bookmarked: false },
-    { id: 15, author: "PG Incharge", title: "Library Update: New Books Added to the Collection", day: "Sept 26", time: "11:00 AM", bookmarked: false },
-    { id: 16, author: "PG Incharge", title: "Festival Celebration: Decoration Competition at 5 PM", day: "Sept 27", time: "04:00 PM", bookmarked: false },
-    { id: 17, author: "PG Incharge", title: "Guest Speaker Session: Career Guidance at 6 PM", day: "Sept 28", time: "03:00 PM", bookmarked: false },
   ]);
+  */
+
+  // State to hold notices fetched from the backend
+  const [notices, setNotices] = useState([]);
 
   // State for search term and pagination
   const [searchTerm, setSearchTerm] = useState('');
@@ -30,6 +23,30 @@ function NoticeBoard() {
 
   // State to toggle filter mode
   const [filterBookmarked, setFilterBookmarked] = useState(false);
+
+  // Fetch notices from the backend API
+  useEffect(() => {
+    const fetchNotices = async () => {
+      try {
+        const response = await axios.get('http://localhost:8081/api/notices');
+        // console.log('API Response:', response.data); // Debug log to check API response
+        const formattedNotices = response.data.map((notice) => ({
+          id: notice.id,
+          author: notice.authorName,
+          title: notice.title,
+          day: notice.createdAtDay,
+          time: notice.createdAtTime,
+          bookmarked: notice.bookmarked,
+        }));
+        // console.log('Formatted Notices:', formattedNotices); // Debug log to check formatted data
+        setNotices(formattedNotices);
+      } catch (error) {
+        console.error('Error fetching notices:', error);
+      }
+    };
+
+    fetchNotices();
+  }, []);
 
   // Filter notices based on search term and bookmarked state
   const filteredNotices = notices.filter((notice) => {

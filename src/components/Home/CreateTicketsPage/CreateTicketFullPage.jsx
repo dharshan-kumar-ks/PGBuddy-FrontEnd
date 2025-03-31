@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import TopNavigationBar from '../../../Navigation/TopNavigationBar';
+import TopNavigationBar from '../../Navigation/TopNavigationBar';
 import './CreateTicketFullPage.css';
 
 function CreateTicketFullPage() {
