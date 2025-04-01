@@ -1,12 +1,10 @@
 import React, { useState } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
-import TopNavigationBar from '../../Navigation/TopNavigationBar';
 import './CreateTicketFullPage.css';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 function CreateTicketFullPage() {
-  const location = useLocation();
-  const navigate = useNavigate();
-  const { category } = location.state || {};
+  const navigate = useNavigate(); // Initialize navigate function
 
   // State variables for form fields
   const [title, setTitle] = useState('');
@@ -15,28 +13,39 @@ function CreateTicketFullPage() {
   const [ticketType, setTicketType] = useState('');
   const [tags, setTags] = useState('');
   const createdTime = new Date().toLocaleString();
+  const [showSuccessPopup, setShowSuccessPopup] = useState(false); // State for success popup
 
   // Handle form submission
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const ticketData = {
-      category: category?.name || 'Unknown Category',
+      userId: 1, // Replace with actual user ID if available
       title,
-      message,
-      priority,
-      type: ticketType,
-      tags: tags.split(',').map(tag => tag.trim()), // Convert tags string to array
-      createdTime,
+      description: message,
+      priority: priority.toUpperCase(), // Convert priority to uppercase (e.g., HIGH, MEDIUM, LOW)
+      ticketType: ticketType.toUpperCase(), // Convert ticket type to uppercase
+      assignedTo: 5, // Replace with actual assigned user ID if available
+      status: 'PENDING',
     };
-    console.log('Ticket Submitted:', ticketData);
-    // Add your logic here to save the ticket (e.g., API call to PG admin)
+
+    try {
+      const response = await axios.post('http://localhost:8081/api/tickets/create', ticketData, {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+      console.log('Ticket created successfully:', response.data);
+      setShowSuccessPopup(true); // Show success popup
+    } catch (error) {
+      console.error('Error creating ticket:', error);
+      // Handle error (e.g., show an error message to the user)
+    }
   };
 
   return (
     <div className="create-ticket-full-page">
-      <TopNavigationBar />
       <header className="page-header">Create Ticket</header>
-      <p className="category-text">{category?.name || 'Unknown Category'}</p> {/* Added category text */}
+      <p className="category-text">Unknown Category</p> {/* Added category text */}
       <form onSubmit={handleSubmit}>
         <div className="form-grid">
           {/* Left Column: Message Section */}
@@ -123,7 +132,11 @@ function CreateTicketFullPage() {
 
         {/* Bottom Section: Action Buttons */}
         <div className="form-actions">
-          <button type="button" className="cancel-button" onClick={() => navigate(-1)}>
+          <button
+            type="button"
+            className="cancel-button"
+            onClick={() => navigate('/home')} // Navigate to /home on cancel
+          >
             Cancel
           </button>
           <button type="submit" className="submit-button">
@@ -131,6 +144,17 @@ function CreateTicketFullPage() {
           </button>
         </div>
       </form>
+
+      {/* TODO: change the colour scheme for this - Success Popup */}
+      {showSuccessPopup && (
+        <div className="success-popup">
+          <div className="popup-content">
+            <h2>Success!</h2>
+            <p>Your ticket has been created successfully.</p>
+            <button onClick={() => setShowSuccessPopup(false)}>Close</button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

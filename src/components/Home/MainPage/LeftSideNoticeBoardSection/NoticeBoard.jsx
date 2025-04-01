@@ -81,11 +81,37 @@ function NoticeBoard() {
   };
 
   // Handle bookmark toggle (placeholder functionality)
-  const toggleBookmark = (id) => {
-    const updatedNotices = notices.map((notice) =>
-      notice.id === id ? { ...notice, bookmarked: !notice.bookmarked } : notice
-    );
-    setNotices(updatedNotices); // Update state to trigger re-render
+  const toggleBookmark = async (id) => {
+    try {
+      // Find the notice to toggle
+      const noticeToToggle = notices.find((notice) => notice.id === id);
+      if (!noticeToToggle) {
+        console.warn(`Notice with id ${id} not found.`);
+        return;
+      }
+
+      // Send POST request to backend to update bookmark status
+      const newBookmarkedStatus = !noticeToToggle.bookmarked;
+      console.log(`Toggling bookmark for notice ${id} to ${newBookmarkedStatus}`);
+      await axios.post(
+        `http://localhost:8081/api/notices/${id}/bookmark`,
+        newBookmarkedStatus,
+        {
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        }
+      );
+
+      // Update the state to reflect the change
+      const updatedNotices = notices.map((notice) =>
+        notice.id === id ? { ...notice, bookmarked: newBookmarkedStatus } : notice
+      );
+      setNotices(updatedNotices);
+      console.log('Updated notices:', updatedNotices);
+    } catch (error) {
+      console.error('Error updating bookmark status:', error);
+    }
   };
 
   // Handle page change
