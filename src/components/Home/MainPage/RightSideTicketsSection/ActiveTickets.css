@@ -17,14 +17,8 @@
   }
   
   .active-tickets-box .ticket-item {
-    border-bottom: 1px solid #e0e0e0;
-    padding-bottom: 15px;
-    color: #ffffff !important; /* Scoped to ActiveTickets */
-  }
-  
-  .active-tickets-box .ticket-item:last-child {
-    border-bottom: none;
-    padding-bottom: 0;
+    border-bottom: none; /* Remove the border-bottom to avoid the white line */
+    padding-bottom: 0px;
   }
   
   .active-tickets-box .ticket-header {

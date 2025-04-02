@@ -1,52 +1,54 @@
-import React from 'react';
-import { useNavigate } from 'react-router-dom'; // Added import for useNavigate
-//import TicketListFullPage from '../AllTicketsListPage/TicketListFullPage'; // Added import for TicketListFullPage
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './ActiveTickets.css';
+import axios from 'axios';
 
 function ActiveTickets() {
-  const navigate = useNavigate(); // Initialize useNavigate
+  const navigate = useNavigate();
+  const [tickets, setTickets] = useState([]); // State to hold tickets
 
-  const tickets = [
-    {
-      id: 1,
-      ticketNumber: '#AL-10087917',
-      status: 'Open',
-      raisedOn: '02 Feb’25, 1:00 PM',
-      category: 'Payment & Billing',
-    },
-  ];
+  // Fetch tickets from the backend
+  useEffect(() => {
+    const fetchTickets = async () => {
+      try {
+        const userId = localStorage.getItem('userId'); // Retrieve userId from localStorage
+        const response = await axios.get(`http://localhost:8081/api/tickets/user/${userId}`);
+        setTickets(response.data); // Update state with fetched tickets
+      } catch (error) {
+        console.error('Error fetching tickets:', error);
+      }
+    };
+
+    fetchTickets();
+  }, []);
 
   const handleTicketListClick = () => {
-    navigate('/ticket-list-full-page'); // Correct navigation logic
+    navigate('/ticket-list-full-page');
   };
+
+  const mostRecentTicket = tickets.length > 0 ? tickets[tickets.length - 1] : null; // Get the most recent ticket
 
   return (
     <div className="active-tickets-box">
-      {tickets.length === 0 ? (
-        <p className="no-tickets">No active tickets found.</p>
-      ) : (
-        <div className="tickets-list">
-          {tickets.map((ticket) => (
-            <div key={ticket.id} className="ticket-item">
-              <div className="ticket-header">
-                <span className="ticket-number">{ticket.ticketNumber}</span>
-                <span className={`status ${ticket.status.toLowerCase()}`}>
-                  {ticket.status}
-                </span>
-              </div>
-              <div className="ticket-details">
-                <div className="detail-item">
-                  <span className="label">Raised on:</span>
-                  <span className="value">{ticket.raisedOn}</span>
-                </div>
-                <div className="detail-item">
-                  <span className="label">Category:</span>
-                  <span className="value">{ticket.category}</span>
-                </div>
-              </div>
+      {mostRecentTicket ? (
+        <div className="ticket-item">
+          <div className="ticket-header">
+            <span className="ticket-number">{mostRecentTicket.ticketNumber || `#AL-${mostRecentTicket.id}`}</span>
+            <span className={`status ${mostRecentTicket.status.toLowerCase()}`}>{mostRecentTicket.status}</span>
+          </div>
+          <div className="ticket-details">
+            <div className="detail-item">
+              <span className="label">Raised on:</span>
+              <span className="value">{mostRecentTicket.raisedOn || 'N/A'}</span>
             </div>
-          ))}
+            <div className="detail-item">
+              <span className="label">Category:</span>
+              <span className="value">{mostRecentTicket.category || 'N/A'}</span>
+            </div>
+          </div>
         </div>
+      ) : (
+        <p className="no-tickets">No active tickets found.</p>
       )}
       <button className="see-all-tickets-btn" onClick={() => handleTicketListClick()}>
         See all your tickets <span className="arrow">→</span>
