@@ -39,7 +39,7 @@ function ActiveTickets() {
           <div className="ticket-details">
             <div className="detail-item">
               <span className="label">Raised on:</span>
-              <span className="value">{mostRecentTicket.raisedOn || 'N/A'}</span>
+              <span className="value">{mostRecentTicket.createdAt ? new Date(mostRecentTicket.createdAt).toLocaleString() : 'N/A'}</span> {/* Display the createdAt field value */}
             </div>
             <div className="detail-item">
               <span className="label">Category:</span>

@@ -103,7 +103,7 @@ function TicketListBox({ tickets, searchQuery, filters, onSearchChange }) {
               <th>Category</th>
               <th>Assigned To</th>
               <th>Status</th>
-              <th>Request Date</th>
+              <th>Created At</th> {/* New column for created date */}
               <th></th>
             </tr>
           </thead>
@@ -125,7 +125,7 @@ function TicketListBox({ tickets, searchQuery, filters, onSearchChange }) {
                 <td>
                   <span className={`status ${(ticket.status || '').toLowerCase()}`}>{ticket.status}</span>
                 </td>
-                <td>{ticket.requestDate}</td>
+                <td>{new Date(ticket.createdAt).toLocaleString()}</td> {/* Display the created date */}
                 <td>
                   <button className="more-options">...</button>
                 </td>

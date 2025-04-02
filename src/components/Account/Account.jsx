@@ -23,7 +23,10 @@ function Account() {
         <p className="location">
           <BsHouseDoor /> Seattle House
         </p>
-        <button className="logout-section" onClick={() => navigate('/login')}>
+        <button className="logout-section" onClick={() => {
+          localStorage.removeItem('userId'); // Clear userId from localStorage
+          navigate('/login');
+        }}>
           <AiOutlineLogout className="logout-icon" /> Log out
         </button>
       </div>
