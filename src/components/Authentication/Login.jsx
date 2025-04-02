@@ -26,19 +26,6 @@ function Login() {
         body: JSON.stringify({ email, password }),
       });
 
-      // ADDED: Mocked response for testing
-      /*
-      const response = {
-        ok: true,
-        status: 200,
-        json: async () => ({
-          token: 'mocked-jwt-token',
-          email,
-          password,
-        }),
-      }; 
-      */
-
       console.log('Response status:', response.status); // ADDED: Log the response status for debugging
       
       if (!response.ok) {
@@ -50,7 +37,9 @@ function Login() {
       const responseBody = await response.json();
       console.log('Response body:', responseBody);
   
-      if (responseBody === true) {  // Check if backend returned `true`
+      if (responseBody.success) {  // Check if backend returned `success: true`
+        localStorage.setItem('userId', responseBody.userId); // Store userId in localStorage
+        console.log(`User ID ${responseBody.userId} has been added to localStorage`); // Log userId added to localStorage
         navigate('/home');  // Redirect to home page on successful login
       } else {
         setError('Invalid email or password'); // Show error if credentials are wrong

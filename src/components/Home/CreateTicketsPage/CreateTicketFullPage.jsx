@@ -1,10 +1,14 @@
 import React, { useState } from 'react';
 import './CreateTicketFullPage.css';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 function CreateTicketFullPage() {
   const navigate = useNavigate(); // Initialize navigate function
+  const location = useLocation(); // Get location to access passed state
+
+  // Extract category from location state or default to 'Unknown Category'
+  const categoryName = location.state?.category?.name || 'Unknown Category'; // Extract the name from the passed category object
 
   // State variables for form fields
   const [title, setTitle] = useState('');
@@ -28,6 +32,8 @@ function CreateTicketFullPage() {
       status: 'PENDING',
     };
 
+    //console.log('Request body:', ticketData); // Log the request body for debugging
+
     try {
       const response = await axios.post('http://localhost:8081/api/tickets/create', ticketData, {
         headers: {
@@ -45,7 +51,8 @@ function CreateTicketFullPage() {
   return (
     <div className="create-ticket-full-page">
       <header className="page-header">Create Ticket</header>
-      <p className="category-text">Unknown Category</p> {/* Added category text */}
+      <p className="category-text">{categoryName}</p> {/* Display the category name */}
+
       <form onSubmit={handleSubmit}>
         <div className="form-grid">
           {/* Left Column: Message Section */}

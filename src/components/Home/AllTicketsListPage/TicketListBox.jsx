@@ -8,9 +8,9 @@ function TicketListBox({ tickets, searchQuery, filters, onSearchChange }) {
   // Filter tickets based on search query and filters
   const filteredTickets = tickets.filter((ticket) => {
     const matchesSearch =
-      ticket.id.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      String(ticket.id).toLowerCase().includes(searchQuery.toLowerCase()) || // Convert ticket.id to string
       ticket.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      ticket.assignedTo.toLowerCase().includes(searchQuery.toLowerCase());
+      (ticket.assignedTo && String(ticket.assignedTo).toLowerCase().includes(searchQuery.toLowerCase())); // Handle assignedTo being null or undefined
 
     const matchesPriority =
       filters.priorities.length === 0 || filters.priorities.includes(ticket.priority);
@@ -21,13 +21,16 @@ function TicketListBox({ tickets, searchQuery, filters, onSearchChange }) {
     const matchesStatus =
       filters.statuses.length === 0 || filters.statuses.includes(ticket.status);
 
-    const ticketDate = new Date(
-      ticket.requestDate.split(',')[0].split('/').reverse().join('-') + ' ' + ticket.requestDate.split(',')[1]
-    );
+    const ticketDate = ticket.requestDate
+      ? new Date(
+          ticket.requestDate.split(',')[0].split('/').reverse().join('-') + ' ' + ticket.requestDate.split(',')[1]
+        )
+      : null; // Handle missing or undefined requestDate
+
     const matchesDate =
       !filters.dateRange[0] ||
       !filters.dateRange[1] ||
-      (ticketDate >= filters.dateRange[0] && ticketDate <= filters.dateRange[1]);
+      (ticketDate && ticketDate >= filters.dateRange[0] && ticketDate <= filters.dateRange[1]);
 
     return matchesSearch && matchesPriority && matchesCategory && matchesStatus && matchesDate;
   });
@@ -71,19 +74,19 @@ function TicketListBox({ tickets, searchQuery, filters, onSearchChange }) {
                 <td>#{ticket.id}</td>
                 <td>{ticket.title}</td>
                 <td>
-                  <span className={`priority ${ticket.priority.toLowerCase()}`}>
+                  <span className={`priority ${(ticket.priority || '').toLowerCase()}`}> {/* Ensure priority is not undefined */}
                     {ticket.priority}
                   </span>
                 </td>
                 <td>
                   <span className="category">
-                    <i className={`icon-${ticket.category.toLowerCase()}`}></i>
+                    <i className={`icon-${(ticket.category || '').toLowerCase()}`}></i> {/* Ensure category is not undefined */}
                     {ticket.category}
                   </span>
                 </td>
                 <td>{ticket.assignedTo}</td>
                 <td>
-                  <span className={`status ${ticket.status.toLowerCase()}`}>
+                  <span className={`status ${(ticket.status || '').toLowerCase()}`}> {/* Ensure status is not undefined */}
                     {ticket.status}
                   </span>
                 </td>
