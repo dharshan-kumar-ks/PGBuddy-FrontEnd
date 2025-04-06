@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import './Food.css';
 import TopNavigationBar from '../Navigation/TopNavigationBar';
 import MenuCard from './MenuCard/MenuCard';
@@ -13,352 +14,62 @@ function Food() {
     setShowNotification(false);
   };
 
-  // Initial meal options with a count field
-  const initialMealOptions = [
-    // Today (21 Mar)
-    {
-      day: 'Today',
-      mealType: 'Breakfast',
-      meals: [
-        {
-          id: 'default',
-          name: 'Peas Idli, Sambar Plain',
-          description: '+ Bread Butter Jam, Coconut Chutney',
-          image: '/meals-1.jpg',
-          count: 0, // Initial count
-        },
-        {
-          id: 'bisibele',
-          name: 'Bisibele Bhath, Bread Butter Jam',
-          description: '+ Kara Boondi',
-          image: '/meals-1.jpg',
-          count: 0,
-        },
-        {
-          id: 'dosa',
-          name: 'Masala Dosa',
-          description: '+ Sambar, Coconut Chutney',
-          image: '/meals-1.jpg',
-          count: 0,
-        },
-      ],
-    },
-    {
-      day: 'Today',
-      mealType: 'Lunch',
-      meals: [
-        {
-          id: 'default',
-          name: 'Rice, Dal Tadka',
-          description: '+ Aloo Gobi, Raita',
-          image: '/meals-2.jpg',
-          count: 0,
-        },
-        {
-          id: 'south-indian',
-          name: 'South Indian Thali',
-          description: '+ Papad, Pickle',
-          image: '/meals-2.jpg',
-          count: 0,
-        },
-        {
-          id: 'biryani',
-          name: 'Veg Biryani',
-          description: '+ Raita, Mirchi Salan',
-          image: '/meals-2.jpg',
-          count: 0,
-        },
-      ],
-    },
-    {
-      day: 'Today',
-      mealType: 'Dinner',
-      meals: [
-        {
-          id: 'default',
-          name: 'Paneer Butter Masala',
-          description: '+ Naan, Jeera Rice',
-          image: '/meals-3.jpg',
-          count: 0,
-        },
-        {
-          id: 'north-indian',
-          name: 'North Indian Thali',
-          description: '+ Gulab Jamun',
-          image: '/meals-3.jpg',
-          count: 0,
-        },
-        {
-          id: 'pasta',
-          name: 'Pasta Alfredo',
-          description: '+ Garlic Bread',
-          image: '/meals-3.jpg',
-          count: 0,
-        },
-      ],
-    },
-    // Tomorrow (22 Mar)
-    {
-      day: 'Tom',
-      mealType: 'Breakfast',
-      meals: [
-        {
-          id: 'default',
-          name: 'Poha, Upma',
-          description: '+ Sev, Coconut Chutney',
-          image: '/meals-4.jpg',
-          count: 0,
-        },
-        {
-          id: 'western',
-          name: 'Pancakes, Maple Syrup',
-          description: '+ Fresh Fruits',
-          image: '/meals-4.jpg',
-          count: 0,
-        },
-        {
-          id: 'paratha',
-          name: 'Aloo Paratha',
-          description: '+ Curd, Pickle',
-          image: '/meals-4.jpg',
-          count: 0,
-        },
-      ],
-    },
-    {
-      day: 'Tom',
-      mealType: 'Lunch',
-      meals: [
-        {
-          id: 'default',
-          name: 'Chole Bhature',
-          description: '+ Onion Salad, Pickle',
-          image: '/meals-5.jpg',
-          count: 0,
-        },
-        {
-          id: 'biryani',
-          name: 'Veg Biryani',
-          description: '+ Raita, Mirchi Salan',
-          image: '/meals-5.jpg',
-          count: 0,
-        },
-        {
-          id: 'thali',
-          name: 'Gujarati Thali',
-          description: '+ Dhokla, Khandvi',
-          image: '/meals-5.jpg',
-          count: 0,
-        },
-      ],
-    },
-    {
-      day: 'Tom',
-      mealType: 'Dinner',
-      meals: [
-        {
-          id: 'default',
-          name: 'Pasta Alfredo',
-          description: '+ Garlic Bread',
-          image: '/meals-6.jpg',
-          count: 0,
-        },
-        {
-          id: 'continental',
-          name: 'Grilled Veggies, Mashed Potatoes',
-          description: '+ Mushroom Sauce',
-          image: '/meals-6.jpg',
-          count: 0,
-        },
-        {
-          id: 'pizza',
-          name: 'Pizza Margherita',
-          description: '+ Garlic Bread',
-          image: '/meals-6.jpg',
-          count: 0,
-        },
-      ],
-    },
-    // Sunday (23 Mar)
-    {
-      day: 'Sun',
-      mealType: 'Breakfast',
-      meals: [
-        {
-          id: 'default',
-          name: 'Masala Dosa',
-          description: '+ Sambar, Coconut Chutney',
-          image: '/meals-7.jpg',
-          count: 0,
-        },
-        {
-          id: 'paratha',
-          name: 'Aloo Paratha',
-          description: '+ Curd, Pickle',
-          image: '/meals-7.jpg',
-          count: 0,
-        },
-        {
-          id: 'sandwich',
-          name: 'Veg Sandwich',
-          description: '+ Ketchup',
-          image: '/meals-7.jpg',
-          count: 0,
-        },
-      ],
-    },
-    {
-      day: 'Sun',
-      mealType: 'Lunch',
-      meals: [
-        {
-          id: 'default',
-          name: 'Rajma Chawal',
-          description: '+ Salad, Papad',
-          image: '/meals-8.jpg',
-          count: 0,
-        },
-        {
-          id: 'thali',
-          name: 'Gujarati Thali',
-          description: '+ Dhokla, Khandvi',
-          image: '/meals-8.jpg',
-          count: 0,
-        },
-        {
-          id: 'khichdi',
-          name: 'Moong Dal Khichdi',
-          description: '+ Ghee, Papad',
-          image: '/meals-8.jpg',
-          count: 0,
-        },
-      ],
-    },
-    {
-      day: 'Sun',
-      mealType: 'Dinner',
-      meals: [
-        {
-          id: 'default',
-          name: 'Pizza Margherita',
-          description: '+ Garlic Bread',
-          image: '/meals-9.jpg',
-          count: 0,
-        },
-        {
-          id: 'italian',
-          name: 'Lasagna',
-          description: '+ Caesar Salad',
-          image: '/meals-9.jpg',
-          count: 0,
-        },
-        {
-          id: 'north-indian',
-          name: 'North Indian Thali',
-          description: '+ Gulab Jamun',
-          image: '/meals-9.jpg',
-          count: 0,
-        },
-      ],
-    },
-    // Monday (24 Mar)
-    {
-      day: 'Mon',
-      mealType: 'Breakfast',
-      meals: [
-        {
-          id: 'default',
-          name: 'Uttapam',
-          description: '+ Sambar, Tomato Chutney',
-          image: '/meals-10.jpg',
-          count: 0,
-        },
-        {
-          id: 'sandwich',
-          name: 'Veg Sandwich',
-          description: '+ Ketchup',
-          image: '/meals-10.jpg',
-          count: 0,
-        },
-        {
-          id: 'poha',
-          name: 'Poha, Upma',
-          description: '+ Sev, Coconut Chutney',
-          image: '/meals-10.jpg',
-          count: 0,
-        },
-      ],
-    },
-    {
-      day: 'Mon',
-      mealType: 'Lunch',
-      meals: [
-        {
-          id: 'default',
-          name: 'Pav Bhaji',
-          description: '+ Butter Pav, Onion Salad',
-          image: '/meals-11.jpg',
-          count: 0,
-        },
-        {
-          id: 'khichdi',
-          name: 'Moong Dal Khichdi',
-          description: '+ Ghee, Papad',
-          image: '/meals-11.jpg',
-          count: 0,
-        },
-        {
-          id: 'chole',
-          name: 'Chole Bhature',
-          description: '+ Onion Salad, Pickle',
-          image: '/meals-11.jpg',
-          count: 0,
-        },
-      ],
-    },
-    {
-      day: 'Mon',
-      mealType: 'Dinner',
-      meals: [
-        {
-          id: 'default',
-          name: 'Dal Makhani',
-          description: '+ Jeera Rice, Naan',
-          image: '/meals-12.jpg',
-          count: 0,
-        },
-        {
-          id: 'punjabi',
-          name: 'Punjabi Thali',
-          description: '+ Lassi',
-          image: '/meals-12.jpg',
-          count: 0,
-        },
-        {
-          id: 'paneer',
-          name: 'Paneer Butter Masala',
-          description: '+ Naan, Jeera Rice',
-          image: '/meals-12.jpg',
-          count: 0,
-        },
-      ],
-    },
-  ];
-
   // State to manage meal options with counts
-  const [mealOptionsState, setMealOptionsState] = useState(initialMealOptions);
+  const [mealOptionsState, setMealOptionsState] = useState([]);
 
-  const weekMenu = [
-    { day: 'Today', date: '21 Mar', counter: '0/2' },
-    { day: 'Tom', date: '22 Mar', counter: '0/3' },
-    { day: 'Sun', date: '23 Mar', counter: '0/3' },
-    { day: 'Mon', date: '24 Mar', counter: '0/2' },
-  ];
+  const weekMenu = Array.from({ length: 4 }, (_, index) => {
+    const date = new Date();
+    date.setDate(date.getDate() + index);
+    const dayNames = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+    return {
+      day: index === 0 ? 'Today' : index === 1 ? 'Tom' : dayNames[date.getDay()],
+      date: `${date.getDate()} ${date.toLocaleString('default', { month: 'short' })}`,
+      counter: '0/2',
+    };
+  });
 
-  // Filter meal options based on selected day and meal type
-  const currentMealOptions = mealOptionsState.find(
-    (option) => option.day === selectedDay && option.mealType === mealType
-  )?.meals || [];
+  // Fetch meal options from the backend API
+  useEffect(() => {
+    const fetchMealOptions = async () => {
+      try {
+        console.log('Fetching meal options for:', {
+          mealDate: '2025-04-01',
+          mealTime: mealType.toUpperCase(),
+        });
+
+        const response = await axios.get(
+          `http://localhost:8081/api/food/search?mealDate=2025-04-01&mealTime=${mealType.toUpperCase()}`
+        );
+
+        console.log('API response:', response.data);
+
+        const mappedData = response.data.map((item) => ({
+          day: item.mealDayType,
+          mealType: item.mealTimeType,
+          meals: [
+            {
+              id: item.id,
+              name: item.meal.mealItems.join(', '),
+              description: `+ ${item.meal.mealAddOn.join(', ')}`,
+              image: `/${item.meal.mealImageUrl}`,
+              count: 0,
+            },
+          ],
+        }));
+
+        console.log('Mapped meal options:', mappedData);
+
+        setMealOptionsState(mappedData);
+      } catch (error) {
+        console.error('Error fetching meal options:', error);
+      }
+    };
+
+    fetchMealOptions();
+  }, [mealType]);
+
+  // Directly use all fetched meal options as the current meal options
+  const currentMealOptions = mealOptionsState.flatMap(option => option.meals);
 
   // Skip option with a count
   const [skipOption, setSkipOption] = useState({
@@ -377,10 +88,49 @@ function Food() {
     }));
   }, [mealType]);
 
-  const handleDayClick = (day) => {
+  const handleDayClick = (day, index) => {
     setSelectedDay(day);
     setSelectedMeal('default'); // Reset selected meal when day changes
-    console.log(`Navigating to page for: ${day}`);
+
+    const targetDate = new Date('2025-04-01'); // Start date
+    targetDate.setDate(targetDate.getDate() + index); // Adjust date by index
+
+    const fetchMealOptions = async () => {
+      try {
+        console.log('Fetching meal options for:', {
+          mealDate: targetDate.toISOString().split('T')[0],
+          mealTime: mealType.toUpperCase(),
+        });
+
+        const response = await axios.get(
+          `http://localhost:8081/api/food/search?mealDate=${targetDate.toISOString().split('T')[0]}&mealTime=${mealType.toUpperCase()}`
+        );
+
+        console.log('API response:', response.data);
+
+        const mappedData = response.data.map((item) => ({
+          day: item.mealDayType,
+          mealType: item.mealTimeType,
+          meals: [
+            {
+              id: item.id,
+              name: item.meal.mealItems.join(', '),
+              description: `+ ${item.meal.mealAddOn.join(', ')}`,
+              image: `/${item.meal.mealImageUrl}`,
+              count: 0,
+            },
+          ],
+        }));
+
+        console.log('Mapped meal options:', mappedData);
+
+        setMealOptionsState(mappedData);
+      } catch (error) {
+        console.error('Error fetching meal options:', error);
+      }
+    };
+
+    fetchMealOptions();
   };
 
   const handleMealSelect = (mealId) => {
@@ -422,7 +172,7 @@ function Food() {
               <button
                 key={index}
                 className={`day ${menu.day === selectedDay ? 'active' : ''}`}
-                onClick={() => handleDayClick(menu.day)}
+                onClick={() => handleDayClick(menu.day, index)}
               >
                 <span>{menu.day}</span>
                 <span>{menu.date}</span>
@@ -489,7 +239,7 @@ function Food() {
             <button
               key={index}
               className={`day ${menu.day === selectedDay ? 'active' : ''}`}
-              onClick={() => handleDayClick(menu.day)}
+              onClick={() => handleDayClick(menu.day, index)}
             >
               <span>{menu.day}</span>
               <span>{menu.date}</span>
