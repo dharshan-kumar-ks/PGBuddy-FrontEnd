@@ -28,9 +28,9 @@ function Food() {
     };
   });
 
-  // Fetch meal options from the backend API
+  // Fetch meal options and their corresponding vote counts from the backend
   useEffect(() => {
-    const fetchMealOptions = async () => {
+    const fetchMealOptionsAndCounts = async () => {
       try {
         console.log('Fetching meal options for:', {
           mealDate: '2025-04-01',
@@ -52,21 +52,62 @@ function Food() {
               name: item.meal.mealItems.join(', '),
               description: `+ ${item.meal.mealAddOn.join(', ')}`,
               image: `/${item.meal.mealImageUrl}`,
-              count: 0,
+              count: 0, // Initialize count to 0
             },
           ],
         }));
 
         console.log('Mapped meal options:', mappedData);
 
-        setMealOptionsState(mappedData);
+        // Fetch vote counts for all meals
+        const updatedMealOptions = await Promise.all(
+          mappedData.map(async (option) => {
+            const updatedMeals = await Promise.all(
+              option.meals.map(async (meal) => {
+                const voteCountResponse = await axios.get(
+                  `http://localhost:8081/api/food/vote/count/${meal.id}`
+                );
+                return { ...meal, count: voteCountResponse.data };
+              })
+            );
+            return { ...option, meals: updatedMeals };
+          })
+        );
+
+        setMealOptionsState(updatedMealOptions);
       } catch (error) {
-        console.error('Error fetching meal options:', error);
+        console.error('Error fetching meal options or vote counts:', error);
       }
     };
 
-    fetchMealOptions();
+    fetchMealOptionsAndCounts();
   }, [mealType]);
+
+  // Fetch vote counts for all meals
+  const fetchVoteCounts = async () => {
+    try {
+      const updatedMealOptions = await Promise.all(
+        mealOptionsState.map(async (option) => {
+          const updatedMeals = await Promise.all(
+            option.meals.map(async (meal) => {
+              const voteCountResponse = await axios.get(
+                `http://localhost:8081/api/food/vote/count/${meal.id}`
+              );
+              return { ...meal, count: voteCountResponse.data };
+            })
+          );
+          return { ...option, meals: updatedMeals };
+        })
+      );
+      setMealOptionsState(updatedMealOptions);
+    } catch (error) {
+      console.error('Error fetching vote counts:', error);
+    }
+  };
+
+  useEffect(() => {
+    fetchVoteCounts();
+  }, []); // Fetch vote counts when the component mounts
 
   // Directly use all fetched meal options as the current meal options
   const currentMealOptions = mealOptionsState.flatMap(option => option.meals);
@@ -90,73 +131,100 @@ function Food() {
 
   const handleDayClick = (day, index) => {
     setSelectedDay(day);
-    setSelectedMeal('default'); // Reset selected meal when day changes
+    setSelectedMeal(null); // Reset selected meal when switching days
 
     const targetDate = new Date('2025-04-01'); // Start date
     targetDate.setDate(targetDate.getDate() + index); // Adjust date by index
 
-    const fetchMealOptions = async () => {
-      try {
-        console.log('Fetching meal options for:', {
-          mealDate: targetDate.toISOString().split('T')[0],
-          mealTime: mealType.toUpperCase(),
-        });
-
-        const response = await axios.get(
-          `http://localhost:8081/api/food/search?mealDate=${targetDate.toISOString().split('T')[0]}&mealTime=${mealType.toUpperCase()}`
-        );
-
-        console.log('API response:', response.data);
-
-        const mappedData = response.data.map((item) => ({
-          day: item.mealDayType,
-          mealType: item.mealTimeType,
-          meals: [
-            {
-              id: item.id,
-              name: item.meal.mealItems.join(', '),
-              description: `+ ${item.meal.mealAddOn.join(', ')}`,
-              image: `/${item.meal.mealImageUrl}`,
-              count: 0,
-            },
-          ],
-        }));
-
-        console.log('Mapped meal options:', mappedData);
-
-        setMealOptionsState(mappedData);
-      } catch (error) {
-        console.error('Error fetching meal options:', error);
-      }
-    };
-
-    fetchMealOptions();
+    fetchMealOptionsAndCounts(targetDate.toISOString().split('T')[0]);
   };
 
-  const handleMealSelect = (mealId) => {
+  const fetchMealOptionsAndCounts = async (mealDate) => {
+    try {
+      console.log('Fetching meal options for:', { mealDate, mealTime: mealType.toUpperCase() });
+
+      const response = await axios.get(
+        `http://localhost:8081/api/food/search?mealDate=${mealDate}&mealTime=${mealType.toUpperCase()}`
+      );
+
+      const mappedData = response.data.map((item) => ({
+        day: item.mealDayType,
+        mealType: item.mealTimeType,
+        meals: [
+          {
+            id: item.id,
+            name: item.meal.mealItems.join(', '),
+            description: `+ ${item.meal.mealAddOn.join(', ')}`,
+            image: `/${item.meal.mealImageUrl}`,
+            count: 0, // Initialize count to 0
+          },
+        ],
+      }));
+
+      const updatedMealOptions = await Promise.all(
+        mappedData.map(async (option) => {
+          const updatedMeals = await Promise.all(
+            option.meals.map(async (meal) => {
+              const voteCountResponse = await axios.get(
+                `http://localhost:8081/api/food/vote/count/${meal.id}`
+              );
+              return { ...meal, count: voteCountResponse.data };
+            })
+          );
+          return { ...option, meals: updatedMeals };
+        })
+      );
+
+      setMealOptionsState(updatedMealOptions);
+    } catch (error) {
+      console.error('Error fetching meal options or vote counts:', error);
+    }
+  };
+
+  const userId = localStorage.getItem('userId'); // Retrieve userId from localStorage
+
+  const handleMealSelect = async (mealId) => {
+    if (selectedMeal === mealId) {
+      console.log('User has already voted for this meal. Skipping POST request.');
+      return; // Prevent duplicate voting requests
+    }
+
     setSelectedMeal(mealId);
 
     if (mealId === 'skip') {
-      // Increment skip option count
+      // Increment skip option count locally
       setSkipOption((prev) => ({
         ...prev,
         count: prev.count + 1,
       }));
     } else {
-      // Increment the count of the selected meal option
-      setMealOptionsState((prevOptions) =>
-        prevOptions.map((option) => {
-          if (option.day === selectedDay && option.mealType === mealType) {
-            return {
-              ...option,
-              meals: option.meals.map((meal) =>
-                meal.id === mealId ? { ...meal, count: meal.count + 1 } : meal
-              ),
-            };
-          }
-          return option;
-        })
-      );
+      try {
+        console.log('Sending POST request to backend:', {
+          url: 'http://localhost:8081/api/food/vote',
+          body: {
+            mealVoteId: mealId,
+            userId: userId,
+          },
+        });
+
+        const response = await axios.post('http://localhost:8081/api/food/vote', {
+          mealVoteId: mealId,
+          userId: userId,
+        });
+
+        console.log('POST response from backend:', response.data); // Log success message
+
+        // Fetch the updated vote counts
+        fetchVoteCounts();
+      } catch (error) {
+        console.error('Error voting for meal:', error);
+        if (error.response) {
+          console.error('Error response from backend:', {
+            status: error.response.status,
+            data: error.response.data,
+          });
+        }
+      }
     }
   };
 
