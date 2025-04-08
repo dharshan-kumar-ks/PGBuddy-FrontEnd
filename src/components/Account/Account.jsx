@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import './Account.css';
 import TopNavigationBar from '../Navigation/TopNavigationBar';
 import { useNavigate } from 'react-router-dom';
@@ -10,6 +10,28 @@ import { AiOutlineLogout } from 'react-icons/ai';
 
 function Account() {
   const navigate = useNavigate();
+  const [userName, setUserName] = useState('');
+  const [userId, setUserId] = useState('');
+
+  useEffect(() => {
+    const userId = localStorage.getItem('userId');
+    if (userId) {
+      fetch(`http://localhost:8081/api/users/${userId}`)
+        .then((response) => response.json())
+        .then((data) => {
+          setUserName(data.name);
+          setUserId(data.id); // Set the user ID dynamically
+        })
+        .catch((error) => {
+          console.error('Error fetching user data:', error);
+          setUserName('unknown'); // Set default username on error
+          setUserId('unknown'); // Set default user ID on error
+        });
+    } else {
+      setUserName('unknown'); // Set default username if userId is not found
+      setUserId('unknown'); // Set default user ID if userId is not found
+    }
+  }, []);
 
   return (
     <div className="account-container">
@@ -18,15 +40,18 @@ function Account() {
 
       <div className="profile-header">
         <FaUserCircle className="profile-icon" />
-        <h2>K S Dharsharkumar</h2>
-        <p className="user-id">User ID: 23SETBA020</p>
+        <h2>{userName}</h2>
+        <p className="user-id">User ID: {userId}</p>
         <p className="location">
           <BsHouseDoor /> Seattle House
         </p>
-        <button className="logout-section" onClick={() => {
-          localStorage.removeItem('userId'); // Clear userId from localStorage
-          navigate('/login');
-        }}>
+        <button
+          className="logout-section"
+          onClick={() => {
+            localStorage.removeItem('userId'); // Clear userId from localStorage
+            navigate('/login');
+          }}
+        >
           <AiOutlineLogout className="logout-icon" /> Log out
         </button>
       </div>

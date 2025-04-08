@@ -1,22 +1,43 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './ProfilePage.css';
 import TopNavigationBar from '../../Navigation/TopNavigationBar';
 
 function ProfilePage() {
-  // Sample user data (you can replace this with actual data from a backend or state management)
   const [user, setUser] = useState({
-    fullName: 'John Doe',
-    dob: '1990-05-15',
-    gender: 'Male',
-    contactNumber: '+91 98765 43210',
-    email: 'john.doe@example.com',
-    bloodGroup: 'O+',
-    address: '1234 Maple Street, Springfield, IL 62704',
-    companyName: 'Tech Innovations Pvt. Ltd.',
+    fullName: '',
+    dob: '',
+    gender: '',
+    contactNumber: '',
+    email: '',
+    bloodGroup: '',
+    address: '',
+    companyName: '',
   });
 
-  // State to toggle edit mode (placeholder for now)
   const [isEditing, setIsEditing] = useState(false);
+
+  useEffect(() => {
+    const userId = localStorage.getItem('userId');
+    if (userId) {
+      fetch(`http://localhost:8081/api/users/${userId}`)
+        .then((response) => response.json())
+        .then((data) => {
+          setUser({
+            fullName: data.name || '',
+            dob: data.dateOfBirth || '',
+            gender: data.gender || '',
+            contactNumber: data.phoneNumber || '',
+            email: data.email || '',
+            bloodGroup: data.bloodGroup || '',
+            address: data.address || '',
+            companyName: data.companyName || '',
+          });
+        })
+        .catch((error) => {
+          console.error('Error fetching user data:', error);
+        });
+    }
+  }, []);
 
   const handleEditToggle = () => {
     setIsEditing(!isEditing);

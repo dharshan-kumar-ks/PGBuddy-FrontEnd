@@ -9,7 +9,7 @@
     padding: 20px;
     font-family: 'Arial', sans-serif;
     color: #f3f3f3; /* Dark Gray */
-    margin-top: 180px; /* Adjust this based on your navbar height */
+    margin-top: 200px; /* Adjust this based on your navbar height */
   }
   
   .profile-header {
@@ -22,12 +22,12 @@
     padding: 20px;
     border-radius: 12px;
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-    margin-top: 20px;
+    margin-top: 0px;
   }
   
-  .profile-picture {
-    width: 80px;
-    height: 80px;
+  .profile-icon {
+    width: 80px; /* Increased size from 80px to 120px */
+    height: 80px; /* Increased size from 80px to 120px */
     border-radius: 50%;
     object-fit: cover;
     border: 3px solid #2c3e50;
@@ -37,12 +37,13 @@
   .user-name {
     font-size: 20px;
     font-weight: bold;
-    margin-top: 10px;
+    margin-top: 0px;
   }
   
   .user-id {
     font-size: 14px;
     color: #666;
+    margin-top: -20px;
   }
   
   .location {
@@ -50,7 +51,7 @@
     color: #3b82f6;
     display: flex;
     align-items: center;
-    margin-top: 5px;
+    margin-top: -20px;
   }
   
   .location-icon {
