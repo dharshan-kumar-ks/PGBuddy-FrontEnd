@@ -6,7 +6,7 @@ function ProfilePage() {
   const [user, setUser] = useState({
     fullName: '',
     dob: '',
-    gender: '',
+    gender: 'MALE', // Default to uppercase value
     contactNumber: '',
     email: '',
     bloodGroup: '',
@@ -25,7 +25,7 @@ function ProfilePage() {
           setUser({
             fullName: data.name || '',
             dob: data.dateOfBirth || '',
-            gender: data.gender || '',
+            gender: data.gender || 'MALE', // Ensure uppercase
             contactNumber: data.phoneNumber || '',
             email: data.email || '',
             bloodGroup: data.bloodGroup || '',
@@ -41,7 +41,6 @@ function ProfilePage() {
 
   const handleEditToggle = () => {
     setIsEditing(!isEditing);
-    // In a real app, you would save the updated details to a backend here
   };
 
   const handleInputChange = (e) => {
@@ -50,6 +49,71 @@ function ProfilePage() {
       ...prevUser,
       [name]: value,
     }));
+  };
+
+  const handleSave = () => {
+    const userId = localStorage.getItem('userId');
+    if (!userId) {
+      alert('User not logged in.');
+      return;
+    }
+
+    // Format date to YYYY-MM-DD
+    const formatDate = (date) => {
+      if (!date) {
+        console.warn('Date of Birth is empty. Sending null to backend.');
+        return null; // Return null if the date is empty
+      }
+      const d = new Date(date);
+      if (isNaN(d.getTime())) {
+        console.error('Invalid date format:', date);
+        throw new Error('Invalid date format. Expected yyyy-MM-dd');
+      }
+      const year = d.getFullYear();
+      const month = String(d.getMonth() + 1).padStart(2, '0');
+      const day = String(d.getDate()).padStart(2, '0');
+      return `${year}-${month}-${day}`;
+    };
+
+    const userDetails = {
+      id: parseInt(userId),
+      name: user.fullName,
+      phoneNumber: user.contactNumber,
+      gender: user.gender, // Already in uppercase from select
+      bloodGroup: user.bloodGroup,
+      address: user.address,
+      companyName: user.companyName,
+      dateOfBirth: formatDate(user.dob),
+      profilePicture: '',
+      userType: 'RESIDENT',
+    };
+
+    console.log('Sending user details:', JSON.stringify(userDetails, null, 2));
+
+    fetch('http://localhost:8081/api/users/fill-details', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+      },
+      body: JSON.stringify(userDetails),
+    })
+      .then(async (response) => {
+        if (!response.ok) {
+          const errorData = await response.json();
+          throw new Error(errorData.message || 'Failed to update profile');
+        }
+        return response.json();
+      })
+      .then((data) => {
+        console.log('Update successful:', data);
+        alert('Profile updated successfully!');
+        setIsEditing(false);
+      })
+      .catch((error) => {
+        console.error('Update error:', error);
+        alert(`Error: ${error.message}`);
+      });
   };
 
   return (
@@ -89,9 +153,9 @@ function ProfilePage() {
                   value={user.gender}
                   onChange={handleInputChange}
                 >
-                  <option value="Male">Male</option>
-                  <option value="Female">Female</option>
-                  <option value="Other">Other</option>
+                  <option value="MALE">Male</option>
+                  <option value="FEMALE">Female</option>
+                  <option value="OTHER">Other</option>
                 </select>
               ) : (
                 <span>{user.gender}</span>
@@ -118,6 +182,7 @@ function ProfilePage() {
                   name="email"
                   value={user.email}
                   onChange={handleInputChange}
+                  disabled // Typically email shouldn't be editable
                 />
               ) : (
                 <span>{user.email}</span>
@@ -131,6 +196,7 @@ function ProfilePage() {
                   value={user.bloodGroup}
                   onChange={handleInputChange}
                 >
+                  <option value="">Select Blood Group</option>
                   <option value="A+">A+</option>
                   <option value="A-">A-</option>
                   <option value="B+">B+</option>
@@ -141,7 +207,7 @@ function ProfilePage() {
                   <option value="O-">O-</option>
                 </select>
               ) : (
-                <span>{user.bloodGroup}</span>
+                <span>{user.bloodGroup || 'Not specified'}</span>
               )}
             </div>
             <div className="detail-item">
@@ -151,9 +217,10 @@ function ProfilePage() {
                   name="address"
                   value={user.address}
                   onChange={handleInputChange}
+                  rows={3}
                 />
               ) : (
-                <span>{user.address}</span>
+                <span>{user.address || 'Not specified'}</span>
               )}
             </div>
             <div className="detail-item">
@@ -166,13 +233,20 @@ function ProfilePage() {
                   onChange={handleInputChange}
                 />
               ) : (
-                <span>{user.companyName}</span>
+                <span>{user.companyName || 'Not specified'}</span>
               )}
             </div>
           </div>
-          <button className="edit-button" onClick={handleEditToggle}>
-            {isEditing ? 'Save' : 'Edit Profile'}
-          </button>
+          <div className="profile-actions">
+            <button className="edit-button" onClick={isEditing ? handleSave : handleEditToggle}>
+              {isEditing ? 'Save Profile' : 'Edit Profile'}
+            </button>
+            {isEditing && (
+              <button className="cancel-button" onClick={() => setIsEditing(false)}>
+                Cancel
+              </button>
+            )}
+          </div>
         </div>
       </div>
     </div>

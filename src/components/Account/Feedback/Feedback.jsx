@@ -16,11 +16,37 @@ function Feedback() {
       alert('Please enter your feedback before submitting.');
       return;
     }
-    // In a real app, you would send the feedback to a backend API here
-    console.log('Feedback submitted:', feedback);
-    alert('Thank you for your feedback!');
-    setFeedback('');
-    navigate('/account'); // Redirect back to the Account page
+
+    const userId = localStorage.getItem('userId');
+    if (!userId) {
+      alert('User not logged in.');
+      return;
+    }
+
+    const feedbackData = {
+      comment: feedback,
+      rating: null, // Keep rating null for feedback submission
+      userId: userId,
+    };
+
+    fetch('http://localhost:8081/api/feedback', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(feedbackData),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log('Feedback submitted:', data);
+        alert('Thank you for your feedback!');
+        setFeedback('');
+        navigate('/account'); // Redirect back to the Account page
+      })
+      .catch((error) => {
+        console.error('Error submitting feedback:', error);
+        alert('Failed to submit feedback. Please try again later.');
+      });
   };
 
   const handleRatingSubmit = () => {
@@ -28,11 +54,37 @@ function Feedback() {
       alert('Please select a rating before submitting.');
       return;
     }
-    // In a real app, you would send the rating to a backend API here
-    console.log('Rating submitted:', rating);
-    alert('Thank you for your rating!');
-    setRating(0);
-    navigate('/account'); // Redirect back to the Account page
+
+    const userId = localStorage.getItem('userId');
+    if (!userId) {
+      alert('User not logged in.');
+      return;
+    }
+
+    const ratingData = {
+      comment: 'No comment provided', // Send a default comment instead of an empty string
+      rating: rating,
+      userId: userId,
+    };
+
+    fetch('http://localhost:8081/api/feedback', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(ratingData),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log('Rating submitted:', data);
+        alert('Thank you for your rating!');
+        setRating(0);
+        navigate('/account'); // Redirect back to the Account page
+      })
+      .catch((error) => {
+        console.error('Error submitting rating:', error);
+        alert('Failed to submit rating. Please try again later.');
+      });
   };
 
   return (
