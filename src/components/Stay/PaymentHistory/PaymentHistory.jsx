@@ -50,7 +50,7 @@ function PaymentHistory() {
       })
       .catch((err) => {
         console.error('Error fetching payment transactions:', err);
-        setError('Unable to load payment history. Please try again later.');
+        setError('no-payments');
         setLoading(false);
       });
   }, []);
@@ -59,21 +59,13 @@ function PaymentHistory() {
     return <div>Loading payment history...</div>;
   }
 
-  if (error) {
+  if (error === 'no-payments' || payments.length === 0) {
     return (
-      <div className="error-container">
-        <img src="/public/error-icon.png" alt="Error" className="error-icon" />
-        <p className="error-message">{error}</p>
-      </div>
-    );
-  }
-
-  if (payments.length === 0) {
-    return (
-      <div className="no-payments-container">
-        <img src="/public/history-icon.png" alt="No Payments" className="no-payments-icon" />
-        <p className="no-payments-message">You have no payment history yet.</p>
-        <p className="no-payments-subtext">Once you make a payment, it will appear here.</p>
+      <div className="penalty-structure-container">
+        <div className="minimum-due">
+          <h2>You have no payment history yet.</h2>
+          <p>Once you make a payment, it will appear here.</p>
+        </div>
       </div>
     );
   }
