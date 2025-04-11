@@ -1,49 +1,63 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import './OrderHistoryPage.css';
 import TopNavigationBar from '../../Navigation/TopNavigationBar';
 import { useNavigate } from 'react-router-dom';
 import { FaRedo } from 'react-icons/fa'; // Icon for "Order Again"
-
-// Sample order history data (you can replace this with actual data from a backend)
-const orderHistory = [
-  {
-    id: 1,
-    date: '2025-03-25',
-    items: [
-      { name: 'Fried Egg', quantity: 2, price: 45 },
-      { name: 'Omelette', quantity: 1, price: 39 },
-    ],
-    total: 129, // Including GST
-    status: 'Delivered',
-  },
-  {
-    id: 2,
-    date: '2025-03-20',
-    items: [
-      { name: 'Chilli Chicken & Noodles', quantity: 1, price: 135 },
-      { name: 'French Fries', quantity: 1, price: 60 },
-    ],
-    total: 204.75, // Including GST
-    status: 'Delivered',
-  },
-  {
-    id: 3,
-    date: '2025-03-15',
-    items: [
-      { name: 'Pepperoni Pizza', quantity: 1, price: 199 },
-    ],
-    total: 208.95, // Including GST
-    status: 'Cancelled',
-  },
-];
+import axios from 'axios'; // Import axios for API calls
 
 function OrderHistoryPage() {
   const navigate = useNavigate();
+  const [orderHistory, setOrderHistory] = useState([]); // State to store order history
+
+  useEffect(() => {
+    const token = localStorage.getItem('token'); // Retrieve token from localStorage
+
+    // Fetch order history from backend
+    axios
+      .get('http://localhost:8081/api/cafe/orders', {
+        headers: {
+          Authorization: `Bearer ${token}`, // Add token to Authorization header
+        },
+      })
+      .then((response) => {
+        setOrderHistory(response.data);
+      })
+      .catch((error) => {
+        console.error('Error fetching order history:', error);
+      });
+  }, []);
 
   const handleViewDetails = (orderId) => {
     // Placeholder for navigating to a detailed order view
     console.log(`Viewing details for order ID: ${orderId}`);
     // You can navigate to a detailed order page if needed, e.g., navigate(`/order/${orderId}`);
+  };
+
+  const handleRepeatOrder = (order) => {
+    const token = localStorage.getItem('token'); // Retrieve token from localStorage
+
+    const orderDetails = {
+      user: 1, // Replace with actual user ID if available
+      orderStatus: 'PENDING',
+      cafeOrderItems: order.cafeOrderItems.map((item) => ({
+        cafeMenuId: item.cafeMenuId,
+        quantity: item.quantity,
+      })),
+    };
+
+    axios
+      .post('http://localhost:8081/api/cafe/order', orderDetails, {
+        headers: {
+          Authorization: `Bearer ${token}`, // Add token to Authorization header
+        },
+      })
+      .then(() => {
+        alert('Order placed successfully');
+      })
+      .catch((error) => {
+        console.error('Error placing order:', error);
+        alert('Failed to place the order. Please try again.');
+      });
   };
 
   return (
@@ -56,34 +70,34 @@ function OrderHistoryPage() {
           <p className="no-orders">No orders found.</p>
         ) : (
           <div className="order-list">
-            {orderHistory.map((order) => (
-              <div key={order.id} className="order-card">
+            {orderHistory.filter(order => order.totalPrice > 0).reverse().map((order, index) => (
+              <div key={index} className="order-card">
                 <div className="order-header">
                   <div className="order-date">
-                    <span>Order Date:</span> {order.date}
+                    <span>Order Date:</span> {new Date(order.orderDate).toLocaleDateString('en-GB').replaceAll('/', '-')}
                   </div>
-                  <div className={`order-status ${order.status.toLowerCase()}`}>
-                    {order.status}
+                  <div className="order-status" style={{ backgroundColor: order.orderStatus === 'PENDING' ? '#f0ad4e' : '#5cb85c', color: '#fff', padding: '5px 10px', borderRadius: '5px', fontWeight: 'bold' }}>
+                    {order.orderStatus}
                   </div>
                 </div>
                 <div className="order-items">
-                  {order.items.map((item, index) => (
-                    <div key={index} className="order-item">
-                      <span className="item-name">{item.name}</span>
+                  {order.cafeOrderItems.map((item, idx) => (
+                    <div key={idx} className="order-item">
+                      <span className="item-name">{item.cafeMenuName}</span>
                       <span className="item-quantity">x{item.quantity}</span>
-                      <span className="item-price">₹{item.price * item.quantity}</span>
+                      <span className="item-price">₹{item.cafeMenuPrice}</span>
                     </div>
                   ))}
                 </div>
                 <div className="order-footer">
                   <button
                     className="view-details-button"
-                    onClick={() => handleViewDetails(order.id)}
+                    onClick={() => handleRepeatOrder(order)}
                   >
                     <FaRedo /> Repeat Order
                   </button>
                   <div className="order-total">
-                    <span>Total:</span> ₹{order.total.toFixed(2)}
+                    <span>Total:</span> ₹{order.totalPrice.toFixed(2)}
                   </div>
                 </div>
               </div>
