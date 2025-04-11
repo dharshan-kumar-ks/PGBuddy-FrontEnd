@@ -18,8 +18,13 @@ function ProfilePage() {
 
   useEffect(() => {
     const userId = localStorage.getItem('userId');
+    const token = localStorage.getItem('token'); // Retrieve token from localStorage
     if (userId) {
-      fetch(`http://localhost:8081/api/users/${userId}`)
+      fetch(`http://localhost:8081/api/users/${userId}`, {
+        headers: {
+          Authorization: `Bearer ${token}`, // Add token to Authorization header
+        },
+      })
         .then((response) => response.json())
         .then((data) => {
           setUser({
@@ -90,9 +95,11 @@ function ProfilePage() {
 
     console.log('Sending user details:', JSON.stringify(userDetails, null, 2));
 
+    const token = localStorage.getItem('token'); // Retrieve token from localStorage
     fetch('http://localhost:8081/api/users/fill-details', {
       method: 'POST',
       headers: {
+        Authorization: `Bearer ${token}`, // Add token to Authorization header
         'Content-Type': 'application/json',
         'Accept': 'application/json',
       },

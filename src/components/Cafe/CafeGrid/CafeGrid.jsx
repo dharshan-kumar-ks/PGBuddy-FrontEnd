@@ -11,13 +11,13 @@ function CafeGrid({ cafeItems, filter, onAddItem, onUpdateQuantity, cartItems })
   return (
     <section className="cafe-grid">
       {cafeItems
-        .filter(item => !filter || (filter === 'veg' && item.isVeg) || (filter === 'non-veg' && !item.isVeg))
+        .filter(item => !filter || (filter === 'veg' && !item.nonVeg) || (filter === 'non-veg' && item.nonVeg))
         .map((item) => {
           const quantity = getItemQuantity(item.id);
           return (
             <div key={item.id} className="cafe-item">
               <div className="image-container">
-                <img src={item.image} alt={item.name} className="item-image" />
+                <img src={item.imageUrl} alt={item.name} className="item-image" />
                 {item.isSpicy && <span className="spicy-icon">🌶️</span>}
               </div>
               <h3>{item.name}</h3>

@@ -15,13 +15,14 @@ function Register() {
 const handleRegister = async (e) => {
     e.preventDefault();
 
-
   try {
     console.log('Sending request with body:', { email, password }); // ADDED: Log the request body for debugging
 
+    const token = localStorage.getItem('token'); // Retrieve token from localStorage
     const response = await fetch('http://localhost:8081/api/signup', {
       method: 'POST',
       headers: {
+        Authorization: `Bearer ${token}`, // Add token to Authorization header
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({ email, password }),

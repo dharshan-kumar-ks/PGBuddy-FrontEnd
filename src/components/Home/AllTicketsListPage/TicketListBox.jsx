@@ -11,12 +11,17 @@ function TicketListBox({ tickets, searchQuery, filters, onSearchChange }) {
     const fetchUserNames = async () => {
       const uniqueUserIds = [...new Set(tickets.map((ticket) => ticket.assignedTo))]; // Get unique user IDs
       const userNameMap = {};
+      const token = localStorage.getItem('token'); // Retrieve token from localStorage
 
       for (const userId of uniqueUserIds) {
         if (userId) {
           try {
             console.log(`Fetching user name for userId: ${userId}`); // Debug log
-            const response = await axios.get(`http://localhost:8081/api/users/${userId}`); // Changed POST to GET
+            const response = await axios.get(`http://localhost:8081/api/users/${userId}`, {
+              headers: {
+                Authorization: `Bearer ${token}`, // Add token to Authorization header
+              },
+            });
             console.log(`Response for userId ${userId}:`, response.data); // Debug log
             userNameMap[userId] = response.data.name || response.data.email || 'Unknown User'; // Fallback to email or placeholder if name is null
           } catch (error) {

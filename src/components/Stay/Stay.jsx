@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import TopNavigationBar from '../Navigation/TopNavigationBar';
 import BookingDetails from './BookingDetailsBox/BookingDetails';
 import PenaltyStructure from './PaymentHistory/PenaltyStructure';
@@ -8,13 +9,25 @@ import './Stay.css';
 
 function Stay() {
   const [activeTab, setActiveTab] = useState('ledger'); // 'ledger' or 'payment-plans'
-
-  // Sample data for LedgerSummary (can be fetched from an API)
-  const summaryData = {
+  const [summaryData, setSummaryData] = useState({
     dues: '₹45,001',
     amountPaid: '₹45,001',
     outstanding: '₹0',
-  };
+  });
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const token = localStorage.getItem('token'); // Retrieve token from localStorage
+      const response = await axios.get('http://localhost:8081/api/stay', {
+        headers: {
+          Authorization: `Bearer ${token}`, // Add token to Authorization header
+        },
+      });
+      setSummaryData(response.data);
+    };
+
+    fetchData();
+  }, []);
 
   return (
     <div className="stay-container">

@@ -39,7 +39,8 @@ function Login() {
   
       if (responseBody.success) {  // Check if backend returned `success: true`
         localStorage.setItem('userId', responseBody.userId); // Store userId in localStorage
-        console.log(`User ID ${responseBody.userId} has been added to localStorage`); // Log userId added to localStorage
+        localStorage.setItem('token', responseBody.token); // Store token in localStorage
+        console.log(`User ID ${responseBody.userId} and token have been added to localStorage`); // Log userId and token added to localStorage
         navigate('/home');  // Redirect to home page on successful login
       } else {
         setError('Invalid email or password'); // Show error if credentials are wrong

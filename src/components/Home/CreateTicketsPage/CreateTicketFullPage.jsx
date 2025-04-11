@@ -35,9 +35,11 @@ function CreateTicketFullPage() {
     //console.log('Request body:', ticketData); // Log the request body for debugging
 
     try {
+      const token = localStorage.getItem('token'); // Retrieve token from localStorage
       const response = await axios.post('http://localhost:8081/api/tickets/create', ticketData, {
         headers: {
           'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`, // Add token to Authorization header
         },
       });
       console.log('Ticket created successfully:', response.data);

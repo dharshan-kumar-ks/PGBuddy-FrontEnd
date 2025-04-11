@@ -1,5 +1,6 @@
 import React from 'react';
 import './OrderSummary.css';
+import axios from 'axios'; // Import axios for API calls
 
 function OrderSummary({ cartItems, onClose }) {
   // Calculate subtotal
@@ -11,6 +12,33 @@ function OrderSummary({ cartItems, onClose }) {
 
   // Calculate total
   const total = subtotal + gst;
+
+  const handleCheckout = () => {
+    const token = localStorage.getItem('token'); // Retrieve token from localStorage
+
+    const orderDetails = {
+      user: 1, // Replace with actual user ID if available
+      orderStatus: 'PENDING',
+      cafeOrderItems: cartItems.map((item) => ({
+        cafeMenuId: item.id,
+        quantity: item.quantity,
+      })),
+    };
+
+    axios
+      .post('http://localhost:8081/api/cafe/order', orderDetails, {
+        headers: {
+          Authorization: `Bearer ${token}`, // Add token to Authorization header
+        },
+      })
+      .then(() => {
+        alert('Your order has been placed successfully');
+      })
+      .catch((error) => {
+        console.error('Error placing order:', error);
+        alert('Failed to place the order. Please try again.');
+      });
+  };
 
   return (
     <div className="order-summary">
@@ -32,12 +60,12 @@ function OrderSummary({ cartItems, onClose }) {
           <span>₹{total.toFixed(2)}</span>
         </div>
 
-        <button className="checkout-button">Checkout</button>
+        <button className="checkout-button" onClick={handleCheckout}>Checkout</button>
 
         {cartItems.length > 0 ? (
           cartItems.map((item, index) => (
             <div key={index} className="cart-item">
-              <img src={item.image} alt={item.name} className="cart-item-image" />
+              <img src={item.imageUrl} alt={item.name} className="cart-item-image" />
               <div className="cart-item-details">
                 <span className="cart-item-name">{item.name}</span>
                 <span className="cart-item-quantity">Qty: {item.quantity}</span>

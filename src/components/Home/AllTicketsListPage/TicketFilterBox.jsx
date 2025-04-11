@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import './TicketFilterBox.css';
+import axios from 'axios';
 
 function TicketFilterBox({ onFilterChange }) {
   // State for filter criteria
@@ -53,6 +54,17 @@ function TicketFilterBox({ onFilterChange }) {
     startDate.setDate(endDate.getDate() - value);
     setDateRange([startDate, endDate]);
     onFilterChange({ priorities: selectedPriorities, categories: selectedCategories, statuses: selectedStatuses, dateRange: [startDate, endDate] });
+  };
+
+  // Fetch filtered tickets
+  const fetchFilteredTickets = async () => {
+    const token = localStorage.getItem('token'); // Retrieve token from localStorage
+    const response = await axios.get('http://localhost:8081/api/tickets/filter', {
+      headers: {
+        Authorization: `Bearer ${token}`, // Add token to Authorization header
+      },
+    });
+    // Handle the response as needed
   };
 
   return (

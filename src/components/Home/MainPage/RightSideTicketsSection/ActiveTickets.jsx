@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './ActiveTickets.css';
-import axios from 'axios';
+import axiosInstance from '../../../../axiosConfig'; // Corrected the import path for axiosConfig
 
 function ActiveTickets() {
   const navigate = useNavigate();
@@ -12,7 +12,7 @@ function ActiveTickets() {
     const fetchTickets = async () => {
       try {
         const userId = localStorage.getItem('userId'); // Retrieve userId from localStorage
-        const response = await axios.get(`http://localhost:8081/api/tickets/user/${userId}`);
+        const response = await axiosInstance.get(`http://localhost:8081/api/tickets/user/${userId}`); // Use axiosInstance
         setTickets(response.data); // Update state with fetched tickets
       } catch (error) {
         console.error('Error fetching tickets:', error);

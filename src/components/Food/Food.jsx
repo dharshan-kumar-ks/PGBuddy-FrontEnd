@@ -37,8 +37,14 @@ function Food() {
           mealTime: mealType.toUpperCase(),
         });
 
+        const token = localStorage.getItem('token'); // Retrieve token from localStorage
         const response = await axios.get(
-          `http://localhost:8081/api/food/search?mealDate=2025-04-01&mealTime=${mealType.toUpperCase()}`
+          `http://localhost:8081/api/food/search?mealDate=2025-04-01&mealTime=${mealType.toUpperCase()}`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`, // Add token to Authorization header
+            },
+          }
         );
 
         console.log('API response:', response.data);
@@ -64,8 +70,14 @@ function Food() {
           mappedData.map(async (option) => {
             const updatedMeals = await Promise.all(
               option.meals.map(async (meal) => {
+                const token = localStorage.getItem('token'); // Retrieve token from localStorage
                 const voteCountResponse = await axios.get(
-                  `http://localhost:8081/api/food/vote/count/${meal.id}`
+                  `http://localhost:8081/api/food/vote/count/${meal.id}`,
+                  {
+                    headers: {
+                      Authorization: `Bearer ${token}`, // Add token to Authorization header
+                    },
+                  }
                 );
                 return { ...meal, count: voteCountResponse.data };
               })
@@ -90,8 +102,14 @@ function Food() {
         mealOptionsState.map(async (option) => {
           const updatedMeals = await Promise.all(
             option.meals.map(async (meal) => {
+              const token = localStorage.getItem('token'); // Retrieve token from localStorage
               const voteCountResponse = await axios.get(
-                `http://localhost:8081/api/food/vote/count/${meal.id}`
+                `http://localhost:8081/api/food/vote/count/${meal.id}`,
+                {
+                  headers: {
+                    Authorization: `Bearer ${token}`, // Add token to Authorization header
+                  },
+                }
               );
               return { ...meal, count: voteCountResponse.data };
             })
@@ -143,8 +161,14 @@ function Food() {
     try {
       console.log('Fetching meal options for:', { mealDate, mealTime: mealType.toUpperCase() });
 
+      const token = localStorage.getItem('token'); // Retrieve token from localStorage
       const response = await axios.get(
-        `http://localhost:8081/api/food/search?mealDate=${mealDate}&mealTime=${mealType.toUpperCase()}`
+        `http://localhost:8081/api/food/search?mealDate=${mealDate}&mealTime=${mealType.toUpperCase()}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`, // Add token to Authorization header
+          },
+        }
       );
 
       const mappedData = response.data.map((item) => ({
@@ -165,8 +189,14 @@ function Food() {
         mappedData.map(async (option) => {
           const updatedMeals = await Promise.all(
             option.meals.map(async (meal) => {
+              const token = localStorage.getItem('token'); // Retrieve token from localStorage
               const voteCountResponse = await axios.get(
-                `http://localhost:8081/api/food/vote/count/${meal.id}`
+                `http://localhost:8081/api/food/vote/count/${meal.id}`,
+                {
+                  headers: {
+                    Authorization: `Bearer ${token}`, // Add token to Authorization header
+                  },
+                }
               );
               return { ...meal, count: voteCountResponse.data };
             })
@@ -207,9 +237,14 @@ function Food() {
           },
         });
 
+        const token = localStorage.getItem('token'); // Retrieve token from localStorage
         const response = await axios.post('http://localhost:8081/api/food/vote', {
           mealVoteId: mealId,
           userId: userId,
+        }, {
+          headers: {
+            Authorization: `Bearer ${token}`, // Add token to Authorization header
+          },
         });
 
         console.log('POST response from backend:', response.data); // Log success message

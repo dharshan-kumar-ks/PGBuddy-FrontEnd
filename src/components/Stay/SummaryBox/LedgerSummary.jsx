@@ -1,57 +1,66 @@
 import React, { useEffect, useState } from 'react';
 import './LedgerSummary.css';
+import axios from 'axios';
 
 function LedgerSummary() {
   const [details, setDetails] = useState({
     lateFee: '₹0',
-    amountPaid: '₹0',
-    outstanding: '₹0',
+    amountPaid: 'N/A',
+    outstanding: 'N/A',
   });
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    fetch('http://localhost:8081/api/booking/1')
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error('Failed to fetch booking details');
-        }
-        return response.json();
-      })
-      .then((data) => {
-        setDetails({
-          lateFee: '₹0', // Static value as per requirement
-          amountPaid: `₹${data.totalAmountPaidTillDate.toLocaleString()}`,
-          outstanding: `₹${data.duesRemaining.toLocaleString()}`,
+    const fetchData = async () => {
+      try {
+        const userId = localStorage.getItem('userId');
+        const token = localStorage.getItem('token');
+
+        const response = await axios.get(`http://localhost:8081/api/booking/${userId}`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
         });
-        setLoading(false);
-      })
-      .catch((err) => {
+
+        const data = response.data || {};
+        const amountPaid = data.totalAmountPaidTillDate ?? null;
+        const outstanding = data.duesRemaining ?? null;
+
+        setDetails({
+          lateFee: '₹0',
+          amountPaid: amountPaid !== null ? `₹${amountPaid.toLocaleString()}` : 'N/A',
+          outstanding: outstanding !== null ? `₹${outstanding.toLocaleString()}` : 'N/A',
+        });
+      } catch (err) {
+        console.error("Ledger fetch error:", err.message);
         setError(err.message);
+        setDetails({
+          lateFee: '₹0',
+          amountPaid: 'N/A',
+          outstanding: 'N/A',
+        });
+      } finally {
         setLoading(false);
-      });
+      }
+    };
+
+    fetchData();
   }, []);
 
   const handlePayRentClick = () => {
     if (details.outstanding === '₹0') {
       alert('No dues left to pay');
     } else {
-      // Logic for payment can be added here
       alert('Redirecting to payment gateway...');
     }
   };
 
-  if (loading) {
-    return <div>Loading ledger details...</div>;
-  }
-
-  if (error) {
-    return <div>Error: {error}</div>;
-  }
+  if (loading) return <div>Loading ledger details...</div>;
 
   return (
     <div className="ledger-summary-container">
-      {/* Summary Items */}
+
       <div className="ledger-summary-items">
         <div className="ledger-summary-item">
           <span className="ledger-summary-label">Late Fee</span>
@@ -65,13 +74,16 @@ function LedgerSummary() {
           <span className="ledger-summary-label">OUTSTANDING</span>
           <div className="ledger-summary-outstanding-wrapper">
             <span className="ledger-summary-value">{details.outstanding}</span>
-            {details.outstanding === '₹0' && <span className="ledger-summary-no-dues">NO DUES</span>}
+            {details.outstanding === '₹0' && (
+              <span className="ledger-summary-no-dues">NO DUES</span>
+            )}
           </div>
         </div>
       </div>
 
-      {/* Pay Bill Button */}
-      <button className="ledger-summary-pay-bill-button" onClick={handlePayRentClick}>Pay Rent</button>
+      <button className="ledger-summary-pay-bill-button" onClick={handlePayRentClick}>
+        Pay Rent
+      </button>
     </div>
   );
 }

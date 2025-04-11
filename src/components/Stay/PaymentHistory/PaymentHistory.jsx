@@ -19,7 +19,13 @@ function PaymentHistory() {
     const apiUrl = `http://localhost:8081/api/booking/transactions/${userId}`;
     console.log('Fetching data from API:', apiUrl);
 
-    fetch(apiUrl)
+    const token = localStorage.getItem('token'); // Retrieve token from localStorage
+
+    fetch(apiUrl, {
+      headers: {
+        Authorization: `Bearer ${token}`, // Add token to Authorization header
+      },
+    })
       .then((response) => {
         console.log('API response status:', response.status);
         if (!response.ok) {

@@ -9,7 +9,7 @@
   background-color: #1c2526; /* Ensure consistent background */
   min-height: 100vh; /* Ensure it covers the full viewport height */
   box-sizing: border-box;
-  margin-top: 1500px;
+  margin-top: 1200px;
   align-items: flex-start;
 }
 

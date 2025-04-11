@@ -7,41 +7,62 @@ function BookingDetails() {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    fetch('http://localhost:8081/api/booking/1')
+    const userId = localStorage.getItem('userId');
+
+    fetch(`http://localhost:8081/api/booking/${userId}`, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('token')}`,
+      },
+    })
       .then((response) => {
         if (!response.ok) {
-          throw new Error('Failed to fetch booking details');
+          setDetails({
+            tenure: 'N/A',
+            monthlyFee: 'N/A',
+            discount: 'N/A',
+            discountAmount: 'N/A',
+          });
+          setLoading(false);
+          return null;
         }
         return response.json();
       })
       .then((data) => {
+        if (!data) return;
+
         const formatDate = (dateString) => {
           const options = { day: 'numeric', month: 'long', year: 'numeric' };
           return new Date(dateString).toLocaleDateString('en-GB', options);
         };
 
         const transformedDetails = {
-          tenure: `${formatDate(data.tenureStartDate)} - ${formatDate(data.tenureEndDate)}`,
-          monthlyFee: `₹${data.monthlyRent.toLocaleString()}`,
-          discount: `${data.discountPercent}% off`,
-          discountAmount: `₹${(data.monthlyRent * (data.discountPercent / 100)).toLocaleString()}`,
+          tenure: data?.tenureStartDate && data?.tenureEndDate
+            ? `${formatDate(data.tenureStartDate)} - ${formatDate(data.tenureEndDate)}`
+            : 'N/A',
+          monthlyFee: data?.monthlyRent != null ? `₹${data.monthlyRent.toLocaleString()}` : 'N/A',
+          discount: data?.discountPercent != null ? `${data.discountPercent}% off` : 'N/A',
+          discountAmount: (data?.monthlyRent != null && data?.discountPercent != null)
+            ? `₹${(data.monthlyRent * (data.discountPercent / 100)).toLocaleString()}`
+            : 'N/A',
         };
         setDetails(transformedDetails);
         setLoading(false);
       })
       .catch((err) => {
+        console.error("Booking fetch error:", err.message);
         setError(err.message);
+        setDetails({
+          tenure: 'N/A',
+          monthlyFee: 'N/A',
+          discount: 'N/A',
+          discountAmount: 'N/A',
+        });
         setLoading(false);
       });
   }, []);
 
-  if (loading) {
-    return <div>Loading booking details...</div>;
-  }
-
-  if (error) {
-    return <div>Error: {error}</div>;
-  }
+  if (loading) return <div>Loading booking details...</div>;
+  if (error) return <div>Error: {error}</div>;
 
   return (
     <div className="booking-details-container">

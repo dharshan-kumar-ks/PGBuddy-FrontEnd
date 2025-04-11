@@ -29,9 +29,11 @@ function Feedback() {
       userId: userId,
     };
 
+    const token = localStorage.getItem('token'); // Retrieve token from localStorage
     fetch('http://localhost:8081/api/feedback', {
       method: 'POST',
       headers: {
+        Authorization: `Bearer ${token}`, // Add token to Authorization header
         'Content-Type': 'application/json',
       },
       body: JSON.stringify(feedbackData),
@@ -67,9 +69,11 @@ function Feedback() {
       userId: userId,
     };
 
+    const token = localStorage.getItem('token'); // Retrieve token from localStorage
     fetch('http://localhost:8081/api/feedback', {
       method: 'POST',
       headers: {
+        Authorization: `Bearer ${token}`, // Add token to Authorization header
         'Content-Type': 'application/json',
       },
       body: JSON.stringify(ratingData),

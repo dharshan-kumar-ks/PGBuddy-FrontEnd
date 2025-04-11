@@ -28,7 +28,12 @@ function NoticeBoard() {
   useEffect(() => {
     const fetchNotices = async () => {
       try {
-        const response = await axios.get('http://localhost:8081/api/notices');
+        const token = localStorage.getItem('token'); // Retrieve token from localStorage
+        const response = await axios.get('http://localhost:8081/api/notices', {
+          headers: {
+            Authorization: `Bearer ${token}`, // Add token to Authorization header
+          },
+        });
         // console.log('API Response:', response.data); // Debug log to check API response
         const formattedNotices = response.data.map((notice) => ({
           id: notice.id,

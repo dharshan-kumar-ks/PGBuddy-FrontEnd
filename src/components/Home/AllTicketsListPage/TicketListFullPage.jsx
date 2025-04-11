@@ -22,7 +22,12 @@ function TicketListFullPage() {
   useEffect(() => {
     const fetchTickets = async () => {
       try {
-        const response = await axios.get(`http://localhost:8081/api/tickets/user/${userId}`);
+        const token = localStorage.getItem('token'); // Retrieve token from localStorage
+        const response = await axios.get(`http://localhost:8081/api/tickets/user/${userId}`, {
+          headers: {
+            Authorization: `Bearer ${token}`, // Add token to Authorization header
+          },
+        });
         setTickets(response.data); // Update state with fetched tickets
       } catch (error) {
         console.error('Error fetching tickets:', error);

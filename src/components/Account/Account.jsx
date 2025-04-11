@@ -15,8 +15,13 @@ function Account() {
 
   useEffect(() => {
     const userId = localStorage.getItem('userId');
+    const token = localStorage.getItem('token'); // Retrieve token from localStorage
     if (userId) {
-      fetch(`http://localhost:8081/api/users/${userId}`)
+      fetch(`http://localhost:8081/api/users/${userId}`, {
+        headers: {
+          Authorization: `Bearer ${token}`, // Add token to Authorization header
+        },
+      })
         .then((response) => response.json())
         .then((data) => {
           setUserName(data.name);
@@ -49,6 +54,7 @@ function Account() {
           className="logout-section"
           onClick={() => {
             localStorage.removeItem('userId'); // Clear userId from localStorage
+            localStorage.removeItem('token'); // Clear token from localStorage
             navigate('/login');
           }}
         >

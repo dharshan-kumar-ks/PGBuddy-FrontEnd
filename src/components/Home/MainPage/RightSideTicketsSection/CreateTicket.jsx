@@ -1,6 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import './CreateTicket.css';
+import axiosInstance from '../../../../axiosConfig'; // Use the configured axios instance
 
 function CreateTicket() {
   const navigate = useNavigate();
@@ -19,6 +20,19 @@ function CreateTicket() {
 
   const handleCategoryClick = (category) => {
     navigate('/create-ticket-full-page', { state: { category } });
+  };
+
+  const handleSubmit = async (title, description) => {
+    const token = localStorage.getItem('token'); // Retrieve token from localStorage
+    const response = await axiosInstance.post(
+      'http://localhost:8081/api/tickets/create',
+      { title, description },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`, // Add token to Authorization header
+        },
+      }
+    ); // Use axiosInstance
   };
 
   return (
