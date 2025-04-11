@@ -11,10 +11,11 @@ function OrderHistoryPage() {
 
   useEffect(() => {
     const token = localStorage.getItem('token'); // Retrieve token from localStorage
+    const backendUrl = import.meta.env.VITE_BACKEND_URL; // Use environment variable for backend URL
 
     // Fetch order history from backend
     axios
-      .get('http://localhost:8081/api/cafe/orders', {
+      .get(`${backendUrl}/api/cafe/orders`, {
         headers: {
           Authorization: `Bearer ${token}`, // Add token to Authorization header
         },
@@ -85,7 +86,7 @@ function OrderHistoryPage() {
                     <div key={idx} className="order-item">
                       <span className="item-name">{item.cafeMenuName}</span>
                       <span className="item-quantity">x{item.quantity}</span>
-                      <span className="item-price">₹{item.cafeMenuPrice}</span>
+                      <span className="item-price">₹{(item.cafeMenuPrice * 1.05).toFixed(2)}</span>
                     </div>
                   ))}
                 </div>
@@ -97,7 +98,7 @@ function OrderHistoryPage() {
                     <FaRedo /> Repeat Order
                   </button>
                   <div className="order-total">
-                    <span>Total:</span> ₹{order.totalPrice.toFixed(2)}
+                    <span>Total:</span> ₹{(order.totalPrice * 1.05).toFixed(2)}
                   </div>
                 </div>
               </div>
