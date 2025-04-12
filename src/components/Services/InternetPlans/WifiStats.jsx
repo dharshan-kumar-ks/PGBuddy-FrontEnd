@@ -1,33 +1,79 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import './WifiStats.css';
 
 function WifiStats() {
-  // Sample data (you can replace this with dynamic data from an API)
-  const stats = {
-    planName: 'Base Plan',
-    resetDays: 23,
-    userId: '23SETBA020',
-    totalData: 105, // in GB
-    speed: 40, // in Mbps
-    maxDevices: 3,
-    dataLeft: 57.01, // in GB
+  const [stats, setStats] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const token = localStorage.getItem('token'); // Retrieve token from localStorage
+
+    fetch('http://localhost:8081/api/internet/usage', {
+      method: 'GET',
+      headers: {
+        'Authorization': `Bearer ${token}` // Add token to the Authorization header
+      }
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error('Failed to fetch data');
+        }
+        return response.json();
+      })
+      .then((data) => {
+        setStats({
+          planName: 'Base Plan',
+          resetDays: calculateResetDays(data.resetDate),
+          userId: data.userId,
+          totalData: data.totalDataGb,
+          speed: data.speedMbps,
+          maxDevices: data.maxDevices,
+          dataLeft: data.dataLeftGb,
+        });
+        setLoading(false);
+      })
+      .catch(() => {
+        // Set default values if the data is not retrieved from the backend
+        setStats({
+          planName: 'Base Plan',
+          resetDays: 0,
+          userId: 'N/A',
+          totalData: 0,
+          speed: 40,
+          maxDevices: 0,
+          dataLeft: 0,
+        });
+        setLoading(false);
+      });
+  }, []);
+
+  const calculateResetDays = (resetDate) => {
+    const today = new Date();
+    const reset = new Date(resetDate);
+    const diffTime = reset - today;
+    return Math.ceil(diffTime / (1000 * 60 * 60 * 24));
   };
 
-  // Calculate the percentage of data used for the progress bar
-  const dataUsedPercentage = (stats.dataLeft / stats.totalData) * 100;
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
+  if (error) {
+    return <div>Error: {error}</div>;
+  }
+
+  const dataUsedPercentage = stats.totalData > 0 ? (stats.dataLeft / stats.totalData) * 100 : 0;
 
   return (
     <div className="wifi-stats-container">
-      {/* Header */}
       <div className="wifi-stats-header">
         <h3>{stats.planName}</h3>
         <span className="reset-badge">Resets in {stats.resetDays} Days</span>
       </div>
 
-      {/* User ID */}
       <p className="wifi-stats-user-id">User ID: {stats.userId}</p>
 
-      {/* Stats */}
       <div className="wifi-stats-details">
         <div className="stat-item">
           <span className="stat-label">Total data</span>
@@ -43,7 +89,6 @@ function WifiStats() {
         </div>
       </div>
 
-      {/* Data Left with Progress Bar */}
       <div className="data-left-section">
         <div className="data-left-header">
           <span className="stat-label">Data Left</span>

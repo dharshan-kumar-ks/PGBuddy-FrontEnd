@@ -1,48 +1,68 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './InternetPlans.css';
 
 function InternetPlans() {
-  // State for the active tab
   const [activeTab, setActiveTab] = useState('data'); // 'data' or 'device'
+  const [dataPlans, setDataPlans] = useState([]);
+  const [devicePlans, setDevicePlans] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
-  // Sample data for add-on plans (you can replace this with API data)
-  const dataPlans = [
-    {
-      price: 236,
-      data: '75 GB',
-      validity: '22 days',
-      badge: 'Recommended',
-    },
-    {
-      price: 118,
-      data: '30 GB',
-      validity: '22 days',
-      badge: 'Previously Bought',
-    },
-    {
-      price: 23.6,
-      data: '3 GB',
-      validity: '22 days',
-      badge: null,
-    },
-  ];
+  useEffect(() => {
+    const token = localStorage.getItem('token');
 
-  const devicePlans = [
-    {
-      price: 100,
-      data: '1 Device',
-      validity: '30 days',
-      badge: null,
-    },
-    {
-      price: 180,
-      data: '2 Devices',
-      validity: '30 days',
-      badge: 'Recommended',
-    },
-  ];
+    const fetchDataPlans = fetch('http://localhost:8081/api/internet/data-add-ons', {
+      method: 'GET',
+      headers: {
+        'Authorization': `Bearer ${token}`
+      }
+    }).then((response) => {
+      if (!response.ok) {
+        throw new Error('Failed to fetch data add-ons');
+      }
+      return response.json();
+    });
 
-  // Select the plans based on the active tab
+    const fetchDevicePlans = fetch('http://localhost:8081/api/internet/device-add-ons', {
+      method: 'GET',
+      headers: {
+        'Authorization': `Bearer ${token}`
+      }
+    }).then((response) => {
+      if (!response.ok) {
+        throw new Error('Failed to fetch device add-ons');
+      }
+      return response.json();
+    });
+
+    Promise.all([fetchDataPlans, fetchDevicePlans])
+      .then(([dataAddOns, deviceAddOns]) => {
+        setDataPlans(
+          dataAddOns.map((plan) => ({
+            price: plan.price,
+            data: `${plan.data} GB`,
+            validity: `${plan.validity} days`,
+            badge: plan.recommended ? 'Recommended' : null,
+          }))
+        );
+
+        setDevicePlans(
+          deviceAddOns.map((plan) => ({
+            price: plan.price,
+            data: `${plan.devices} Device${plan.devices > 1 ? 's' : ''}`,
+            validity: `${plan.validity} days`,
+            badge: plan.recommended ? 'Recommended' : null,
+          }))
+        );
+
+        setLoading(false);
+      })
+      .catch((err) => {
+        setError(err.message);
+        setLoading(false);
+      });
+  }, []);
+
   const plans = activeTab === 'data' ? dataPlans : devicePlans;
 
   return (
@@ -65,7 +85,19 @@ function InternetPlans() {
 
       {/* Plans List */}
       <div className="plans-list">
-        {plans && plans.length > 0 ? (
+        {loading ? (
+          <div className="plan-item no-data-box">
+            <div className="no-data-message">
+              <p>Loading...</p>
+            </div>
+          </div>
+        ) : error || !plans || plans.length === 0 ? (
+          <div className="plan-item no-data-box">
+            <div className="no-data-message">
+              <p>No plans are available to show now. Please try again later.</p>
+            </div>
+          </div>
+        ) : (
           plans.map((plan, index) => (
             <div key={index} className="plan-item">
               <div className="plan-header">
@@ -85,8 +117,6 @@ function InternetPlans() {
               <button className="buy-button">Buy</button>
             </div>
           ))
-        ) : (
-          <p>No plans available.</p>
         )}
       </div>
     </div>
