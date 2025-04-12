@@ -1,0 +1,55 @@
+/* Home Container */
+.home-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  width: 100%;
+  padding: 0;
+  margin: 0;
+  padding-bottom: 100px;
+  box-sizing: border-box;
+  background-color: #1c2526;
+}
+
+/* Two-Column Layout */
+.home-wrapper {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  margin-top: 200px; /* Adjust this value based on the navbar height */
+  z-index: 1; /* Ensure it doesn't overlap with the navbar */
+}
+
+.left-column {
+  flex: 1;
+  max-width: 1200px; /* Match the max-width of NoticeBoard and Tickets */
+  min-width: 800px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.right-column {
+  flex: 1;
+  max-width: 1200px; /* Match the max-width of NoticeBoard and Tickets */
+  min-width: none;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* Responsive Design */
+@media (max-width: 600px) {
+  .home-wrapper {
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .left-column,
+  .right-column {
+    max-width: 100%;
+  }
+}

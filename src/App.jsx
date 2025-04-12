@@ -18,6 +18,8 @@ import ProfilePage from './components/Account/Profile/ProfilePage';
 import KnowledgeCentre from './components/Account/KC/KnowledgeCentre';
 import Feedback from './components/Account/Feedback/Feedback';
 //import TicketSuccessPage from './components/Home/TicketSuccessPage';
+
+import AdminNoticePage from './components/AdminPages/AdminNoticePage/AdminNoticePage';
 import './App.css';
 
 function App() {
@@ -28,6 +30,8 @@ function App() {
           <Routes>
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
+
+            {/* User Pages */}
             <Route path="/home" element={<Home />} />
             <Route path="/food" element={<Food />} />
             <Route path="/stay" element={<Stay />} />
@@ -41,7 +45,10 @@ function App() {
             <Route path="/profile" element={<ProfilePage />} />
             <Route path="/knowledge-centre" element={<KnowledgeCentre />} />
             <Route path="/feedback" element={<Feedback />} />
-             <Route path="/" element={<Login />} /> {/* Default route */}
+            <Route path="/" element={<Login />} /> {/* Default route */}
+
+            {/* Admin Pages */}
+            <Route path="/admin-notice-page" element={<AdminNoticePage />} />
           </Routes>
       </div>
     </Router>

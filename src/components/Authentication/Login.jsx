@@ -41,7 +41,30 @@ function Login() {
         localStorage.setItem('userId', responseBody.userId); // Store userId in localStorage
         localStorage.setItem('token', responseBody.token); // Store token in localStorage
         console.log(`User ID ${responseBody.userId} and token have been added to localStorage`); // Log userId and token added to localStorage
-        navigate('/home');  // Redirect to home page on successful login
+
+        // Fetch user details after successful login
+        const userDetailsResponse = await fetch(`http://localhost:8081/api/users/${responseBody.userId}`, {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${responseBody.token}` // Include token for authentication
+          }
+        });
+
+        if (!userDetailsResponse.ok) {
+          setError('Failed to fetch user details.');
+          return;
+        }
+
+        const userDetails = await userDetailsResponse.json();
+        console.log('User details:', userDetails);
+
+        // Navigate based on user type
+        if (userDetails.userType === 'ADMIN') {
+          navigate('/admin-notice-page');
+        } else {
+          navigate('/home');
+        }
       } else {
         setError('Invalid email or password'); // Show error if credentials are wrong
       }

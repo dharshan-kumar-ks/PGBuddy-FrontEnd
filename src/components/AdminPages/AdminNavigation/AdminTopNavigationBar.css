@@ -1,0 +1,62 @@
+/* TopNavigationBar.css */
+
+.top-nav {
+    display: flex;
+    justify-content: space-evenly;
+    padding: 10px 0;
+    background-color: #2c3e50;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    box-sizing: border-box;
+  }
+  
+  .nav-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: #fff;
+    font-size: 12px;
+    padding: 0 10px;
+    text-decoration: none;
+
+    background-color: transparent !important;
+    box-shadow: none !important;
+  }
+  
+  .nav-item.active {
+    color: #26a69a; /* Green color for active state */
+    font-weight: bold;
+    border-radius: 0; /* Prevents any rounded effect */
+    padding: 0; /* Ensures no extra space is added */
+
+    background-color: transparent !important;
+    box-shadow: none !important;
+  }
+
+  .nav-item:hover {
+    color: #71776f; /* Dark green color */
+    text-decoration: none; /* Ensure no underline appears */
+ }
+  
+  .nav-item .icon {
+    font-size: 20px;
+    margin-bottom: 5px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    vertical-align: middle;
+    background: none !important;  /* Ensure no background for icon emoji */
+    text-rendering: optimizeLegibility;
+    font-family: "Segoe UI Emoji", "Apple Color Emoji", "Noto Color Emoji", sans-serif;
+
+    background-color: transparent !important;
+    box-shadow: none !important;
+
+    line-height: 1;
+  }
+
