@@ -1,0 +1,134 @@
+/* Account.css */
+
+.account-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: #1c2526;
+    min-height: 100vh;
+    padding: 20px;
+    font-family: 'Arial', sans-serif;
+    color: #f3f3f3; /* Dark Gray */
+    margin-top: 200px; /* Adjust this based on your navbar height */
+  }
+  
+  .profile-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    background: #2c3e50;
+    width: 90%;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    margin-top: 0px;
+  }
+  
+  .profile-icon {
+    width: 80px; /* Increased size from 80px to 120px */
+    height: 80px; /* Increased size from 80px to 120px */
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid #2c3e50;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  }
+  
+  .user-name {
+    font-size: 20px;
+    font-weight: bold;
+    margin-top: 0px;
+  }
+  
+  .user-id {
+    font-size: 14px;
+    color: #666;
+    margin-top: -20px;
+  }
+  
+  .location {
+    font-size: 14px;
+    color: #3b82f6;
+    display: flex;
+    align-items: center;
+    margin-top: -20px;
+  }
+  
+  .location-icon {
+    margin-right: 5px;
+  }
+  
+  .account-options {
+    width: 90%;
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+  }
+  
+  .option-card {
+    background: #1d2833;
+    padding: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center; /* Changed from space-between to center */
+    border-radius: 12px;
+    margin-bottom: 10px;
+    box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    min-width: 200px;
+    gap: 10px; /* Added gap for spacing between icon and text */
+  }
+  
+  .option-icon {
+    margin-right: 10px;
+    font-size: 18px;
+  }
+  
+  .support-section {
+    width: 90%;
+    background: #2c3e50;
+    padding: 15px;
+    border-radius: 12px;
+    margin-top: 20px;
+    box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+  }
+  
+  .support-title {
+    font-weight: bold;
+    color: #d32f2f;
+  }
+  
+  .support-text {
+    font-size: 14px;
+    color: #666;
+    margin-top: 5px;
+  }
+  
+  .feedback-section {
+    width: 90%;
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+  }
+  
+  .feedback-button {
+    flex: 1;
+    background: white ;
+    padding: 15px;
+    margin: 5px;
+    text-align: center;
+    border-radius: 12px;
+    box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
+    font-size: 16px;
+    cursor: pointer;
+  }
+  
+  .logout-button {
+    margin-top: 20px;
+    color: red;
+    font-weight: bold;
+    cursor: pointer;
+  }

@@ -20,6 +20,8 @@ import Feedback from './components/Account/Feedback/Feedback';
 //import TicketSuccessPage from './components/Home/TicketSuccessPage';
 
 import AdminNoticePage from './components/AdminPages/AdminNoticePage/AdminNoticePage';
+import AdminAccount from './components/AdminPages/AdminAccount/AdminAccount';
+import ProtectedRoute from './components/AdminPages/PageProtection/ProtectedRoute';
 import './App.css';
 
 function App() {
@@ -30,25 +32,26 @@ function App() {
           <Routes>
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
-
-            {/* User Pages */}
-            <Route path="/home" element={<Home />} />
-            <Route path="/food" element={<Food />} />
-            <Route path="/stay" element={<Stay />} />
-            <Route path="/cafe" element={<Cafe />} />
-            <Route path="/services" element={<Services />} />
-            <Route path="/account" element={<Account />} />
-            <Route path="/create-ticket-full-page" element={<CreateTicketFullPage />} />
-            <Route path="/ticket-list-full-page" element={<TicketListFullPage />} />
-            <Route path="/ticket/:id" element={<IndividualTicketPage />} />
-            <Route path="/order-history" element={<OrderHistoryPage />} /> {/* Added HistoryPage route */}
-            <Route path="/profile" element={<ProfilePage />} />
-            <Route path="/knowledge-centre" element={<KnowledgeCentre />} />
-            <Route path="/feedback" element={<Feedback />} />
             <Route path="/" element={<Login />} /> {/* Default route */}
 
+            {/* User Pages */}
+            <Route path="/home" element={ <ProtectedRoute allowedRoles={['RESIDENT']}> <Home /> </ProtectedRoute> } />
+            <Route path="/food" element={ <ProtectedRoute allowedRoles={['RESIDENT']}> <Food /> </ProtectedRoute> } />
+            <Route path="/stay" element={ <ProtectedRoute allowedRoles={['RESIDENT']}> <Stay /> </ProtectedRoute> } />
+            <Route path="/cafe" element={ <ProtectedRoute allowedRoles={['RESIDENT']}> <Cafe /> </ProtectedRoute> } />
+            <Route path="/services" element={ <ProtectedRoute allowedRoles={['RESIDENT']}> <Services /> </ProtectedRoute> } />
+            <Route path="/account" element={ <ProtectedRoute allowedRoles={['RESIDENT']}> <Account /> </ProtectedRoute> } />
+            <Route path="/create-ticket-full-page" element={ <ProtectedRoute allowedRoles={['RESIDENT']}> <CreateTicketFullPage /> </ProtectedRoute> } />
+            <Route path="/ticket-list-full-page" element={ <ProtectedRoute allowedRoles={['RESIDENT']}> <TicketListFullPage /> </ProtectedRoute> } />
+            <Route path="/ticket/:id" element={ <ProtectedRoute allowedRoles={['RESIDENT']}> <IndividualTicketPage /> </ProtectedRoute> } />
+            <Route path="/order-history" element={ <ProtectedRoute allowedRoles={['RESIDENT']}> <OrderHistoryPage /> </ProtectedRoute> } />
+            <Route path="/profile" element={ <ProtectedRoute allowedRoles={['RESIDENT']}> <ProfilePage /> </ProtectedRoute> } />
+            <Route path="/knowledge-centre" element={ <ProtectedRoute allowedRoles={['RESIDENT']}> <KnowledgeCentre /> </ProtectedRoute> } />
+            <Route path="/feedback" element={ <ProtectedRoute allowedRoles={['RESIDENT']}> <Feedback /> </ProtectedRoute> } />
+            
             {/* Admin Pages */}
-            <Route path="/admin-notice-page" element={<AdminNoticePage />} />
+            <Route path="/admin-notice-page" element={ <ProtectedRoute allowedRoles={['ADMIN']}> <AdminNoticePage /> </ProtectedRoute> }/>
+            <Route path="/admin-account" element={ <ProtectedRoute allowedRoles={['ADMIN']}> <AdminAccount /> </ProtectedRoute> }/>
           </Routes>
       </div>
     </Router>

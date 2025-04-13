@@ -10,7 +10,7 @@ function AdminTopNavigationBar() {
       {/* Keep the Home icon to be highlighted when Home page is clicked or if Create tickets page is clicked */}
       <Link to="/admin-notice-page" className={`nav-item ${location.pathname === '/admin-notice-page' ? 'active' : ''}`}>
         <span className="icon">📃</span>
-        <span>Home</span>
+        <span>Notices</span>
       </Link>
       {/* 
       <Link to="/food" className={`nav-item ${location.pathname === '/food' ? 'active' : ''}`}>
@@ -18,7 +18,7 @@ function AdminTopNavigationBar() {
         <span>Food</span>
       </Link> 
       */}
-      <Link to="/account" className={`nav-item ${location.pathname === '/account' ? 'active' : '' || location.pathname === '/profile' ? 'active' : '' || location.pathname === '/knowledge-centre' ? 'active' : '' || location.pathname === '/feedback' ? 'active' : ''}`}>
+      <Link to="/admin-account" className={`nav-item ${location.pathname === '/admin-account' ? 'active' : '' || location.pathname === '/admin-profile' ? 'active' : '' || location.pathname === '/admin-knowledge-centre' ? 'active' : '' || location.pathname === '/admin-feedback' ? 'active' : ''}`}>
         <span className="icon">👤</span>
         <span>Account</span>
       </Link>

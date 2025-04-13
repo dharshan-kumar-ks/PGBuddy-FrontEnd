@@ -39,6 +39,7 @@ function Login() {
   
       if (responseBody.success) {  // Check if backend returned `success: true`
         localStorage.setItem('userId', responseBody.userId); // Store userId in localStorage
+        localStorage.setItem('userRole', responseBody.userRole); // Store userRole in localStorage
         localStorage.setItem('token', responseBody.token); // Store token in localStorage
         console.log(`User ID ${responseBody.userId} and token have been added to localStorage`); // Log userId and token added to localStorage
 

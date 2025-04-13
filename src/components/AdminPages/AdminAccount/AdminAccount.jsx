@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import './Account.css';
-import TopNavigationBar from '../Navigation/TopNavigationBar';
+import './AdminAccount.css';
+import AdminTopNavigationBar from '../AdminNavigation/AdminTopNavigationBar';
 import { useNavigate } from 'react-router-dom';
 import { FaUserCircle } from 'react-icons/fa';
 import { IoSettingsSharp } from 'react-icons/io5';
@@ -8,7 +8,7 @@ import { MdSupport, MdFeedback, MdRateReview } from 'react-icons/md';
 import { BsHouseDoor } from 'react-icons/bs';
 import { AiOutlineLogout } from 'react-icons/ai';
 
-function Account() {
+function AdminAccount() {
   const navigate = useNavigate();
   const [userName, setUserName] = useState('');
   const [userId, setUserId] = useState('');
@@ -41,7 +41,7 @@ function Account() {
   return (
     <div className="account-container">
       {/* Top Navigation */}
-      <TopNavigationBar />
+      <AdminTopNavigationBar />
 
       <div className="profile-header">
         <FaUserCircle className="profile-icon" />
@@ -91,4 +91,4 @@ function Account() {
   );
 }
 
-export default Account;
+export default AdminAccount;
