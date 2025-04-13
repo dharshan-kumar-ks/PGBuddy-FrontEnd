@@ -1,0 +1,80 @@
+.ticket-list-full-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 0px;
+  min-width: 1000px;
+  max-width: 1200px;
+  /*margin: 0 auto;*/
+  background-color: #1c2526; /* Light background to match the reference */
+  min-height: 100vh;
+  margin-left: -400px;
+  margin-top: 300px;
+}
+
+/* Page Title */
+.ticket-list-full-page h1 {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 0px;
+  color: #f8f4f4;
+}
+
+/* Layout with Filter Box */
+.ticket-list-full-page .content-with-filter {
+  display: flex;
+  justify-content: space-between; /* Space out left and right sections */
+  /*width: 100%;*/
+  max-width: 1200px; /* Constrain the width to match the layout */
+  min-width: 1000px;
+  margin: 0 auto; /* Center the content horizontally */
+  gap: 30px; /* Add spacing between the left and right sections */
+  margin-top: -20px;
+  background-color: #1c2526; 
+}
+
+.ticket-list-full-page .left-side {
+  flex: 2; /* Allocate more space to the left side */
+  /*max-width: 65%; /* Ensure the left side doesn't grow too large */
+  background-color: #1c2526; /* Add a background for better visibility */
+  padding: 0px; /* Add padding for spacing */
+  border-radius: 0px; /* Add rounded corners */
+  /*box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Add subtle shadow */
+  min-width: 1000px;
+}
+
+.ticket-list-full-page .right-side {
+  flex: 1; /* Allocate less space to the right side */
+  /*max-width: 30%; /* Ensure the right side doesn't grow too large */
+  background-color: #1c2526; /* Add a background for better visibility */
+  padding: 0px; /* Add padding for spacing */
+  border-radius: 9px; /* Add rounded corners */
+  /*box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Add subtle shadow */
+  min-width: 230px;
+  margin-top: -100px;
+}
+
+.ticket-list-full-page .main-content {
+  flex: 1;
+}
+
+.ticket-list-full-page .content-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start; /* Align content to the top */
+  flex-direction: column;
+  width: 100%;
+  padding: 20px;
+  background-color: #1c2526; /* Match the background of CreateTicketFullPage */
+}
+
+.ticket-list-full-page .centered-container {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  align-items: center; /* Center vertically */
+  width: 100%; /* Ensure it spans the full width */
+}
+
+

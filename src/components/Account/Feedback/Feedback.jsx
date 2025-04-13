@@ -1,14 +1,25 @@
 import React, { useState } from 'react';
 import './Feedback.css';
 import TopNavigationBar from '../../Navigation/TopNavigationBar';
+import AdminTopNavigationBar from '../../AdminPages/AdminNavigation/AdminTopNavigationBar';
 import { FaStar } from 'react-icons/fa';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 
-function Feedback() {
+function Feedback({ NavigationBar }) {
   const [feedback, setFeedback] = useState('');
   const [rating, setRating] = useState(0);
   const [hover, setHover] = useState(0);
   const navigate = useNavigate();
+  const location = useLocation(); // Access location to retrieve state
+
+  // Map string identifiers to actual components
+  const navigationBarMap = {
+    AdminTopNavigationBar: AdminTopNavigationBar,
+    TopNavigationBar: TopNavigationBar,
+  };
+
+  // Resolve the navigation bar component
+  const ResolvedNavigationBar = navigationBarMap[location.state?.NavigationBar] || NavigationBar;
 
   const handleFeedbackSubmit = (e) => {
     e.preventDefault();
@@ -93,7 +104,7 @@ function Feedback() {
 
   return (
     <div className="feedback-container">
-      <TopNavigationBar />
+      <ResolvedNavigationBar />
       <div className="feedback-content">
         <h1>Share Your Feedback</h1>
 

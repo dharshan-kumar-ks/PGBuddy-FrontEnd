@@ -22,6 +22,8 @@ import Feedback from './components/Account/Feedback/Feedback';
 import AdminNoticePage from './components/AdminPages/AdminNoticePage/AdminNoticePage';
 import AdminAccount from './components/AdminPages/AdminAccount/AdminAccount';
 import ProtectedRoute from './components/AdminPages/PageProtection/ProtectedRoute';
+import TopNavigationBar from './components/Navigation/TopNavigationBar';
+import AdminTopNavigationBar from './components/AdminPages/AdminNavigation/AdminTopNavigationBar';
 import './App.css';
 
 function App() {
@@ -45,13 +47,19 @@ function App() {
             <Route path="/ticket-list-full-page" element={ <ProtectedRoute allowedRoles={['RESIDENT']}> <TicketListFullPage /> </ProtectedRoute> } />
             <Route path="/ticket/:id" element={ <ProtectedRoute allowedRoles={['RESIDENT']}> <IndividualTicketPage /> </ProtectedRoute> } />
             <Route path="/order-history" element={ <ProtectedRoute allowedRoles={['RESIDENT']}> <OrderHistoryPage /> </ProtectedRoute> } />
-            <Route path="/profile" element={ <ProtectedRoute allowedRoles={['RESIDENT']}> <ProfilePage /> </ProtectedRoute> } />
-            <Route path="/knowledge-centre" element={ <ProtectedRoute allowedRoles={['RESIDENT']}> <KnowledgeCentre /> </ProtectedRoute> } />
-            <Route path="/feedback" element={ <ProtectedRoute allowedRoles={['RESIDENT']}> <Feedback /> </ProtectedRoute> } />
             
             {/* Admin Pages */}
             <Route path="/admin-notice-page" element={ <ProtectedRoute allowedRoles={['ADMIN']}> <AdminNoticePage /> </ProtectedRoute> }/>
             <Route path="/admin-account" element={ <ProtectedRoute allowedRoles={['ADMIN']}> <AdminAccount /> </ProtectedRoute> }/>
+
+            {/* Common Pages */}
+            {/* Render the navigation bar according to the userRole - Admin or resident */}
+            <Route path="/profile" element={ <ProtectedRoute allowedRoles={['RESIDENT', 'ADMIN']}>
+                  <ProfilePage NavigationBar={ location.state?.NavigationBar === 'AdminTopNavigationBar' ? AdminTopNavigationBar: TopNavigationBar} /> </ProtectedRoute> } />
+            <Route path="/knowledge-centre" element={ <ProtectedRoute allowedRoles={['RESIDENT', 'ADMIN']}>
+                  <KnowledgeCentre NavigationBar={ location.state?.NavigationBar === 'AdminTopNavigationBar' ? AdminTopNavigationBar: TopNavigationBar} /> </ProtectedRoute> } />
+            <Route path="/feedback" element={ <ProtectedRoute allowedRoles={['RESIDENT', 'ADMIN']}>
+                  <Feedback NavigationBar={ location.state?.NavigationBar === 'AdminTopNavigationBar' ? AdminTopNavigationBar: TopNavigationBar} /> </ProtectedRoute> } />
           </Routes>
       </div>
     </Router>

@@ -64,10 +64,10 @@ function Account() {
       </div>
 
       <div className="options-section">
-        <button className="option-card" onClick={() => navigate('/profile')}>
+        <button className="option-card" onClick={() => navigate('/profile', { state: { NavigationBar: 'TopNavigationBar' } })}>
           <IoSettingsSharp /> Profile Information
         </button>
-        <button className="option-card" onClick={() => navigate('/knowledge-centre')}>
+        <button className="option-card" onClick={() => navigate('/knowledge-centre', { state: { NavigationBar: 'TopNavigationBar' } })}>
           <IoSettingsSharp /> Knowledge Centre
         </button>
         <button className="option-card" onClick={() => navigate('/ticket-list-full-page')}>
@@ -77,10 +77,10 @@ function Account() {
 
       <div className="support-section">
         <div className="support-options">
-          <button className="option-card" onClick={() => navigate('/feedback')}>
+          <button className="option-card" onClick={() => navigate('/feedback', { state: { NavigationBar: 'TopNavigationBar' } })}>
             <MdFeedback /> Share Feedback
           </button>
-          <button className="option-card" onClick={() => navigate('/feedback')}>
+          <button className="option-card" onClick={() => navigate('/feedback', { state: { NavigationBar: 'TopNavigationBar' } })}>
             <MdRateReview /> Rate our App
           </button>
         </div>

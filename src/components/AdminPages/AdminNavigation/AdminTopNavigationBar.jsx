@@ -18,7 +18,7 @@ function AdminTopNavigationBar() {
         <span>Food</span>
       </Link> 
       */}
-      <Link to="/admin-account" className={`nav-item ${location.pathname === '/admin-account' ? 'active' : '' || location.pathname === '/admin-profile' ? 'active' : '' || location.pathname === '/admin-knowledge-centre' ? 'active' : '' || location.pathname === '/admin-feedback' ? 'active' : ''}`}>
+      <Link to="/admin-account" className={`nav-item ${location.pathname === '/admin-account' ? 'active' : '' || location.pathname === '/profile' ? 'active' : '' || location.pathname === '/knowledge-centre' ? 'active' : '' || location.pathname === '/feedback' ? 'active' : ''}`}>
         <span className="icon">👤</span>
         <span>Account</span>
       </Link>

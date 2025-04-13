@@ -1,6 +1,8 @@
 import React from 'react';
 import './KnowledgeCentre.css';
 import TopNavigationBar from '../../Navigation/TopNavigationBar';
+import AdminTopNavigationBar from '../../AdminPages/AdminNavigation/AdminTopNavigationBar';
+import { useLocation } from 'react-router-dom';
 
 // Sample staff data (you can replace this with actual data from a backend)
 const staffData = [
@@ -88,10 +90,21 @@ const groupedHouseRules = [
   },
 ];
 
-function KnowledgeCentre() {
+function KnowledgeCentre({ NavigationBar }) {
+  const location = useLocation(); // Access location to retrieve state
+
+  // Map string identifiers to actual components
+  const navigationBarMap = {
+    AdminTopNavigationBar: AdminTopNavigationBar,
+    TopNavigationBar: TopNavigationBar,
+  };
+
+  // Resolve the navigation bar component
+  const ResolvedNavigationBar = navigationBarMap[location.state?.NavigationBar] || NavigationBar;
+
   return (
     <div className="knowledge-centre-container">
-      <TopNavigationBar />
+      <ResolvedNavigationBar />
       <div className="knowledge-centre-content">
         {/* Left Section: House Rules */}
         <div className="house-rules-section">

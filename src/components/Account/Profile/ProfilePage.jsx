@@ -1,8 +1,23 @@
 import React, { useState, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import './ProfilePage.css';
 import TopNavigationBar from '../../Navigation/TopNavigationBar';
+import AdminTopNavigationBar from '../../AdminPages/AdminNavigation/AdminTopNavigationBar';
 
-function ProfilePage() {
+// passing NavigationBar as a prop to ProfilePage 
+// Dynamically change the NavigationBar for Admin and Resident users
+function ProfilePage({ NavigationBar }) {
+  const location = useLocation(); // Access location to retrieve state
+
+  // Map string identifiers to actual components
+  const navigationBarMap = {
+    AdminTopNavigationBar: AdminTopNavigationBar,
+    TopNavigationBar: TopNavigationBar,
+  };
+
+  // Resolve the navigation bar component
+  const SelectedNavigationBar = navigationBarMap[location.state?.NavigationBar] || NavigationBar;
+
   const [user, setUser] = useState({
     fullName: '',
     dob: '',
@@ -125,7 +140,7 @@ function ProfilePage() {
 
   return (
     <div className="profile-page-container">
-      <TopNavigationBar />
+      <SelectedNavigationBar />
       <div className="profile-content">
         <h1>Profile Information</h1>
         <div className="profile-card">
