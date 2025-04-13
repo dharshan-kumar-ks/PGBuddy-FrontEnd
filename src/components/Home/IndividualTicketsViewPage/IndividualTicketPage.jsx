@@ -1,12 +1,16 @@
 import React from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import TopNavigationBar from '../../Navigation/TopNavigationBar';
+import AdminTopNavigationBar from '../../AdminPages/AdminNavigation/AdminTopNavigationBar';
 import './IndividualTicketPage.css';
 
 function IndividualTicketPage() {
   const location = useLocation();
   const navigate = useNavigate();
   const { ticket } = location.state || {}; // Get the ticket data passed from TicketListFullPage
+
+  const userRole = localStorage.getItem('userRole'); // Retrieve user role from localStorage
+  const NavigationBar = userRole === 'ADMIN' ? AdminTopNavigationBar : TopNavigationBar;
 
   // Sample chat messages (placeholder for future WebSocket implementation)
   const chatMessages = [
@@ -19,7 +23,7 @@ function IndividualTicketPage() {
   if (!ticket) {
     return (
       <div className="individual-ticket-page-container">
-        <TopNavigationBar />
+        <NavigationBar />
         <header className="individual-ticket-page-header">Ticket Not Found</header>
         <p className="individual-ticket-page-category-text">Please select a ticket from the list.</p>
         <div className="individual-ticket-page-form-actions">
@@ -33,7 +37,7 @@ function IndividualTicketPage() {
 
   return (
     <div className="individual-ticket-page-container">
-      <TopNavigationBar />
+      <NavigationBar />
       <header className="individual-ticket-page-header">Ticket #{ticket.id}</header>
       <p className="individual-ticket-page-category-text">{ticket.category}</p>
       <div className="individual-ticket-page-form-grid">

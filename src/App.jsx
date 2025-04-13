@@ -44,8 +44,6 @@ function App() {
             <Route path="/services" element={ <ProtectedRoute allowedRoles={['RESIDENT']}> <Services /> </ProtectedRoute> } />
             <Route path="/account" element={ <ProtectedRoute allowedRoles={['RESIDENT']}> <Account /> </ProtectedRoute> } />
             <Route path="/create-ticket-full-page" element={ <ProtectedRoute allowedRoles={['RESIDENT']}> <CreateTicketFullPage /> </ProtectedRoute> } />
-            <Route path="/ticket-list-full-page" element={ <ProtectedRoute allowedRoles={['RESIDENT']}> <TicketListFullPage /> </ProtectedRoute> } />
-            <Route path="/ticket/:id" element={ <ProtectedRoute allowedRoles={['RESIDENT']}> <IndividualTicketPage /> </ProtectedRoute> } />
             <Route path="/order-history" element={ <ProtectedRoute allowedRoles={['RESIDENT']}> <OrderHistoryPage /> </ProtectedRoute> } />
             
             {/* Admin Pages */}
@@ -60,6 +58,10 @@ function App() {
                   <KnowledgeCentre NavigationBar={ location.state?.NavigationBar === 'AdminTopNavigationBar' ? AdminTopNavigationBar: TopNavigationBar} /> </ProtectedRoute> } />
             <Route path="/feedback" element={ <ProtectedRoute allowedRoles={['RESIDENT', 'ADMIN']}>
                   <Feedback NavigationBar={ location.state?.NavigationBar === 'AdminTopNavigationBar' ? AdminTopNavigationBar: TopNavigationBar} /> </ProtectedRoute> } />
+            <Route path="/ticket-list-full-page" element={ <ProtectedRoute allowedRoles={['RESIDENT', 'ADMIN']}>
+                  <TicketListFullPage NavigationBar={ location.state?.NavigationBar === 'AdminTopNavigationBar' ? AdminTopNavigationBar: TopNavigationBar} /> </ProtectedRoute> } />
+            <Route path="/ticket/:id" element={ <ProtectedRoute allowedRoles={['RESIDENT', 'ADMIN']}>
+                  <IndividualTicketPage NavigationBar={ location.state?.NavigationBar === 'AdminTopNavigationBar' ? AdminTopNavigationBar: TopNavigationBar} /> </ProtectedRoute> } />
           </Routes>
       </div>
     </Router>
