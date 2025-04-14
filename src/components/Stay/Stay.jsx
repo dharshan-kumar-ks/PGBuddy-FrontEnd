@@ -15,6 +15,7 @@ function Stay() {
     outstanding: '₹0',
   });
 
+  /*
   useEffect(() => {
     const fetchData = async () => {
       const token = localStorage.getItem('token'); // Retrieve token from localStorage
@@ -28,6 +29,7 @@ function Stay() {
 
     fetchData();
   }, []);
+  */
 
   return (
     <div className="stay-container">

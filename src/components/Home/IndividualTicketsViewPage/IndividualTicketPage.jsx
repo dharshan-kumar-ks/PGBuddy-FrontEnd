@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { Stomp } from '@stomp/stompjs';
 import TopNavigationBar from '../../Navigation/TopNavigationBar';
 import AdminTopNavigationBar from '../../AdminPages/AdminNavigation/AdminTopNavigationBar';
 import './IndividualTicketPage.css';
@@ -7,18 +8,75 @@ import './IndividualTicketPage.css';
 function IndividualTicketPage() {
   const location = useLocation();
   const navigate = useNavigate();
-  const { ticket } = location.state || {}; // Get the ticket data passed from TicketListFullPage
+  const { ticket } = location.state || {};
 
-  const userRole = localStorage.getItem('userRole'); // Retrieve user role from localStorage
+  const userRole = localStorage.getItem('userRole');
+  const userName = localStorage.getItem('userName');
+  const token = localStorage.getItem('token');
   const NavigationBar = userRole === 'ADMIN' ? AdminTopNavigationBar : TopNavigationBar;
 
-  // Sample chat messages (placeholder for future WebSocket implementation)
-  const chatMessages = [
-    { sender: 'User', message: 'Hi, I ordered the wrong product. Can you help?', timestamp: '07/11/2023, 06:25AM' },
-    { sender: 'Support', message: 'Hello! Sure, I can help with that. Can you provide the order number?', timestamp: '07/11/2023, 06:30AM' },
-    { sender: 'User', message: 'It’s Order #12345.', timestamp: '07/11/2023, 06:32AM' },
-    { sender: 'Support', message: 'Thank you. I’ve found your order. Let’s process a return for you.', timestamp: '07/11/2023, 06:35AM' },
-  ];
+  const [messages, setMessages] = useState([]);
+  const [newMessage, setNewMessage] = useState('');
+  const [stompClient, setStompClient] = useState(null);
+
+  useEffect(() => {
+    console.log('useEffect triggered. Dependencies:', { ticketId: ticket?.id, stompClient });
+
+    if (!ticket?.id || !token) {
+      console.warn('Missing ticket ID or token. Skipping WebSocket initialization.');
+      return;
+    }
+
+    console.log('Initializing native WebSocket connection...');
+    const ws = new WebSocket(`ws://localhost:8081/ws?token=${token}`);
+    const client = Stomp.over(ws);
+    client.debug = (msg) => console.log('STOMP Debug:', msg);
+
+    client.connect(
+      { Authorization: `Bearer ${token}` },
+      () => {
+        console.log('WebSocket connected successfully.');
+        client.subscribe(`/user/${ticket.id}/queue/messages`, (message) => {
+          console.log('Received message:', message.body);
+          const chatMessage = JSON.parse(message.body);
+          setMessages((prevMessages) => [...prevMessages, chatMessage]);
+        });
+      },
+      (error) => {
+        console.error('WebSocket connection error:', error);
+      }
+    );
+
+    setStompClient(client);
+    console.log('WebSocket client initialized.');
+
+    return () => {
+      console.log('Cleaning up WebSocket connection...');
+      if (client.connected) {
+        client.disconnect(() => {
+          console.log('WebSocket disconnected successfully.');
+        });
+      } else {
+        console.warn('WebSocket was not connected during cleanup.');
+      }
+    };
+  }, [ticket?.id]);
+
+  const sendMessage = () => {
+    const chatMessage = {
+      sender: userName,
+      receiver: ticket.id,
+      content: newMessage,
+      timestamp: new Date().toLocaleString(),
+    };
+
+    if (stompClient && stompClient.connected) {
+      stompClient.send('/app/chat', {}, JSON.stringify(chatMessage));
+      setNewMessage('');
+    } else {
+      console.error('WebSocket is not connected.');
+    }
+  };
 
   if (!ticket) {
     return (
@@ -45,16 +103,16 @@ function IndividualTicketPage() {
         <div className="individual-ticket-page-left-column">
           <div className="individual-ticket-page-chat-box">
             <div className="individual-ticket-page-chat-messages">
-              {chatMessages.map((msg, index) => (
+              {messages.map((msg, index) => (
                 <div
                   key={index}
                   className={`individual-ticket-page-chat-message ${
-                    msg.sender === 'User' ? 'individual-ticket-page-user-message' : 'individual-ticket-page-support-message'
+                    msg.sender === userName ? 'individual-ticket-page-user-message' : 'individual-ticket-page-support-message'
                   }`}
                 >
                   <div className="individual-ticket-page-message-content">
                     <span className="individual-ticket-page-sender">{msg.sender}</span>
-                    <p>{msg.message}</p>
+                    <p>{msg.content}</p>
                     <span className="individual-ticket-page-timestamp">{msg.timestamp}</span>
                   </div>
                 </div>
@@ -63,15 +121,16 @@ function IndividualTicketPage() {
             <div className="individual-ticket-page-chat-input">
               <input
                 type="text"
+                value={newMessage}
+                onChange={(e) => setNewMessage(e.target.value)}
                 placeholder="Type your message..."
-                // disabled // Disable for now since WebSocket isn't implemented
               />
-              <button>Send</button>
+              <button onClick={sendMessage}>Send</button>
             </div>
           </div>
         </div>
 
-        {/* Right Column: Ticket Details (Display Only) */}
+        {/* Right Column: Ticket Details */}
         <div className="individual-ticket-page-right-column">
           <div className="individual-ticket-page-right-column-box">
             <div className="individual-ticket-page-form-group ">

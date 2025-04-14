@@ -7,6 +7,7 @@ import './Ledger.css';
 function Ledger({ dues = '₹0', amountPaid = '₹0', outstanding = '₹0' }) {
   const [ledgerData, setLedgerData] = useState(null);
 
+  /*
   useEffect(() => {
     const fetchLedgerData = async () => {
       const token = localStorage.getItem('token'); // Retrieve token from localStorage
@@ -20,6 +21,7 @@ function Ledger({ dues = '₹0', amountPaid = '₹0', outstanding = '₹0' }) {
 
     fetchLedgerData();
   }, []);
+  */
 
   return (
     <div className="ledger-container">
