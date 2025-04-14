@@ -26,6 +26,8 @@ import TopNavigationBar from './components/Navigation/TopNavigationBar';
 import AdminTopNavigationBar from './components/AdminPages/AdminNavigation/AdminTopNavigationBar';
 import './App.css';
 
+import Chat from './errorHandling/Chat'; // Corrected the import path for the Chat component
+
 function App() {
   return (
     <Router>
@@ -62,6 +64,9 @@ function App() {
                   <TicketListFullPage NavigationBar={ location.state?.NavigationBar === 'AdminTopNavigationBar' ? AdminTopNavigationBar: TopNavigationBar} /> </ProtectedRoute> } />
             <Route path="/ticket/:id" element={ <ProtectedRoute allowedRoles={['RESIDENT', 'ADMIN']}>
                   <IndividualTicketPage NavigationBar={ location.state?.NavigationBar === 'AdminTopNavigationBar' ? AdminTopNavigationBar: TopNavigationBar} /> </ProtectedRoute> } />
+
+            {/* <Test Pages> */}
+            <Route path="/test" element={<Chat />} />
           </Routes>
       </div>
     </Router>

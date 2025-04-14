@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { Stomp } from '@stomp/stompjs';
+import SockJS from 'sockjs-client';
 import TopNavigationBar from '../../Navigation/TopNavigationBar';
 import AdminTopNavigationBar from '../../AdminPages/AdminNavigation/AdminTopNavigationBar';
 import './IndividualTicketPage.css';
@@ -28,8 +29,10 @@ function IndividualTicketPage() {
     }
 
     console.log('Initializing native WebSocket connection...');
-    const ws = new WebSocket(`ws://localhost:8081/ws?token=${token}`);
-    const client = Stomp.over(ws);
+    //const ws = new WebSocket(`ws://localhost:8081/ws?token=${token}`);
+    //const client = Stomp.over(ws);
+    const socket = new SockJS(`http://localhost:8081/ws?token=${token}`);
+    const client = Stomp.over(socket);
     client.debug = (msg) => console.log('STOMP Debug:', msg);
 
     client.connect(
