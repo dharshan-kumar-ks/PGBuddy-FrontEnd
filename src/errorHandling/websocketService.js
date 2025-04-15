@@ -36,7 +36,12 @@ export const sendMessage = (message) => {
 };
 
 export const disconnectWebSocket = () => {
-    if (stompClient) {
-        stompClient.disconnect();
+    if (stompClient && stompClient.connected) {
+        console.log('Disconnecting WebSocket...');
+        stompClient.disconnect(() => {
+            console.log('WebSocket disconnected successfully.');
+        });
+    } else {
+        console.warn('WebSocket is not connected. Skipping disconnect.');
     }
 };

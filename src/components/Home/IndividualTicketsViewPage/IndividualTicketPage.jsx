@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { Stomp } from '@stomp/stompjs';
-import SockJS from 'sockjs-client';
+import { connectWebSocket, sendMessage, disconnectWebSocket } from '../../../errorHandling/websocketService';
 import TopNavigationBar from '../../Navigation/TopNavigationBar';
 import AdminTopNavigationBar from '../../AdminPages/AdminNavigation/AdminTopNavigationBar';
 import './IndividualTicketPage.css';
+import axios from 'axios';
 
 function IndividualTicketPage() {
   const location = useLocation();
@@ -12,73 +12,88 @@ function IndividualTicketPage() {
   const { ticket } = location.state || {};
 
   const userRole = localStorage.getItem('userRole');
-  const userName = localStorage.getItem('userName');
-  const token = localStorage.getItem('token');
   const NavigationBar = userRole === 'ADMIN' ? AdminTopNavigationBar : TopNavigationBar;
 
   const [messages, setMessages] = useState([]);
   const [newMessage, setNewMessage] = useState('');
-  const [stompClient, setStompClient] = useState(null);
+  const [isConnected, setIsConnected] = useState(false);
+  const messagesEndRef = useRef(null);
+  const [assignedToName, setAssignedToName] = useState('');
+  const [userName, setUserName] = useState('');
+  const [recipient, setRecipient] = useState('');
+
+  const scrollToBottom = () => {
+    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+  };
 
   useEffect(() => {
-    console.log('useEffect triggered. Dependencies:', { ticketId: ticket?.id, stompClient });
+    scrollToBottom();
+  }, [messages]);
 
-    if (!ticket?.id || !token) {
-      console.warn('Missing ticket ID or token. Skipping WebSocket initialization.');
+  useEffect(() => {
+    console.log('useEffect triggered. Dependencies:', { ticketId: ticket?.id });
+
+    if (!ticket?.id) {
+      console.warn('Missing ticket ID. Skipping WebSocket initialization.');
       return;
     }
 
-    console.log('Initializing native WebSocket connection...');
-    //const ws = new WebSocket(`ws://localhost:8081/ws?token=${token}`);
-    //const client = Stomp.over(ws);
-    const socket = new SockJS(`http://localhost:8081/ws?token=${token}`);
-    const client = Stomp.over(socket);
-    client.debug = (msg) => console.log('STOMP Debug:', msg);
+    const onMessageReceived = (chatMessage) => {
+      console.log('Received message:', chatMessage);
+      setMessages((prevMessages) => [...prevMessages, chatMessage]);
+    };
 
-    client.connect(
-      { Authorization: `Bearer ${token}` },
-      () => {
-        console.log('WebSocket connected successfully.');
-        client.subscribe(`/user/${ticket.id}/queue/messages`, (message) => {
-          console.log('Received message:', message.body);
-          const chatMessage = JSON.parse(message.body);
-          setMessages((prevMessages) => [...prevMessages, chatMessage]);
-        });
-      },
-      (error) => {
-        console.error('WebSocket connection error:', error);
-      }
-    );
-
-    setStompClient(client);
-    console.log('WebSocket client initialized.');
+    connectWebSocket(userName, onMessageReceived);
 
     return () => {
       console.log('Cleaning up WebSocket connection...');
-      if (client.connected) {
-        client.disconnect(() => {
-          console.log('WebSocket disconnected successfully.');
-        });
-      } else {
-        console.warn('WebSocket was not connected during cleanup.');
-      }
+      disconnectWebSocket();
     };
   }, [ticket?.id]);
 
-  const sendMessage = () => {
+  useEffect(() => {
+    if (ticket?.assignedTo) {
+      axios
+        .get(`http://localhost:8081/api/users/${ticket.assignedTo}`)
+        .then((response) => {
+          setAssignedToName(response.data.name);
+          setRecipient(response.data.name); // Combine logic to set recipient
+          console.log('Fetched assignedToName and recipient:', response.data.name);
+        })
+        .catch((error) => {
+          console.error('Error fetching assignedToName:', error);
+        });
+    }
+  }, [ticket?.assignedTo]);
+
+  useEffect(() => {
+    const userId = localStorage.getItem('userId');
+    if (!userId) {
+      console.error('User ID not found in localStorage.');
+      return;
+    }
+
+    // Fetch userName for the current user
+    axios
+      .get(`http://localhost:8081/api/users/${userId}`)
+      .then((response) => {
+        setUserName(response.data.name);
+        console.log('Fetched userName:', response.data.name);
+      })
+      .catch((error) => {
+        console.error('Error fetching userName:', error);
+      });
+  }, []);
+
+  const handleSendMessage = () => {
+    if (!newMessage.trim()) return;
     const chatMessage = {
       sender: userName,
-      receiver: ticket.id,
+      recipient: recipient,
       content: newMessage,
-      timestamp: new Date().toLocaleString(),
     };
-
-    if (stompClient && stompClient.connected) {
-      stompClient.send('/app/chat', {}, JSON.stringify(chatMessage));
-      setNewMessage('');
-    } else {
-      console.error('WebSocket is not connected.');
-    }
+    sendMessage(chatMessage);
+    setNewMessage('');
   };
 
   if (!ticket) {
@@ -120,6 +135,7 @@ function IndividualTicketPage() {
                   </div>
                 </div>
               ))}
+              <div ref={messagesEndRef} />
             </div>
             <div className="individual-ticket-page-chat-input">
               <input
@@ -128,7 +144,7 @@ function IndividualTicketPage() {
                 onChange={(e) => setNewMessage(e.target.value)}
                 placeholder="Type your message..."
               />
-              <button onClick={sendMessage}>Send</button>
+              <button onClick={handleSendMessage}>Send</button>
             </div>
           </div>
         </div>
@@ -136,35 +152,30 @@ function IndividualTicketPage() {
         {/* Right Column: Ticket Details */}
         <div className="individual-ticket-page-right-column">
           <div className="individual-ticket-page-right-column-box">
-            <div className="individual-ticket-page-form-group ">
+            <div className="individual-ticket-page-form-group">
               <label>Ticket Title</label>
               <p className="individual-ticket-page-ticket-title-field">{ticket.title}</p>
             </div>
-
             <div className="individual-ticket-page-form-group">
               <label>Priority</label>
               <p className={`individual-ticket-page-display-field individual-ticket-page-priority ${ticket.priority.toLowerCase()}`}>
                 {ticket.priority}
               </p>
             </div>
-
             <div className="individual-ticket-page-form-group">
               <label>Ticket Type</label>
               <p className="individual-ticket-page-display-field">{ticket.category}</p>
             </div>
-
             <div className="individual-ticket-page-form-group">
               <label>Status</label>
               <p className={`individual-ticket-page-display-field individual-ticket-page-status ${ticket.status.toLowerCase()}`}>
                 {ticket.status}
               </p>
             </div>
-
             <div className="individual-ticket-page-form-group">
               <label>Assigned To</label>
-              <p className="individual-ticket-page-display-field">{ticket.assignedTo}</p>
+              <p className="individual-ticket-page-display-field">{assignedToName || 'Loading...'}</p>
             </div>
-
             <div className="individual-ticket-page-form-group">
               <label>Request Date</label>
               <p className="individual-ticket-page-display-field">{ticket.requestDate}</p>

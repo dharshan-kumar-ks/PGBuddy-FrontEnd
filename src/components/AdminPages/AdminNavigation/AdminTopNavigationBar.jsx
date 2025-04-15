@@ -5,8 +5,6 @@ import './AdminTopNavigationBar.css';
 function AdminTopNavigationBar() {
   const location = useLocation();
   const navigate = useNavigate();
-  const userRole = localStorage.getItem('userRole'); // Retrieve user role from localStorage
-  const NavigationBar = userRole === 'ADMIN' ? AdminTopNavigationBar : TopNavigationBar;
 
   return (
     <nav className="top-nav">
