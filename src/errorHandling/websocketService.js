@@ -4,13 +4,25 @@ import Stomp from 'stompjs';
 let stompClient = null;
 
 export const connectWebSocket = (username, onMessageReceived) => {
-    const socket = new SockJS('/chat'); // Use relative path with proxy
+    //const socket = new SockJS('/chat'); // Use relative path with proxy
+    // Pass the username as a query parameter
+    const socket = new SockJS(`/chat?username=${encodeURIComponent(username)}`);
     stompClient = Stomp.over(socket);
     
     stompClient.connect({}, (frame) => {
         console.log('Connected: ' + frame);
-        stompClient.subscribe(`/user/${username}/queue/messages`, (message) => {
-            onMessageReceived(JSON.parse(message.body));
+        console.log('Subscribing to:', `/user/${username}/queue/messages`);
+        /*
+        stompClient.subscribe(`/queue/messages-user${stompClient.ws._transport.url.split('/').pop()}`, (message) => {
+            const receivedMessage = JSON.parse(message.body);
+            console.log('Message received from backend:', receivedMessage);
+            onMessageReceived(receivedMessage);
+        });
+        */
+        stompClient.subscribe('/user/queue/messages', (message) => {
+            const receivedMessage = JSON.parse(message.body);
+            console.log('Message received from backend:', receivedMessage);
+            onMessageReceived(receivedMessage);
         });
     }, (error) => {
         console.error('WebSocket error: ', error);
