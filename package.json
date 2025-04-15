@@ -16,6 +16,8 @@
     "react-dom": "^18.3.1",
     "react-icons": "^5.5.0",
     "react-router-dom": "^7.4.0",
+    "react-stomp": "^5.1.0",
+    "sockjs": "^0.3.24",
     "sockjs-client": "^1.6.1"
   },
   "devDependencies": {

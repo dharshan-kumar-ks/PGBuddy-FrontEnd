@@ -1,118 +1,108 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Client } from '@stomp/stompjs';
+import { connectWebSocket, sendMessage, disconnectWebSocket } from './websocketService';
+import './Chat.css';
 
 const Chat = () => {
-    const [messages, setMessages] = useState([]);
-    const [user, setUser] = useState('');
+    const [username, setUsername] = useState('');
+    const [recipient, setRecipient] = useState('');
     const [message, setMessage] = useState('');
-    const [connected, setConnected] = useState(false);
-    const clientRef = useRef(null);
+    const [messages, setMessages] = useState([]);
+    const [isConnected, setIsConnected] = useState(false);
+    const messagesEndRef = useRef(null);
+
+    const scrollToBottom = () => {
+        messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+    };
+
+    useEffect(() => {
+        scrollToBottom();
+    }, [messages]);
 
     useEffect(() => {
         return () => {
-            if (clientRef.current) {
-                clientRef.current.deactivate();
-            }
+            disconnectWebSocket();
         };
     }, []);
 
-    const connect = () => {
-        if (!user) return;
-
-        const client = new Client({
-            brokerURL: 'ws://localhost:8081/ws', // Updated to port 8081
-            debug: function(str) {
-                console.log(str); // Helpful for debugging
-            },
-            reconnectDelay: 5000,
-            heartbeatIncoming: 4000,
-            heartbeatOutgoing: 4000,
-            onConnect: () => {
-                setConnected(true);
-                client.subscribe('/topic/public', (message) => {
-                    const newMessage = JSON.parse(message.body);
-                    setMessages(prev => [...prev, newMessage]);
-                });
-                
-                client.publish({
-                    destination: '/app/chat.addUser',
-                    body: JSON.stringify({
-                        sender: user,
-                        type: 'JOIN'
-                    })
-                });
-            },
-            onStompError: (frame) => {
-                console.error('Broker reported error: ' + frame.headers['message']);
-                console.error('Additional details: ' + frame.body);
-            }
-        });
-
-        client.activate();
-        clientRef.current = client;
-    };
-
-    const sendMessage = () => {
-        if (message.trim() && clientRef.current) {
-            const chatMessage = {
-                sender: user,
-                content: message,
-                type: 'CHAT'
-            };
-            
-            clientRef.current.publish({
-                destination: '/app/chat.sendMessage',
-                body: JSON.stringify(chatMessage)
+    const handleConnect = () => {
+        if (username) {
+            connectWebSocket(username, (msg) => {
+                setMessages((prev) => [...prev, msg]);
             });
-            setMessage('');
+            setIsConnected(true);
         }
     };
 
-    const handleDisconnect = () => {
-        if (clientRef.current) {
-            clientRef.current.deactivate();
-            setConnected(false);
+    const handleSendMessage = (e) => {
+        e.preventDefault();
+        if (message && recipient) {
+            const chatMessage = {
+                sender: username,
+                recipient: recipient,
+                content: message,
+            };
+            sendMessage(chatMessage);
+            setMessage('');
         }
     };
 
     return (
         <div className="chat-container">
-            {!connected ? (
-                <div className="connect-container">
+            {!isConnected ? (
+                <div className="connect-box">
+                    <h2>Enter Username</h2>
                     <input
                         type="text"
-                        placeholder="Enter your username"
-                        value={user}
-                        onChange={(e) => setUser(e.target.value)}
+                        value={username}
+                        onChange={(e) => setUsername(e.target.value)}
+                        placeholder="Your username"
+                        className="input-field"
                     />
-                    <button onClick={connect}>Connect</button>
+                    <button onClick={handleConnect} className="connect-button">
+                        Connect
+                    </button>
                 </div>
             ) : (
                 <div className="chat-box">
+                    <div className="chat-header">
+                        <h2>Chat as {username}</h2>
+                    </div>
                     <div className="messages">
                         {messages.map((msg, index) => (
-                            <div key={index} className={`message ${msg.sender === user ? 'sent' : 'received'}`}>
-                                {msg.type === 'JOIN' || msg.type === 'LEAVE' ? (
-                                    <div className="notification">{msg.sender} {msg.type === 'JOIN' ? 'joined' : 'left'} the chat</div>
-                                ) : (
-                                    <>
-                                        <div className="sender">{msg.sender}</div>
-                                        <div className="content">{msg.content}</div>
-                                    </>
-                                )}
+                            <div
+                                key={index}
+                                className={`message ${
+                                    msg.sender === username ? 'message-right' : 'message-left'
+                                }`}
+                            >
+                                <span className="message-meta">
+                                    {msg.sender} ({msg.timestamp})
+                                </span>
+                                <div className="message-content">{msg.content}</div>
                             </div>
                         ))}
+                        <div ref={messagesEndRef} />
                     </div>
-                    <div className="message-input">
+                    <div className="input-box">
                         <input
                             type="text"
-                            value={message}
-                            onChange={(e) => setMessage(e.target.value)}
-                            onKeyPress={(e) => e.key === 'Enter' && sendMessage()}
-                            placeholder="Type a message..."
+                            value={recipient}
+                            onChange={(e) => setRecipient(e.target.value)}
+                            placeholder="Recipient username"
+                            className="input-field"
                         />
-                        <button onClick={sendMessage}>Send</button>
-                        <button onClick={handleDisconnect}>Disconnect</button>
+                        <div className="message-input">
+                            <input
+                                type="text"
+                                value={message}
+                                onChange={(e) => setMessage(e.target.value)}
+                                placeholder="Type a message"
+                                className="input-field"
+                            />
+                            <button onClick={handleSendMessage} className="send-button">
+                                Send
+                            </button>
+                        </div>
                     </div>
                 </div>
             )}
