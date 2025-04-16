@@ -21,6 +21,7 @@ function IndividualTicketPage() {
   const [assignedToName, setAssignedToName] = useState('');
   const [userName, setUserName] = useState('');
   const [recipient, setRecipient] = useState('');
+  const [createdByName, setCreatedByName] = useState('');
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -56,15 +57,32 @@ function IndividualTicketPage() {
       axios
         .get(`http://localhost:8081/api/users/${ticket.assignedTo}`)
         .then((response) => {
+          if (userRole !== 'ADMIN') {
+            setRecipient(response.data.name); // Retain existing logic for non-ADMIN users
+          }
           setAssignedToName(response.data.name);
-          setRecipient(response.data.name); // Combine logic to set recipient
-          console.log('Fetched assignedToName and recipient:', response.data.name);
+          console.log('Fetched assignedToName:', response.data.name);
         })
         .catch((error) => {
           console.error('Error fetching assignedToName:', error);
         });
     }
-  }, [ticket?.assignedTo]);
+  }, [ticket?.assignedTo, userRole]);
+
+  useEffect(() => {
+    if (userRole === 'ADMIN' && ticket?.userId) {
+      axios
+        .get(`http://localhost:8081/api/users/${ticket.userId}`)
+        .then((response) => {
+          setRecipient(response.data.name); // Set recipient to ticket.userName for ADMIN users
+          console.log('Fetched recipient for ADMIN:', response.data.name);
+          console.log(`Sender: ${userName}, Recipient: ${recipient}`);
+        })
+        .catch((error) => {
+          console.error('Error fetching recipient for ADMIN:', error);
+        });
+    }
+  }, [userRole, ticket?.userId]);
 
   useEffect(() => {
     const userId = localStorage.getItem('userId');
@@ -84,6 +102,26 @@ function IndividualTicketPage() {
         console.error('Error fetching userName:', error);
       });
   }, []);
+
+  useEffect(() => {
+    if (ticket?.userId) {
+      axios
+        .get(`http://localhost:8081/api/users/${ticket.userId}`)
+        .then((response) => {
+          setCreatedByName(response.data.name);
+          console.log('Fetched createdByName:', response.data.name);
+        })
+        .catch((error) => {
+          console.error('Error fetching createdByName:', error);
+        });
+    }
+  }, [ticket?.userId]);
+
+  useEffect(() => {
+    if (userName && recipient) {
+      console.log(`Sender: ${userName}, Recipient: ${recipient}`);
+    }
+  }, [userName, recipient]);
 
   const handleSendMessage = () => {
     if (!newMessage.trim()) return;
@@ -179,6 +217,10 @@ function IndividualTicketPage() {
             <div className="individual-ticket-page-form-group">
               <label>Request Date</label>
               <p className="individual-ticket-page-display-field">{ticket.requestDate}</p>
+            </div>
+            <div className="individual-ticket-page-form-group">
+              <label>Created By</label>
+              <p className="individual-ticket-page-display-field">{createdByName || 'Loading...'}</p>
             </div>
           </div>
         </div>
