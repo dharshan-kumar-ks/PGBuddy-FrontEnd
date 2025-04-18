@@ -39,7 +39,18 @@ function ActiveTickets() {
           <div className="ticket-details">
             <div className="detail-item">
               <span className="label">Raised on:</span>
-              <span className="value">{mostRecentTicket.createdAt ? new Date(mostRecentTicket.createdAt).toLocaleString() : 'N/A'}</span> {/* Display the createdAt field value */}
+              <span className="value">
+                {mostRecentTicket.createdAt
+                  ? new Date(mostRecentTicket.createdAt).toLocaleString('en-US', {
+                      day: 'numeric',
+                      month: 'long',
+                      year: 'numeric',
+                      hour: 'numeric',
+                      minute: '2-digit',
+                      hour12: true,
+                    })
+                  : 'N/A'}
+              </span>
             </div>
             <div className="detail-item">
               <span className="label">Category:</span>

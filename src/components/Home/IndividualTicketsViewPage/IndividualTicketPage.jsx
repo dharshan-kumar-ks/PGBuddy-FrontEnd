@@ -221,7 +221,9 @@ function IndividualTicketPage() {
             </div>
             <div className="individual-ticket-page-form-group">
               <label>Ticket Type</label>
-              <p className="individual-ticket-page-display-field">{ticket.category}</p>
+              <p className="individual-ticket-page-display-field">
+                {ticket.category.charAt(0).toUpperCase() + ticket.category.slice(1).toLowerCase()}
+              </p>
             </div>
             <div className="individual-ticket-page-form-group">
               <label>Status</label>
@@ -235,7 +237,16 @@ function IndividualTicketPage() {
             </div>
             <div className="individual-ticket-page-form-group">
               <label>Request Date</label>
-              <p className="individual-ticket-page-display-field">{ticket.requestDate}</p>
+              <p className="individual-ticket-page-display-field">
+                {new Date(ticket.createdAt).toLocaleString('en-US', {
+                  day: 'numeric',
+                  month: 'long',
+                  year: 'numeric',
+                  hour: 'numeric',
+                  minute: '2-digit',
+                  hour12: true,
+                })}
+              </p>
             </div>
             <div className="individual-ticket-page-form-group">
               <label>Created By</label>
@@ -249,6 +260,21 @@ function IndividualTicketPage() {
       <div className="individual-ticket-page-form-actions">
         <button type="button" className="individual-ticket-page-cancel-button" onClick={() => navigate('/ticket-list-full-page')}>
           Back to Tickets
+        </button>
+        <button
+          type="button"
+          className="individual-ticket-page-resolve-button"
+          onClick={async () => {
+            try {
+              const response = await axios.post(`http://localhost:8081/api/tickets/resolve/${ticket.id}`);
+              console.log('Ticket resolved successfully:', response.data);
+              navigate('/ticket-list-full-page');
+            } catch (error) {
+              console.error('Error resolving ticket:', error);
+            }
+          }}
+        >
+          Mark as Resolved
         </button>
       </div>
     </div>

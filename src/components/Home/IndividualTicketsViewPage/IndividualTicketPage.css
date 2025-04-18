@@ -278,6 +278,17 @@
   background-color: #5a6268;
 }
 
+/* Added styling for the Mark as Resolved button */
+.individual-ticket-page-resolve-button {
+  background-color: #26a69a   ; /* Green for Resolve */
+  color: #ffffff;
+  min-width: 160px;
+}
+
+.individual-ticket-page-resolve-button:hover {
+  background-color: #1e8076 ;
+}
+
 /* Chat Container */
 .chat-container {
   display: flex;

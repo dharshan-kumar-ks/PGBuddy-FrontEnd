@@ -22,14 +22,17 @@ function CreateTicketFullPage() {
   // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
+    const userId = localStorage.getItem('userId'); // Fetch userId from localStorage
+    console.log('Fetched userId from localStorage:', userId);
     const ticketData = {
-      userId: 1, // Replace with actual user ID if available
+      userId, // Use fetched userId
       title,
       description: message,
       priority: priority.toUpperCase(), // Convert priority to uppercase (e.g., HIGH, MEDIUM, LOW)
       ticketType: ticketType.toUpperCase(), // Convert ticket type to uppercase
-      assignedTo: 5, // Replace with actual assigned user ID if available
+      assignedTo: 9, // Replace with actual assigned user ID if available
       status: 'PENDING',
+      category: categoryName.toUpperCase(), // Convert category to uppercase
     };
 
     //console.log('Request body:', ticketData); // Log the request body for debugging

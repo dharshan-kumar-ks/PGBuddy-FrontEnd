@@ -123,7 +123,7 @@ function TicketListBox({ tickets, searchQuery, filters, onSearchChange }) {
                 <td>
                   <span className="category">
                     <i className={`icon-${(ticket.category || '').toLowerCase()}`}></i>
-                    {ticket.category}
+                    {ticket.category.charAt(0).toUpperCase() + ticket.category.slice(1).toLowerCase()}
                   </span>
                 </td>
                 <td>{userNames[ticket.assignedTo] || ticket.assignedTo}</td>
