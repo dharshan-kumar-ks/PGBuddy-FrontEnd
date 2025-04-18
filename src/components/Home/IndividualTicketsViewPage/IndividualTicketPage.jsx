@@ -40,8 +40,12 @@ function IndividualTicketPage() {
     }
 
     const onMessageReceived = (chatMessage) => {
-      console.log('Received message:', chatMessage);
-      setMessages((prevMessages) => [...prevMessages, chatMessage]);
+      if (chatMessage.ticketId === ticket?.id) {
+        console.log('Received message for current ticket:', chatMessage);
+        setMessages((prevMessages) => [...prevMessages, chatMessage]);
+      } else {
+        console.log('Received message for a different ticket. Ignoring:', chatMessage);
+      }
     };
 
     connectWebSocket(userName, onMessageReceived);
@@ -50,6 +54,20 @@ function IndividualTicketPage() {
       console.log('Cleaning up WebSocket connection...');
       disconnectWebSocket();
     };
+  }, [ticket?.id]);
+
+  useEffect(() => {
+    if (ticket?.id) {
+      axios
+        .get(`http://localhost:8081/api/chat/history/${ticket.id}`)
+        .then((response) => {
+          setMessages(response.data);
+          console.log('Fetched chat history:', response.data);
+        })
+        .catch((error) => {
+          console.error('Error fetching chat history:', error);
+        });
+    }
   }, [ticket?.id]);
 
   useEffect(() => {
@@ -129,6 +147,7 @@ function IndividualTicketPage() {
       sender: userName,
       recipient: recipient,
       content: newMessage,
+      ticketId: ticket?.id, // Added ticketId to the chatMessage object
     };
     sendMessage(chatMessage);
     setNewMessage('');
