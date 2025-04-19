@@ -4,9 +4,9 @@ import Stomp from 'stompjs';
 let stompClient = null;
 
 export const connectWebSocket = (username, onMessageReceived) => {
-    //const socket = new SockJS('/chat'); // Use relative path with proxy
-    // Pass the username as a query parameter
-    const socket = new SockJS(`/chat?username=${encodeURIComponent(username)}`);
+    // Pass the token as a query parameter
+    const token = localStorage.getItem('token'); // Retrieve token from localStorage
+    const socket = new SockJS(`/chat?token=${encodeURIComponent(token)}`);
     stompClient = Stomp.over(socket);
     
     stompClient.connect({}, (frame) => {
@@ -27,6 +27,18 @@ export const connectWebSocket = (username, onMessageReceived) => {
     }, (error) => {
         console.error('WebSocket error: ', error);
     });
+
+    socket.onclose = (event) => {
+        console.warn('WebSocket connection closed:', event);
+        console.log('Attempting to reconnect in 5 seconds...');
+        setTimeout(() => {
+            connectWebSocket(username, onMessageReceived); // Retry connection
+        }, 5000);
+    };
+
+    socket.onerror = (error) => {
+        console.error('WebSocket encountered an error:', error);
+    };
 };
 
 export const sendMessage = (message) => {

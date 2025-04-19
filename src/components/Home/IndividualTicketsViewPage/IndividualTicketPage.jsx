@@ -23,6 +23,8 @@ function IndividualTicketPage() {
   const [recipient, setRecipient] = useState('');
   const [createdByName, setCreatedByName] = useState('');
 
+  const token = localStorage.getItem('token'); // Retrieve token from localStorage
+
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   };
@@ -59,7 +61,11 @@ function IndividualTicketPage() {
   useEffect(() => {
     if (ticket?.id) {
       axios
-        .get(`http://localhost:8081/api/chat/history/${ticket.id}`)
+        .get(`http://localhost:8081/api/chat/history/${ticket.id}`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        })
         .then((response) => {
           setMessages(response.data);
           console.log('Fetched chat history:', response.data);
@@ -73,7 +79,11 @@ function IndividualTicketPage() {
   useEffect(() => {
     if (ticket?.assignedTo) {
       axios
-        .get(`http://localhost:8081/api/users/${ticket.assignedTo}`)
+        .get(`http://localhost:8081/api/users/${ticket.assignedTo}`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        })
         .then((response) => {
           if (userRole !== 'ADMIN') {
             setRecipient(response.data.name); // Retain existing logic for non-ADMIN users
@@ -90,7 +100,11 @@ function IndividualTicketPage() {
   useEffect(() => {
     if (userRole === 'ADMIN' && ticket?.userId) {
       axios
-        .get(`http://localhost:8081/api/users/${ticket.userId}`)
+        .get(`http://localhost:8081/api/users/${ticket.userId}`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        })
         .then((response) => {
           setRecipient(response.data.name); // Set recipient to ticket.userName for ADMIN users
           console.log('Fetched recipient for ADMIN:', response.data.name);
@@ -111,7 +125,11 @@ function IndividualTicketPage() {
 
     // Fetch userName for the current user
     axios
-      .get(`http://localhost:8081/api/users/${userId}`)
+      .get(`http://localhost:8081/api/users/${userId}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
       .then((response) => {
         setUserName(response.data.name);
         console.log('Fetched userName:', response.data.name);
@@ -124,7 +142,11 @@ function IndividualTicketPage() {
   useEffect(() => {
     if (ticket?.userId) {
       axios
-        .get(`http://localhost:8081/api/users/${ticket.userId}`)
+        .get(`http://localhost:8081/api/users/${ticket.userId}`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        })
         .then((response) => {
           setCreatedByName(response.data.name);
           console.log('Fetched createdByName:', response.data.name);
@@ -266,7 +288,11 @@ function IndividualTicketPage() {
           className="individual-ticket-page-resolve-button"
           onClick={async () => {
             try {
-              const response = await axios.post(`http://localhost:8081/api/tickets/resolve/${ticket.id}`);
+              const response = await axios.post(`http://localhost:8081/api/tickets/resolve/${ticket.id}`, null, {
+                headers: {
+                  Authorization: `Bearer ${token}`,
+                },
+              });
               console.log('Ticket resolved successfully:', response.data);
               navigate('/ticket-list-full-page');
             } catch (error) {
