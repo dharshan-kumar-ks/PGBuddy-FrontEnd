@@ -41,6 +41,10 @@ function ElectricityUsage() {
       });
   }, []);
 
+  function handlePayBill() {
+    alert('Pay the bill on month end');
+  }
+
   if (loading) {
     return <div>Loading...</div>;
   }
@@ -66,7 +70,7 @@ function ElectricityUsage() {
           <span className="usage-label">Estimated Cost</span>
           <span className="usage-value">{stats.estimatedCost}</span>
         </div>
-        <button className="buy-button">Pay Bill</button>
+        <button className="buy-button" onClick={handlePayBill}>Pay Bill</button>
       </div>
     </div>
     </div>

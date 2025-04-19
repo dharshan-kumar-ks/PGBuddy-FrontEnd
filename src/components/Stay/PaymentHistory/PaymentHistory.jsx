@@ -46,7 +46,7 @@ function PaymentHistory() {
 
           return {
             date: transaction.transactionDate !== 'N/A' ? `${day} ${month}` : 'N/A',
-            type: 'Payment Received',
+            type: transaction.paymentStatus === 'SUCCESS' ? 'Payment Received' : 'Payment Failed',
             amount: `₹${transaction.amount.toLocaleString()}`,
             details,
           };

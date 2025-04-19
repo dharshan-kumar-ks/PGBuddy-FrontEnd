@@ -89,7 +89,7 @@ function LedgerSummary() {
           // Step 3: Send payment details to backend for signature verification
           try {
             const verifyResponse = await axios.post(
-              'http://localhost:8081/api/payment/payment-success',
+              'http://localhost:8081/api/booking/payment-success',
               {
                 razorpay_payment_id: response.razorpay_payment_id,
                 razorpay_order_id: response.razorpay_order_id,
