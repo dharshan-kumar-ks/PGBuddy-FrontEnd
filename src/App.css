@@ -25,6 +25,7 @@ html, body {
   /* background: url('/path/to/your/background-image.jpg') no-repeat center center fixed; -> Apply background image */
   background-size: cover; /* Ensure the background image covers the entire page */
   /* border: 2px solid red; /*  Remove this after debugging */
+  overflow-x: hidden; /* Hides any accidental overflow */
 }
 
 /* CHANGE: Remove .app-wrapper styles and move centering to #root */
