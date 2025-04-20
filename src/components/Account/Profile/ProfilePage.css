@@ -138,6 +138,26 @@
   background-color: #1f7970; /* Darker teal on hover */
 }
 
+/* Edit Button */
+.cancel-button {
+  background-color: #9e9999; /* Teal background */
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 0px;
+  /*width: 100%;*/
+  font-size: 16px;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+  min-width: 520px;
+}
+
+.cancel-button:hover {
+  background-color: #726e6e; /* Darker teal on hover */
+}
+
 /* Responsive Design */
 @media (max-width: 768px) {
   .profile-content {

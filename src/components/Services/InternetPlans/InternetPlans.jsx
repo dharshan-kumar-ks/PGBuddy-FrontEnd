@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './InternetPlans.css';
+import axios from 'axios';
 
 function InternetPlans() {
   const [activeTab, setActiveTab] = useState('data'); // 'data' or 'device'
@@ -39,6 +40,7 @@ function InternetPlans() {
       .then(([dataAddOns, deviceAddOns]) => {
         setDataPlans(
           dataAddOns.map((plan) => ({
+            packId: plan.packId,
             price: plan.price,
             data: `${plan.data} GB`,
             validity: `${plan.validity} days`,
@@ -48,6 +50,7 @@ function InternetPlans() {
 
         setDevicePlans(
           deviceAddOns.map((plan) => ({
+            packId: plan.packId,
             price: plan.price,
             data: `${plan.devices} Device${plan.devices > 1 ? 's' : ''}`,
             validity: `${plan.validity} days`,
@@ -62,6 +65,25 @@ function InternetPlans() {
         setLoading(false);
       });
   }, []);
+
+  const handleBuy = (packId) => {
+    const token = localStorage.getItem('token');
+    const endpoint = activeTab === 'data' 
+      ? `http://localhost:8081/api/internet/update/data/${packId}` 
+      : `http://localhost:8081/api/internet/update/device/${packId}`;
+
+    axios.post(endpoint, {}, {
+      headers: {
+        'Authorization': `Bearer ${token}`
+      }
+    })
+    .then((response) => {
+      alert(response.data);
+    })
+    .catch((error) => {
+      alert('Failed to recharge. Please try again.');
+    });
+  };
 
   const plans = activeTab === 'data' ? dataPlans : devicePlans;
 
@@ -114,7 +136,7 @@ function InternetPlans() {
                   <span className="detail-value">{plan.validity}</span>
                 </div>
               </div>
-              <button className="buy-button">Buy</button>
+              <button className="buy-button" onClick={() => handleBuy(plan.packId)}>Buy</button>
             </div>
           ))
         )}
