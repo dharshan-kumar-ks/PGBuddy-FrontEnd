@@ -19,7 +19,7 @@
   width: 100%;
   max-width: 1200px;
   margin: 0 auto;
-  margin-top: 200px; /* Adjust this value based on the navbar height */
+  margin-top: 300px; /* Adjust this value based on the navbar height */
   z-index: 1; /* Ensure it doesn't overlap with the navbar */
 }
 
@@ -30,6 +30,7 @@
   display: flex;
   flex-direction: column;
   gap: 20px;
+  margin-top: 50px;
 }
 
 .right-column {
@@ -39,6 +40,7 @@
   display: flex;
   flex-direction: column;
   gap: 20px;
+  margin-top: 40px;
 }
 
 /* Responsive Design */
