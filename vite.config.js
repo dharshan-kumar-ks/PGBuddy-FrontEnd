@@ -26,6 +26,16 @@ export default defineConfig({
         target: 'http://localhost:8081',
         ws: true,
         changeOrigin: true, // Ensure the origin header is rewritten
+        configure: (proxy) => {
+          // Gracefully handle backend unavailability
+          proxy.on('error', (err, req, res) => {
+            console.warn(`[proxy] WebSocket error for ${req.url}:`, err.message);
+            if (!res.headersSent && res.writeHead) {
+              res.writeHead(502, { 'Content-Type': 'text/plain' });
+            }
+            res.end('Backend unavailable. Please try again later.');
+          });
+        },
       },
     },
   },

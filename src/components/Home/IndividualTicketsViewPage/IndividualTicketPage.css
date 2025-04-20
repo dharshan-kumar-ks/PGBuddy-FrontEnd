@@ -85,7 +85,7 @@
 /* Add this to IndividualTicketPage.css */
 .individual-ticket-page-ticket-title-field {
   padding: 15px; /* Increased from 10px */
-  min-height: 120px; /* Set minimum height */
+  min-height: 80px; /* Set minimum height */
   border-radius: 5px;
   background-color: #1d2833;
   color: #faf7f7;

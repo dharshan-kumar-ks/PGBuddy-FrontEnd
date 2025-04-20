@@ -3,57 +3,76 @@ import Stomp from 'stompjs';
 
 let stompClient = null;
 
-export const connectWebSocket = (username, onMessageReceived) => {
-    // Pass the token as a query parameter
-    const token = localStorage.getItem('token'); // Retrieve token from localStorage
-    const socket = new SockJS(`/chat?token=${encodeURIComponent(token)}`);
+export const connectWebSocket = (onMessageReceived, shouldRetryConnection) => {
+  const token = localStorage.getItem('token');
+
+  let socket;
+
+  try {
+    socket = new SockJS(`/chat?token=${encodeURIComponent(token)}`);
     stompClient = Stomp.over(socket);
-    
+
+    // Optional: disable logging
+    stompClient.debug = null;
+
     stompClient.connect({}, (frame) => {
-        console.log('Connected: ' + frame);
-        console.log('Subscribing to:', `/user/${username}/queue/messages`);
-        /*
-        stompClient.subscribe(`/queue/messages-user${stompClient.ws._transport.url.split('/').pop()}`, (message) => {
-            const receivedMessage = JSON.parse(message.body);
-            console.log('Message received from backend:', receivedMessage);
-            onMessageReceived(receivedMessage);
-        });
-        */
-        stompClient.subscribe('/user/queue/messages', (message) => {
-            const receivedMessage = JSON.parse(message.body);
-            console.log('Message received from backend:', receivedMessage);
-            onMessageReceived(receivedMessage);
-        });
+      console.log('Connected: ' + frame);
+      stompClient.subscribe(`/user/queue/messages`, (message) => {
+        const receivedMessage = JSON.parse(message.body);
+        console.log('Message received from backend:', receivedMessage);
+        onMessageReceived(receivedMessage);
+      });
     }, (error) => {
-        console.error('WebSocket error: ', error);
+      console.error('STOMP connection error:', error);
+
+      // Retry only if user is still on the desired page
+      if (shouldRetryConnection && shouldRetryConnection()) {
+        console.log('Retrying WebSocket connection in 5 seconds...');
+        setTimeout(() => {
+          connectWebSocket(onMessageReceived, shouldRetryConnection);
+        }, 5000);
+      }
     });
 
     socket.onclose = (event) => {
-        console.warn('WebSocket connection closed:', event);
-        console.log('Attempting to reconnect in 5 seconds...');
+      console.warn('SockJS connection closed:', event);
+
+      if (shouldRetryConnection && shouldRetryConnection()) {
+        console.log('Retrying WebSocket connection in 5 seconds...');
         setTimeout(() => {
-            connectWebSocket(username, onMessageReceived); // Retry connection
+          connectWebSocket(onMessageReceived, shouldRetryConnection);
         }, 5000);
+      }
     };
 
     socket.onerror = (error) => {
-        console.error('WebSocket encountered an error:', error);
+      console.error('SockJS encountered an error:', error);
     };
-};
+  } catch (err) {
+    console.error('WebSocket initialization failed:', err);
 
-export const sendMessage = (message) => {
-    if (stompClient && stompClient.connected) {
-        stompClient.send('/app/chat.sendMessage', {}, JSON.stringify(message));
+    if (shouldRetryConnection && shouldRetryConnection()) {
+      console.log('Retrying WebSocket initialization in 5 seconds...');
+      setTimeout(() => {
+        connectWebSocket(onMessageReceived, shouldRetryConnection);
+      }, 5000);
     }
+  }
 };
 
 export const disconnectWebSocket = () => {
-    if (stompClient && stompClient.connected) {
-        console.log('Disconnecting WebSocket...');
-        stompClient.disconnect(() => {
-            console.log('WebSocket disconnected successfully.');
-        });
-    } else {
-        console.warn('WebSocket is not connected. Skipping disconnect.');
-    }
+  if (stompClient && stompClient.connected) {
+    console.log('Disconnecting WebSocket...');
+    stompClient.disconnect(() => {
+      console.log('WebSocket disconnected successfully.');
+    });
+  } else {
+    console.warn('WebSocket is not connected. Skipping disconnect.');
+  }
+};
+
+export const sendMessage = (message) => {
+  if (stompClient && stompClient.connected) {
+    stompClient.send('/app/chat.sendMessage', {}, JSON.stringify(message));
+  }
 };
