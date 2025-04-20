@@ -1,59 +1,145 @@
-.cafe-grid-container {
+/* CafeGrid Component Styles */
+
+/* Cafe Grid */
+.cafe-grid {
+  flex: 1; /* Allow CafeGrid to take remaining space */
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 1rem;
-  padding: 1rem;
+  grid-template-columns: repeat(4, 1fr); /* Reduce the number of columns to make boxes wider */
+  gap: 20px; /* Add spacing between items */
+  padding: 20px; /* Add padding to prevent items from touching the edges */
+  box-sizing: border-box;
+  margin: 0; /* Remove any centering margin */
+  align-self: flex-start; /* Ensure the grid aligns to the top-left */
+  justify-self: flex-start; /* Extra safety if grid is nested */
 }
 
-.cafe-grid-item {
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  padding: 1rem;
+/* Cafe Item Box */
+.cafe-grid .cafe-item {
+  background: #2c3e50;
+  padding: 20px; /* Add padding inside the item */
+  border-radius: 10px;
+  box-shadow: 0 2px 5px rgba(228, 225, 225, 0.1);
   text-align: center;
-  background-color: #fff;
-  transition: box-shadow 0.3s ease;
+  transition: transform 0.2s ease-in-out;
+  width: 100%; /* Ensure the item spans the full width of its grid column */
+  min-width: 250px; /* Increase the minimum width of each box */
+  box-sizing: border-box; /* Include padding and border in width calculation */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 410px; /* Ensure the item takes full height */
 }
 
-.cafe-grid-item:hover {
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+.cafe-grid .cafe-item:hover {
+  transform: scale(1.05);
 }
 
-.cafe-grid-item-image {
-  width: 100%;
-  height: auto;
-  border-radius: 8px;
-  margin-bottom: 0.5rem;
-}
-
-.cafe-grid-spicy-icon {
+/* Spicy Icon */
+.cafe-grid .spicy-icon {
   position: absolute;
-  top: 10px;
-  right: 10px;
-  font-size: 1.2rem;
+  bottom: 5px;
+  right: 5px;
+  font-size: 18px;
   color: red;
+  background: rgba(255, 255, 255, 0.8); /* Optional: Add a background for better visibility */
+  border-radius: 50%;
+  padding: 2px;
 }
 
-.cafe-grid-item-price {
+/* Item Image */
+.cafe-grid .image-container {
+  position: relative;
+  display: flex; /* Use flexbox for centering */
+  justify-content: center; /* Center horizontally */
+  align-items: center; /* Center vertically */
+  width: 180px; /* Match the updated image width */
+  height: 150px; /* Match the updated image height */
+  margin: 0 auto; /* Center the container horizontally */
+}
+
+.cafe-grid .item-image {
+  width: 180px;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+/* Price */
+.cafe-grid .price {
   font-weight: bold;
-  margin: 0.5rem 0;
+  color: #b5c3ad;
+  margin: 0px 0; /* Add spacing above and below */
 }
 
-.cafe-grid-item-description {
-  font-size: 0.9rem;
-  color: #555;
-  margin-bottom: 1rem;
+/* Description */
+.cafe-grid .description {
+  font-size: 14px;
+  color: #b0aeae;
+  margin-bottom: 10px; /* Add spacing below the description */
+  min-height: 40px; /* Adjust based on the expected height of two lines */
+  overflow: hidden; /* Prevent overflow for long text */
+  text-overflow: ellipsis; /* Add ellipsis for long text */
+  display: -webkit-box;
+  -webkit-line-clamp: 2; /* Limit to 2 lines */
+  -webkit-box-orient: vertical;
 }
 
-.cafe-grid-add-button {
-  padding: 0.5rem 1rem;
+/* Add Button */
+.cafe-grid .add-button {
+  background-color: #26a69a;
+  color: white;
+  padding: 10px;
   border: none;
   border-radius: 5px;
-  background-color: #28a745;
-  color: white;
   cursor: pointer;
+  margin-top: auto; /* Push the button to the bottom */
+  width: 100%; /* Ensure it takes the full width */
   transition: background-color 0.3s ease;
 }
 
-.cafe-grid-add-button:hover {
-  background-color: #218838;
+.cafe-grid .add-button:hover {
+  background-color: #1f7970;
 }
+
+/* Quantity Selector */
+.cafe-grid .quantity-selector {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #2c3e50;
+  border-radius: 5px;
+  margin-top: auto; /* Push the selector to the bottom */
+  width: 100%; /* Ensure it takes the full width */
+  height: 30px; /* Match the height of the add-button for consistency */
+}
+
+.cafe-grid .quantity-button {
+  background-color: #26a69a;
+  color: white;
+  border: none;
+  padding: 0 15px;
+  height: 100%; /* Match the height of the selector */
+  border-radius: 5px 0 0 5px; /* Rounded corners on the left for the minus button */
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
+  min-width: 50px;
+  max-width: 70px;
+}
+
+.cafe-grid .quantity-button:last-child {
+  border-radius: 0 5px 5px 0; /* Rounded corners on the right for the plus button */
+}
+
+.cafe-grid .quantity-button:hover {
+  background-color: #1f7970;
+}
+
+.cafe-grid .quantity-value {
+  font-size: 16px;
+  font-weight: bold;
+  color: #faf7f7;
+  text-align: center;
+  width: 40px; /* Fixed width for consistent alignment */
+}
+

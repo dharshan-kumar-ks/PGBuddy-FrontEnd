@@ -1,6 +1,6 @@
 /* History Page Container */
 .history-page {
-  position: relative;
+  position: absolute;
   display: flex;
   flex-direction: column;
   justify-content: flex-start; /* Align content to the top */
@@ -10,6 +10,8 @@
   background-color: #1c2526; /* Match the background color of your project */
   min-height: 100vh; /* Ensure it covers the full viewport height */
   box-sizing: border-box;
+  margin-top: -430px;
+  margin-left: -550px;
 }
 
 /* History Content */

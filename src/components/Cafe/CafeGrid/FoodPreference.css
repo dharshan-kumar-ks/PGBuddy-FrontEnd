@@ -1,28 +1,69 @@
+/* Food Preference Grid */
+
+/* Filter Buttons */
+
 .filter-buttons {
   display: flex;
   justify-content: center;
-  margin: 1rem 0;
-  background-color: #1c2526;
-  margin-top: 60px; /* Add margin to push below the navbar */
+  gap: 15px;
+  position: relative;
+  margin-bottom: -200px;
+  top: 0px; /* Adjusted to stay below navbar */
+  background: #1c2526;
+  padding: 10px;
+  width: 100%; /* Full width */
+  box-sizing: border-box;
+  height: 60px; /* Set a fixed height to prevent layout shifts */
+  align-items: center; /* Vertically center the buttons */
+  position: static; /* Remove relative positioning */
+  z-index: 1; /* Ensure it stays above other content */
 }
 
 .filter-buttons button {
-  margin: 0 0.5rem;
-  padding: 0.5rem 1rem;
+  padding: 10px 15px;
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  background-color: #f0f0f0;
-  font-size: 1rem;
-  transition: background-color 0.3s ease;
+  background-color: #1d2833;
+  font-weight: bold;
+  min-width: 140px; /* Set a minimum width for the buttons */
 }
 
-.filter-buttons button.active {
-  background-color: #007bff;
+.filter-buttons .active {
+  background-color: #26a69a;
   color: white;
 }
 
-.filter-buttons button:hover {
-  background-color: #0056b3;
-  color: white;
+
+.circle {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  width: 20px; /* Adjusted size for better visibility */
+  height: 20px;
+  border: 2px solid; /* Add a border */
+  border-radius: 5px; /* Rounded corners for the box */
+  margin-right: 8px;
+  font-size: 12px; /* Adjust font size for symbols */
+  font-weight: bold;
+  color: white; /* Ensure the symbol is visible */
+  background-color: transparent; /* Remove background color */
+}
+
+.circle.green {
+  border-color: green; /* Border color for Veg */
+}
+
+.circle.green::before {
+  content: "●"; /* Unicode for a filled circle */
+  color: green; /* Set the color for Veg */
+}
+
+.circle.red {
+  border-color: rgb(163, 59, 59); /* Border color for Non-Veg */
+}
+
+.circle.red::before {
+  content: "▲"; /* Unicode for a filled triangle */
+  color: rgb(163, 59, 59); /* Set the color for Non-Veg */
 }
