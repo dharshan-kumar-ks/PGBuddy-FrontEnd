@@ -18,7 +18,7 @@ function Login() {
     try {
       console.log('Sending request with body:', { email, password }); // ADDED: Log the request body for debugging
 
-      const response = await fetch('http://localhost:8081/api/signin', {
+      const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/signin`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -44,7 +44,7 @@ function Login() {
         console.log(`User ID ${responseBody.userId} and token have been added to localStorage`); // Log userId and token added to localStorage
 
         // Fetch user details after successful login
-        const userDetailsResponse = await fetch(`http://localhost:8081/api/users/${responseBody.userId}`, {
+        const userDetailsResponse = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/users/${responseBody.userId}`, {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',

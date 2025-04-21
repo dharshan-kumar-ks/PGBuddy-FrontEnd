@@ -17,7 +17,7 @@ function LedgerSummary() {
         const userId = localStorage.getItem('userId');
         const token = localStorage.getItem('token');
 
-        const response = await axios.get(`http://localhost:8081/api/booking/${userId}`, {
+        const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/booking/${userId}`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -61,7 +61,7 @@ function LedgerSummary() {
 
       // Step 1: Create Razorpay order
       const response = await axios.post(
-        'http://localhost:8081/api/booking/pay',
+        `${import.meta.env.VITE_BACKEND_URL}/api/booking/pay`,
         {
           amount: amountInPaise / 100, // Backend expects amount in rupees
           transactionDate: null,
@@ -89,7 +89,7 @@ function LedgerSummary() {
           // Step 3: Send payment details to backend for signature verification
           try {
             const verifyResponse = await axios.post(
-              'http://localhost:8081/api/booking/payment-success',
+              `${import.meta.env.VITE_BACKEND_URL}/api/booking/payment-success`,
               {
                 razorpay_payment_id: response.razorpay_payment_id,
                 razorpay_order_id: response.razorpay_order_id,

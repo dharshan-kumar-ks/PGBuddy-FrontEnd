@@ -9,7 +9,7 @@ function RoomCleaningService() {
   useEffect(() => {
     const token = localStorage.getItem('token'); // Retrieve token from localStorage
 
-    fetch('http://localhost:8081/api/roomcleaning/usage', {
+    fetch(`${import.meta.env.VITE_BACKEND_URL}/api/roomcleaning/usage`, {
       method: 'GET',
       headers: {
         'Authorization': `Bearer ${token}` // Add token to the Authorization header
@@ -51,12 +51,12 @@ function RoomCleaningService() {
 
     const token = localStorage.getItem('token'); // Retrieve token from localStorage
 
-    fetch('http://localhost:8081/api/roomcleaning/request', {
+    fetch(`${import.meta.env.VITE_BACKEND_URL}/api/roomcleaning/request`, {
       method: 'POST',
       headers: {
-        'Authorization': `Bearer ${token}`,
-        'Content-Type': 'application/json'
-      }
+        Authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json',
+      },
     })
       .then((response) => {
         if (!response.ok) {

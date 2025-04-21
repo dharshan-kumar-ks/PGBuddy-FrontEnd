@@ -39,7 +39,7 @@ function Food() {
 
         const token = localStorage.getItem('token'); // Retrieve token from localStorage
         const response = await axios.get(
-          `http://localhost:8081/api/food/search?mealDate=2025-04-01&mealTime=${mealType.toUpperCase()}`,
+          `${import.meta.env.VITE_BACKEND_URL}/api/food/search?mealDate=2025-04-01&mealTime=${mealType.toUpperCase()}`,
           {
             headers: {
               Authorization: `Bearer ${token}`, // Add token to Authorization header
@@ -72,7 +72,7 @@ function Food() {
               option.meals.map(async (meal) => {
                 const token = localStorage.getItem('token'); // Retrieve token from localStorage
                 const voteCountResponse = await axios.get(
-                  `http://localhost:8081/api/food/vote/count/${meal.id}`,
+                  `${import.meta.env.VITE_BACKEND_URL}/api/food/vote/count/${meal.id}`,
                   {
                     headers: {
                       Authorization: `Bearer ${token}`, // Add token to Authorization header
@@ -104,7 +104,7 @@ function Food() {
             option.meals.map(async (meal) => {
               const token = localStorage.getItem('token'); // Retrieve token from localStorage
               const voteCountResponse = await axios.get(
-                `http://localhost:8081/api/food/vote/count/${meal.id}`,
+                `${import.meta.env.VITE_BACKEND_URL}/api/food/vote/count/${meal.id}`,
                 {
                   headers: {
                     Authorization: `Bearer ${token}`, // Add token to Authorization header
@@ -163,7 +163,7 @@ function Food() {
 
       const token = localStorage.getItem('token'); // Retrieve token from localStorage
       const response = await axios.get(
-        `http://localhost:8081/api/food/search?mealDate=${mealDate}&mealTime=${mealType.toUpperCase()}`,
+        `${import.meta.env.VITE_BACKEND_URL}/api/food/search?mealDate=${mealDate}&mealTime=${mealType.toUpperCase()}`,
         {
           headers: {
             Authorization: `Bearer ${token}`, // Add token to Authorization header
@@ -191,7 +191,7 @@ function Food() {
             option.meals.map(async (meal) => {
               const token = localStorage.getItem('token'); // Retrieve token from localStorage
               const voteCountResponse = await axios.get(
-                `http://localhost:8081/api/food/vote/count/${meal.id}`,
+                `${import.meta.env.VITE_BACKEND_URL}/api/food/vote/count/${meal.id}`,
                 {
                   headers: {
                     Authorization: `Bearer ${token}`, // Add token to Authorization header
@@ -230,7 +230,7 @@ function Food() {
     } else {
       try {
         console.log('Sending POST request to backend:', {
-          url: 'http://localhost:8081/api/food/vote',
+          url: `${import.meta.env.VITE_BACKEND_URL}/api/food/vote`,
           body: {
             mealVoteId: mealId,
             userId: userId,
@@ -238,7 +238,7 @@ function Food() {
         });
 
         const token = localStorage.getItem('token'); // Retrieve token from localStorage
-        const response = await axios.post('http://localhost:8081/api/food/vote', {
+        const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/food/vote`, {
           mealVoteId: mealId,
           userId: userId,
         }, {

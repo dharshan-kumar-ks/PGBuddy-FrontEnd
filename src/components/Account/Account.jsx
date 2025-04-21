@@ -17,7 +17,7 @@ function Account() {
     const userId = localStorage.getItem('userId');
     const token = localStorage.getItem('token'); // Retrieve token from localStorage
     if (userId) {
-      fetch(`http://localhost:8081/api/users/${userId}`, {
+      fetch(`${import.meta.env.VITE_BACKEND_URL}/api/users/${userId}`, {
         headers: {
           Authorization: `Bearer ${token}`, // Add token to Authorization header
         },

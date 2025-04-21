@@ -11,7 +11,7 @@ function PostBox() {
 
     try {
       const token = localStorage.getItem('token'); // Retrieve token from localStorage
-      const response = await axios.post('http://localhost:8081/api/notices/publish', { title: noticeTitle }, {
+      const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/notices/publish`, { title: noticeTitle }, {
         headers: {
           'Content-Type': 'application/json',
           Authorization: `Bearer ${token}`, // Add token to Authorization header

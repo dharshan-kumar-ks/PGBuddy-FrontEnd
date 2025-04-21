@@ -24,9 +24,10 @@ function CreateTicket() {
 
   const handleSubmit = async (title, description) => {
     const token = localStorage.getItem('token'); // Retrieve token from localStorage
+    const ticketData = { title, description };
     const response = await axiosInstance.post(
-      'http://localhost:8081/api/tickets/create',
-      { title, description },
+      `${import.meta.env.VITE_BACKEND_URL}/api/tickets/create`,
+      ticketData,
       {
         headers: {
           Authorization: `Bearer ${token}`, // Add token to Authorization header

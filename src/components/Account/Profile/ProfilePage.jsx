@@ -35,7 +35,7 @@ function ProfilePage({ NavigationBar }) {
     const userId = localStorage.getItem('userId');
     const token = localStorage.getItem('token'); // Retrieve token from localStorage
     if (userId) {
-      fetch(`http://localhost:8081/api/users/${userId}`, {
+      fetch(`${import.meta.env.VITE_BACKEND_URL}/api/users/${userId}`, {
         headers: {
           Authorization: `Bearer ${token}`, // Add token to Authorization header
         },
@@ -111,12 +111,12 @@ function ProfilePage({ NavigationBar }) {
     console.log('Sending user details:', JSON.stringify(userDetails, null, 2));
 
     const token = localStorage.getItem('token'); // Retrieve token from localStorage
-    fetch('http://localhost:8081/api/users/fill-details', {
+    fetch(`${import.meta.env.VITE_BACKEND_URL}/api/users/fill-details`, {
       method: 'POST',
       headers: {
         Authorization: `Bearer ${token}`, // Add token to Authorization header
         'Content-Type': 'application/json',
-        'Accept': 'application/json',
+        Accept: 'application/json',
       },
       body: JSON.stringify(userDetails),
     })

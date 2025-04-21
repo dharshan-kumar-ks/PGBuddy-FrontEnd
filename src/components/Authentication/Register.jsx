@@ -19,7 +19,7 @@ const handleRegister = async (e) => {
     console.log('Sending request with body:', { email, password }); // ADDED: Log the request body for debugging
 
     const token = localStorage.getItem('token'); // Retrieve token from localStorage
-    const response = await fetch('http://localhost:8081/api/signup', {
+    const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/signup`, {
       method: 'POST',
       headers: {
         Authorization: `Bearer ${token}`, // Add token to Authorization header

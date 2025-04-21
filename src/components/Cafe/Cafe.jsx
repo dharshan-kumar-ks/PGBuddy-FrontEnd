@@ -20,7 +20,7 @@ function Cafe() {
     const token = localStorage.getItem('token'); // Retrieve token from localStorage
 
     axios
-      .get('http://localhost:8081/api/cafe/menu', {
+      .get(`${import.meta.env.VITE_BACKEND_URL}/api/cafe/menu`, {
         headers: {
           Authorization: `Bearer ${token}`, // Add token to Authorization header
         },

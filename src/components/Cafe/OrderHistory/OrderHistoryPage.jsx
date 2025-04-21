@@ -47,7 +47,7 @@ function OrderHistoryPage() {
     };
 
     axios
-      .post('http://localhost:8081/api/cafe/order', orderDetails, {
+      .post(`${import.meta.env.VITE_BACKEND_URL}/api/cafe/order`, orderDetails, {
         headers: {
           Authorization: `Bearer ${token}`, // Add token to Authorization header
         },

@@ -17,7 +17,7 @@ function TicketListBox({ tickets, searchQuery, filters, onSearchChange }) {
         if (userId) {
           try {
             console.log(`Fetching user name for userId: ${userId}`); // Debug log
-            const response = await axios.get(`http://localhost:8081/api/users/${userId}`, {
+            const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/users/${userId}`, {
               headers: {
                 Authorization: `Bearer ${token}`, // Add token to Authorization header
               },

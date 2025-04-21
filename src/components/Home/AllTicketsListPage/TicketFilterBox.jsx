@@ -59,7 +59,7 @@ function TicketFilterBox({ onFilterChange }) {
   // Fetch filtered tickets
   const fetchFilteredTickets = async () => {
     const token = localStorage.getItem('token'); // Retrieve token from localStorage
-    const response = await axios.get('http://localhost:8081/api/tickets/filter', {
+    const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/tickets/filter`, {
       headers: {
         Authorization: `Bearer ${token}`, // Add token to Authorization header
       },

@@ -12,7 +12,7 @@ function ActiveTickets() {
     const fetchTickets = async () => {
       try {
         const userId = localStorage.getItem('userId'); // Retrieve userId from localStorage
-        const response = await axiosInstance.get(`http://localhost:8081/api/tickets/user/${userId}`); // Use axiosInstance
+        const response = await axiosInstance.get(`${import.meta.env.VITE_BACKEND_URL}/api/tickets/user/${userId}`); // Use axiosInstance
         setTickets(response.data); // Update state with fetched tickets
       } catch (error) {
         console.error('Error fetching tickets:', error);

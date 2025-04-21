@@ -41,7 +41,7 @@ function Feedback({ NavigationBar }) {
     };
 
     const token = localStorage.getItem('token'); // Retrieve token from localStorage
-    fetch('http://localhost:8081/api/feedback', {
+    fetch(`${import.meta.env.VITE_BACKEND_URL}/api/feedback`, {
       method: 'POST',
       headers: {
         Authorization: `Bearer ${token}`, // Add token to Authorization header
@@ -81,7 +81,7 @@ function Feedback({ NavigationBar }) {
     };
 
     const token = localStorage.getItem('token'); // Retrieve token from localStorage
-    fetch('http://localhost:8081/api/feedback', {
+    fetch(`${import.meta.env.VITE_BACKEND_URL}/api/feedback`, {
       method: 'POST',
       headers: {
         Authorization: `Bearer ${token}`, // Add token to Authorization header

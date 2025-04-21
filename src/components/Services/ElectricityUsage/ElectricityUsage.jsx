@@ -10,7 +10,7 @@ function ElectricityUsage() {
   useEffect(() => {
     const token = localStorage.getItem('token'); // Retrieve token from localStorage
 
-    fetch('http://localhost:8081/api/electricity/usage', {
+    fetch(`${import.meta.env.VITE_BACKEND_URL}/api/electricity/usage`, {
       method: 'GET',
       headers: {
         'Authorization': `Bearer ${token}` // Add token to the Authorization header

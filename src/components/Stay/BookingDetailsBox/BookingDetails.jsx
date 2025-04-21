@@ -8,10 +8,12 @@ function BookingDetails() {
 
   useEffect(() => {
     const userId = localStorage.getItem('userId');
+    const token = localStorage.getItem('token');
 
-    fetch(`http://localhost:8081/api/booking/${userId}`, {
+    fetch(`${import.meta.env.VITE_BACKEND_URL}/api/booking/${userId}`, {
+      method: 'GET',
       headers: {
-        Authorization: `Bearer ${localStorage.getItem('token')}`,
+        Authorization: `Bearer ${token}`,
       },
     })
       .then((response) => {

@@ -39,7 +39,7 @@ function CreateTicketFullPage() {
 
     try {
       const token = localStorage.getItem('token'); // Retrieve token from localStorage
-      const response = await axios.post('http://localhost:8081/api/tickets/create', ticketData, {
+      const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/tickets/create`, ticketData, {
         headers: {
           'Content-Type': 'application/json',
           Authorization: `Bearer ${token}`, // Add token to Authorization header

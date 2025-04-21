@@ -29,8 +29,8 @@ function TicketListFullPage() {
 
       try {
         const endpoint = userRole === 'ADMIN'
-          ? 'http://localhost:8081/api/tickets/all'
-          : `http://localhost:8081/api/tickets/user/${userId}`;
+          ? `${import.meta.env.VITE_BACKEND_URL}/api/tickets/all`
+          : `${import.meta.env.VITE_BACKEND_URL}/api/tickets/user/${userId}`;
 
         const response = await axios.get(endpoint, {
           headers: {

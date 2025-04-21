@@ -9,7 +9,7 @@ function WifiStats() {
   useEffect(() => {
     const token = localStorage.getItem('token'); // Retrieve token from localStorage
 
-    fetch('http://localhost:8081/api/internet/usage', {
+    fetch(`${import.meta.env.VITE_BACKEND_URL}/api/internet/usage`, {
       method: 'GET',
       headers: {
         'Authorization': `Bearer ${token}` // Add token to the Authorization header

@@ -7,11 +7,10 @@ import './Ledger.css';
 function Ledger({ dues = '₹0', amountPaid = '₹0', outstanding = '₹0' }) {
   const [ledgerData, setLedgerData] = useState(null);
 
-  /*
   useEffect(() => {
     const fetchLedgerData = async () => {
       const token = localStorage.getItem('token'); // Retrieve token from localStorage
-      const response = await axios.get('http://localhost:8081/api/ledger', {
+      const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/ledger`, {
         headers: {
           Authorization: `Bearer ${token}`, // Add token to Authorization header
         },
@@ -21,7 +20,6 @@ function Ledger({ dues = '₹0', amountPaid = '₹0', outstanding = '₹0' }) {
 
     fetchLedgerData();
   }, []);
-  */
 
   return (
     <div className="ledger-container">

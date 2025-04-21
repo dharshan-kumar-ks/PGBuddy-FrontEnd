@@ -16,7 +16,7 @@ function PaymentHistory() {
       return;
     }
 
-    const apiUrl = `http://localhost:8081/api/booking/transactions/${userId}`;
+    const apiUrl = `${import.meta.env.VITE_BACKEND_URL}/api/booking/transactions/${userId}`;
     console.log('Fetching data from API:', apiUrl);
 
     const token = localStorage.getItem('token'); // Retrieve token from localStorage

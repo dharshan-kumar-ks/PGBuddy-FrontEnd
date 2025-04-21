@@ -12,7 +12,7 @@ function InternetPlans() {
   useEffect(() => {
     const token = localStorage.getItem('token');
 
-    const fetchDataPlans = fetch('http://localhost:8081/api/internet/data-add-ons', {
+    const fetchDataPlans = fetch(`${import.meta.env.VITE_BACKEND_URL}/api/internet/data-add-ons`, {
       method: 'GET',
       headers: {
         'Authorization': `Bearer ${token}`
@@ -24,7 +24,7 @@ function InternetPlans() {
       return response.json();
     });
 
-    const fetchDevicePlans = fetch('http://localhost:8081/api/internet/device-add-ons', {
+    const fetchDevicePlans = fetch(`${import.meta.env.VITE_BACKEND_URL}/api/internet/device-add-ons`, {
       method: 'GET',
       headers: {
         'Authorization': `Bearer ${token}`
@@ -69,8 +69,8 @@ function InternetPlans() {
   const handleBuy = (packId) => {
     const token = localStorage.getItem('token');
     const endpoint = activeTab === 'data' 
-      ? `http://localhost:8081/api/internet/update/data/${packId}` 
-      : `http://localhost:8081/api/internet/update/device/${packId}`;
+      ? `${import.meta.env.VITE_BACKEND_URL}/api/internet/update/data/${packId}` 
+      : `${import.meta.env.VITE_BACKEND_URL}/api/internet/update/device/${packId}`;
 
     axios.post(endpoint, {}, {
       headers: {

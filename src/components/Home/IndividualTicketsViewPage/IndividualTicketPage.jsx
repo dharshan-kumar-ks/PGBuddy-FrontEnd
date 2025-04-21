@@ -32,7 +32,7 @@ function IndividualTicketPage() {
   // Load chat history
   useEffect(() => {
     if (ticket?.id) {
-      axios.get(`http://localhost:8081/api/chat/history/${ticket.id}`, {
+      axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/chat/history/${ticket.id}`, {
         headers: { Authorization: `Bearer ${token}` },
       })
       .then((res) => setMessages(res.data))
@@ -57,18 +57,18 @@ function IndividualTicketPage() {
   // Fetch usernames for rendering
   useEffect(() => {
     if (ticket?.assignedTo) {
-      axios.get(`http://localhost:8081/api/users/${ticket.assignedTo}`, {
+      axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/users/${ticket.assignedTo}`, {
         headers: { Authorization: `Bearer ${token}` },
       }).then((res) => setAssignedToName(res.data.name)).catch(console.error);
     }
     if (ticket?.userId) {
-      axios.get(`http://localhost:8081/api/users/${ticket.userId}`, {
+      axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/users/${ticket.userId}`, {
         headers: { Authorization: `Bearer ${token}` },
       }).then((res) => setCreatedByName(res.data.name)).catch(console.error);
     }
     const id = localStorage.getItem('userId');
     if (id) {
-      axios.get(`http://localhost:8081/api/users/${id}`, {
+      axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/users/${id}`, {
         headers: { Authorization: `Bearer ${token}` },
       }).then((res) => setUserName(res.data.name)).catch(console.error);
     }
@@ -100,7 +100,7 @@ function IndividualTicketPage() {
   };
 
   const handleMarkResolved = () => {
-    axios.put(`http://localhost:8081/api/tickets/${ticket.id}/resolve`, {}, {
+    axios.put(`${import.meta.env.VITE_BACKEND_URL}/api/tickets/${ticket.id}/resolve`, {}, {
       headers: { Authorization: `Bearer ${token}` },
     })
     .then(() => {
@@ -221,7 +221,7 @@ function IndividualTicketPage() {
           className="individual-ticket-page-resolve-button"
           onClick={async () => {
             try {
-              const response = await axios.post(`http://localhost:8081/api/tickets/resolve/${ticket.id}`, null, {
+              const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/tickets/resolve/${ticket.id}`, null, {
                 headers: {
                   Authorization: `Bearer ${token}`,
                 },
