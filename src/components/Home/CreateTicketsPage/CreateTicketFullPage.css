@@ -20,7 +20,7 @@
   }
   
   /* Two-column layout using CSS Grid */
-  .form-grid {
+  .create-ticket-full-page .form-grid {
     display: flex;
     flex-direction: row;
     gap: 60px; /* Increased gap between left and right columns */
@@ -30,7 +30,7 @@
   }
   
   /* Left Column Adjustments */
-  .left-column {
+  .create-ticket-full-page .left-column {
     margin-left: -20px; /* Shift the left section slightly to the left */
     flex: 1;
     width: 100%; /* Match the width of the right column */
@@ -38,13 +38,13 @@
   }
   
   /* Right Column Adjustments */
-  .right-column {
+  .create-ticket-full-page .right-column {
     padding-right: 20px; /* Add padding to the right to create space from the edge */
     flex: 1;
   }
   
   /* Box around right column elements */
-  .right-column-box {
+  .create-ticket-full-page .right-column-box {
     background-color: #2c3e50 ; /* Slightly lighter background for the box */
     /* border: 1px solid #444; /* Subtle border to match the reference */
     border-radius: 5px;
@@ -55,20 +55,20 @@
   }
   
   /* Form group styling */
-  .form-group {
+  .create-ticket-full-page .form-group {
     margin-bottom: 20px;
   }
   
-  .form-group label {
+  .create-ticket-full-page .form-group label {
     display: block;
     margin-bottom: 8px;
     font-weight: normal;
     color: #b0b0b0; /* Light gray for labels */
   }
   
-  .form-group input,
-  .form-group textarea,
-  .form-group select {
+  .create-ticket-full-page .form-group input,
+  .create-ticket-full-page .form-group textarea,
+  .create-ticket-full-page .form-group select {
     width: 100%;
     padding: 10px;
     border: 1px solid #2c3e50; /* Darker border for contrast */
@@ -78,24 +78,24 @@
     font-size: 14px;
   }
   
-  .form-group input::placeholder,
-  .form-group textarea::placeholder {
+  .create-ticket-full-page .form-group input::placeholder,
+  .create-ticket-full-page .form-group textarea::placeholder {
     color: #b0b0b0;
   }
   
-  .form-group textarea {
+  .create-ticket-full-page .form-group textarea {
     resize: vertical;
     height: auto; /* Reset any fixed height */
     min-height: 400px; /* Increase the minimum height to match the right-side box */
   }
   
   /* Priority buttons styling */
-  .priority-buttons {
+  .create-ticket-full-page .priority-buttons {
     display: flex;
     gap: 10px;
   }
   
-  .priority-button {
+  .create-ticket-full-page .priority-button {
     padding: 8px 16px;
     border: none;
     border-radius: 5px;
@@ -104,32 +104,32 @@
     transition: background-color 0.2s;
   }
   
-  .priority-low {
+  .create-ticket-full-page .priority-low {
     background-color: #d4edda; /* Light green */
     color: #155724;
   }
   
-  .priority-medium {
+  .create-ticket-full-page .priority-medium {
     background-color: #fff3cd; /* Light yellow */
     color: #856404;
   }
   
-  .priority-high {
+  .create-ticket-full-page .priority-high {
     background-color: #f8d7da; /* Light red */
     color: #721c24;
   }
   
-  .priority-button.selected {
+  .create-ticket-full-page .priority-button.selected {
     opacity: 1;
     font-weight: bold;
   }
   
-  .priority-button:not(.selected) {
+  .create-ticket-full-page .priority-button:not(.selected) {
     opacity: 0.6;
   }
   
   /* Select dropdown styling */
-  .form-group select {
+  .create-ticket-full-page .form-group select {
     appearance: none;
     -webkit-appearance: none;
     -moz-appearance: none;
@@ -139,7 +139,7 @@
   }
   
   /* Action buttons styling */
-  .form-actions {
+  .create-ticket-full-page .form-actions {
     display: flex;
     justify-content: center; /* Center the buttons horizontally */
     gap: 20px; /* Add spacing between the buttons */
@@ -149,7 +149,7 @@
     margin-right: 300px;
   }
   
-  .form-actions button {
+  .create-ticket-full-page .form-actions button {
     flex: 1;
     padding: 12px;
     border: none;
@@ -159,27 +159,28 @@
     transition: background-color 0.2s;
   }
   
-  .cancel-button {
+  .create-ticket-full-page .cancel-button {
     background-color: #6c757d; /* Gray for Cancel */
     color: #ffffff;
     max-width: 300px;
   }
   
-  .cancel-button:hover {
+  .create-ticket-full-page .cancel-button:hover {
     background-color: #5a6268;
   }
   
-  .submit-button {
+  .create-ticket-full-page .submit-button {
     background-color: #26a69a ; /* Blue for Submit */
     color: #ffffff;
     max-width: 300px;
+    margin-top: -4px;
   }
   
-  .submit-button:hover {
-    background-color: #0056b3;
+  .create-ticket-full-page .submit-button:hover {
+    background-color: #1e8076 ;
   }
 
-  .page-header {
+  .create-ticket-full-page .page-header {
     font-size: 32px;
     font-weight: bold;
     text-align: center;
@@ -187,7 +188,7 @@
     color: #ffffff; /* Matches the page's text color */
   }
 
-  .category-text {
+  .create-ticket-full-page .category-text {
     font-size: 18px;
     font-weight: normal;
     text-align: center;

@@ -98,12 +98,14 @@ function NoticeBoard() {
       // Send POST request to backend to update bookmark status
       const newBookmarkedStatus = !noticeToToggle.bookmarked;
       console.log(`Toggling bookmark for notice ${id} to ${newBookmarkedStatus}`);
+      const token = localStorage.getItem('token'); // Retrieve token from localStorage
       await axios.post(
         `http://localhost:8081/api/notices/${id}/bookmark`,
         newBookmarkedStatus,
         {
           headers: {
             'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`, // Add token to Authorization header
           },
         }
       );

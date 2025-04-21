@@ -71,13 +71,13 @@
 }
 
 /* Profile Details */
-.profile-details {
+.profile-page-container .profile-details {
   display: flex;
   flex-direction: column;
   gap: 15px;
 }
 
-.detail-item {
+.profile-page-container .detail-item {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -85,21 +85,21 @@
   border-bottom: 1px solid rgba(228, 225, 225, 0.1);
 }
 
-.detail-item label {
+.profile-page-container .detail-item label {
   color: #b0aeae; /* Light gray for labels */
   font-size: 14px;
   font-weight: bold;
 }
 
-.detail-item span {
+.profile-page-container .detail-item span {
   color: #faf7f7; /* White text for values */
   font-size: 14px;
 }
 
 /* Editable Fields */
-.detail-item input,
-.detail-item select,
-.detail-item textarea {
+.profile-page-container .detail-item input,
+.profile-page-container .detail-item select,
+.profile-page-container .detail-item textarea {
   background-color: #1d2833; /* Dark background for inputs */
   border: 1px solid #26a69a; /* Teal border */
   border-radius: 5px;
@@ -109,18 +109,18 @@
   width: 60%; /* Adjust width for better alignment */
 }
 
-.detail-item textarea {
+.profile-page-container .detail-item textarea {
   resize: vertical; /* Allow vertical resizing only */
   min-height: 60px;
 }
 
-.detail-item select {
+.profile-page-container .detail-item select {
   background-color: #1d2833;
   cursor: pointer;
 }
 
 /* Edit Button */
-.edit-button {
+.profile-page-container .edit-button {
   background-color: #26a69a; /* Teal background */
   color: white;
   padding: 10px 20px;
@@ -134,12 +134,12 @@
   transition: background-color 0.3s ease;
 }
 
-.edit-button:hover {
+.profile-page-container .edit-button:hover {
   background-color: #1f7970; /* Darker teal on hover */
 }
 
 /* Edit Button */
-.cancel-button {
+.profile-page-container .cancel-button {
   background-color: #9e9999; /* Teal background */
   color: white;
   padding: 10px 20px;
@@ -154,35 +154,35 @@
   min-width: 520px;
 }
 
-.cancel-button:hover {
+.profile-page-container .cancel-button:hover {
   background-color: #726e6e; /* Darker teal on hover */
 }
 
 /* Responsive Design */
 @media (max-width: 768px) {
-  .profile-content {
+  .profile-page-container .profile-content {
     padding: 10px;
   }
 
-  .profile-card {
+  .profile-page-container .profile-card {
     padding: 15px;
   }
 
-  .profile-header {
+  .profile-page-container .profile-header {
     flex-direction: column;
     align-items: center;
     gap: 10px;
   }
 
-  .detail-item {
+  .profile-page-container .detail-item {
     flex-direction: column;
     align-items: flex-start;
     gap: 5px;
   }
 
-  .detail-item input,
-  .detail-item select,
-  .detail-item textarea {
+  .profile-page-container .detail-item input,
+  .profile-page-container .detail-item select,
+  .profile-page-container .detail-item textarea {
     width: 100%; /* Full width on smaller screens */
   }
 }
