@@ -8,6 +8,8 @@ function CafeGrid({ cafeItems, filter, onAddItem, onUpdateQuantity, cartItems })
     return cartItem ? cartItem.quantity : 0;
   };
 
+  // I used image ratio changer to reshape cafe images to 1.2:1 (width:height) -> https://redketchup.io/image-resizer
+
   return (
     <section className="cafe-grid">
       {cafeItems
