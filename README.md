@@ -11,6 +11,8 @@
 
 Staying in a PG in a city like Bengaluru can be a real hassle—think about the delayed fixes, payment mix-ups, and zero communication. This web app is a try to sort all that out, making life in your PG way smoother!
 
+This repo contains the **frontend** code for PGBuddy, built with React. If you're interested in the backend, which is built with Spring Boot, you can find it here: 🔗 [PGBuddy Backend](https://github.com/dharshan-kumar-ks/PGBuddy)
+
 <p align="center">
   <img src="https://github.com/user-attachments/assets/3b66f610-b1bb-48f4-ac06-4fa73beeb29a" alt="Your Alt Text" width="300">
 </p>
@@ -41,7 +43,7 @@ Or, you can create your own profile as a resident user using the **Registration*
 - **Design**: Currently the UI is only designed and optimised for desktop screen with future plans for tablets and mobile devices.
 
 ### 👤 Resident View (PG Mates)
-- **Secure Authentication**: Sign up or log in via email/phone with JWT-based authentication (Spring Security).
+- **Secure Authentication**: Sign up or log in via email with JWT-based authentication (Spring Security).
 - **Rent & Payments**: View rent dues, pay securely via Razorpay, and track your payment history.
 - **Support Tickets**: Raise issues (e.g., "AC not working"), track status (Pending, In Progress, Resolved), and chat with the admin.
 - **Notice Board**: View and bookmark announcements (e.g., "Water maintenance tomorrow").
@@ -50,7 +52,7 @@ Or, you can create your own profile as a resident user using the **Registration*
 - **Utilities**: Monitor internet/electricity usage and purchase internet add-on packs.
 - **Profile Management**: Update your profile and view admin contact details.
 
-### 🛠️ Admin View (PG Managers)
+### 🔑 Admin View (PG Managers)
 - **Ticket Dashboard**: View, assign, update ticket statuses, and chat with residents.
 - **Notice Management**: Post and manage important notices for all residents.
 
@@ -246,8 +248,16 @@ This project follows a structured color scheme for a consistent and visually app
 ### 🛠 Installation
 
 Make sure you have the following installed:
-- [React.js](https://www.freecodecamp.org/news/how-to-install-react-a-step-by-step-guide/&ved=2ahUKEwjNuOKlkKGMAxW8R2wGHYclDWcQFnoECCQQAQ&usg=AOvVaw1t2elEHdsmdZirarHeLMnh) (v14 or higher)
 - [npm](https://www.npmjs.com/) (package manager)
+- node v19.6.0
+- vite v6.2.2
+- razorpay v2.9.6
+- react-icons v5.5.0
+- react-router-dom v7.4.0
+- react-stomp v5.1.0
+- react v18.3.1
+- sockjs-client v1.6.1
+- sockjs v0.3.24
 
 1. **Clone the Repository**:
    ```
@@ -258,7 +268,7 @@ Make sure you have the following installed:
 2. **Install Dependencies & Start the server**:
    ```
    npm install
-   npm start
+   npm run dev
    ```
 3. **Open in Browser**:
    ```
@@ -266,7 +276,7 @@ Make sure you have the following installed:
    ```
 
 ---
-## Contributing
+## Contributions
 Contributions are welcome! Feel free to fork the repo and submit pull requests.
 
 ### 💡 Future Enhancement Ideas
@@ -284,7 +294,7 @@ Contributions are welcome! Feel free to fork the repo and submit pull requests.
 - **Password Recovery**: Add "Forgot Password" support on the login screen.
 - **Roommate Explorer**: Discover roommate profiles and switch rooms via an interactive room map.
 - **Dynamic Meal Management**: Let admins add or remove meal options on the fly.
-
+- **Order Arrival Notification**: Send a message to user's mobile number once an order arrives in the café.
 ---
 ## Acknowledgments
 Built with ❤️ by Dharshan Kumar.
