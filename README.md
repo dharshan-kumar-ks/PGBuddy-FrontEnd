@@ -7,10 +7,11 @@
 ![Vite](https://img.shields.io/badge/Vite-5.0-purple) 
 ![License](https://img.shields.io/badge/License-MIT-green)
 
-
-**PGBuddy** is a Spring Boot & React based application designed to streamline the management of Paying Guest (PG) accommodations for residents (PG Mates). It provides a user-friendly interface for residents to handle payments, submit complaints, manage meal preferences, and more, while offering admins tools to oversee operations.
+**PGBuddy** is a React (frontend) & Spring Boot (backend) based application designed to streamline the management of Paying Guest (PG) accommodations for residents (PG Mates). It provides an user-friendly interface for residents to handle payments, submit complaints, manage meal preferences, and more, while offering admins tools to oversee operations.
 
 Staying in a PG in a city like Bengaluru can be a real hassle—think about the delayed fixes, payment mix-ups, and zero communication. This web app is a try to sort all that out, making life in your PG way smoother!
+
+This repo contains the **frontend** code for PGBuddy, built with React. If you're interested in the backend, which is built with Spring Boot, you can find it here: 🔗 [PGBuddy Backend](https://github.com/dharshan-kumar-ks/PGBuddy)
 
 <p align="center">
   <img src="https://github.com/user-attachments/assets/3b66f610-b1bb-48f4-ac06-4fa73beeb29a" alt="Your Alt Text" width="300">
@@ -41,17 +42,34 @@ Or, you can create your own profile as a resident user using the **Registration*
 - **Modular Components**: Well-structured React components for easy maintenance and scalability.
 - **Design**: Currently the UI is only designed and optimised for desktop screen with future plans for tablets and mobile devices.
 
-### Resident View (PG Mates)
-- **User Authentication**: Secure sign-up/login using email or phone with JWT-based authentication (Spring Security).
-- **Payment Management**: View dues, pay rent charges via Razorpay, and track payment history.
-- **Ticket System**: Submit issues (e.g., "AC not working") with status tracking (Pending, Resolved, In Progress).
-- **Notice Board**: View admin announcements (e.g., "Water maintenance tomorrow").
-- **Meal Preferences**: Submit daily/weekly meal choices (e.g., Veg/Non-Veg).
-- **Cafe**: Order food and checkout for payment.
+### 👤 Resident View (PG Mates)
+- **Secure Authentication**: Sign up or log in via email with JWT-based authentication (Spring Security).
+- **Rent & Payments**: View rent dues, pay securely via Razorpay, and track your payment history.
+- **Support Tickets**: Raise issues (e.g., "AC not working"), track status (Pending, In Progress, Resolved), and chat with the admin.
+- **Notice Board**: View and bookmark announcements (e.g., "Water maintenance tomorrow").
+- **Meal Preferences**: Choose daily/weekly meal type (Veg/Non-Veg) and view real-time user vote counts.
+- **Café Ordering**: Browse the café menu, place orders, and reorder from order history.
+- **Utilities**: Monitor internet/electricity usage and purchase internet add-on packs.
+- **Profile Management**: Update your profile and view admin contact details.
 
-### Admin View (PG Managers)
-- **Ticket Dashboard**: View, assign, and update ticket statuses.
-- **Notice Posting**: Post updates or alerts for all residents. (e.g., "Water maintenance tomorrow").
+### 🔑 Admin View (PG Managers)
+- **Ticket Dashboard**: View, assign, update ticket statuses, and chat with residents.
+- **Notice Management**: Post and manage important notices for all residents.
+
+---
+
+## ⚙️ Technologies Used
+
+- **Frontend**: React, Vite, Axios, React Router
+- **Backend**: Spring Boot, Spring Security, Spring WebSockets (SockJS + STOMP)
+- **Database**: MySQL
+- 🔌 **Other Notable Integrations**:
+  - Implemented **real-time chat** using $\color{teal}{\textsf{WebSockets}}$ over **SockJS** with a simple **message broker**; clients send messages to `"/app/chat.sendMessage"` and receive them via `"/user/queue/messages"`.
+  - Integrated $\color{teal}{\textsf{Razorpay}}$ for rent and café **payment handling** with both **API and checkout UI**.
+  - Used $\color{teal}{\textsf{React Router}}$ for client-side **routing** and enforced **access control** between residents and admins.
+  - Enabled $\color{teal}{\textsf{JWT-based authentication}}$ using **Spring Security** for secure login.
+  - Applied $\color{teal}{\textsf{BCrypt hashing}}$ for password encryption; **no plain-text passwords** stored in the **MySQL database**.
+  - All application data is persisted in a $\color{teal}{\textsf{MySQL}}$ backend.
 
 ---
 
@@ -59,47 +77,108 @@ Or, you can create your own profile as a resident user using the **Registration*
 Here’s an overview of the project’s file structure:
 ```
 pg-buddy/
-├── public/                 # Static assets (e.g., index.html, favicon)
+├── public/                 # Static assets (e.g., images, favicon)
 ├── src/                    # Source code
+│   ├── App.css             # Global styles for the app
+│   ├── App.jsx             # Main App component
+│   ├── axiosConfig.js      # Axios configuration for API calls
+│   ├── index.css           # Global CSS styles
+│   ├── main.jsx            # Entry point for the React app
+│   ├── assets/             # Static assets for the app
+│   │   └── react.svg
 │   ├── components/         # Reusable React components
+│   │   ├── Account/        # Account-related components
+│   │   │   ├── Account.css
+│   │   │   ├── Account.jsx
+│   │   │   ├── Feedback/
+│   │   │   │   ├── Feedback.css
+│   │   │   │   ├── Feedback.jsx
+│   │   │   ├── KC/         # Knowledge Centre
+│   │   │   │   ├── KnowledgeCentre.css
+│   │   │   │   ├── KnowledgeCentre.jsx
+│   │   │   ├── Profile/
+│   │   │       ├── ProfilePage.css
+│   │   │       ├── ProfilePage.jsx
+│   │   ├── AdminPages/     # Admin-related components
+│   │   │   ├── AdminAccount/
+│   │   │   │   ├── AdminAccount.css
+│   │   │   │   ├── AdminAccount.jsx
+│   │   │   ├── AdminNavigation/
+│   │   │   ├── AdminNoticePage/
+│   │   │   ├── PageProtection/
 │   │   ├── Authentication/ # Authentication components
+│   │   │   ├── Common.css
 │   │   │   ├── Login.jsx
 │   │   │   ├── Register.jsx
-│   │   ├── Home/           # Home page components
-│   │   │   ├── Home.jsx
-│   │   │   ├── MainPage/   # Main page subcomponents
-│   │   │   │   ├── CreateTicketsPage/
-│   │   │   │   │   ├── CreateTicketFullPage.jsx
-│   │   │   │   ├── AllTicketsListPage/
-│   │   │   │   │   ├── TicketListFullPage.jsx
-│   │   │   │   ├── IndividualTicketsViewPage/
-│   │   │   │       ├── IndividualTicketPage.jsx
-│   │   ├── Food/           # Food-related components
-│   │   │   ├── Food.jsx
-│   │   ├── Stay/           # Stay-related components
-│   │   │   ├── Stay.jsx
 │   │   ├── Cafe/           # Cafe-related components
+│   │   │   ├── Cafe.css
 │   │   │   ├── Cafe.jsx
+│   │   │   ├── CafeGrid/
 │   │   │   ├── OrderHistory/
-│   │   │       ├── OrderHistoryPage.jsx
+│   │   │   ├── OrderSummary/
+│   │   ├── Food/           # Food-related components
+│   │   │   ├── Food.css
+│   │   │   ├── Food.jsx
+│   │   │   ├── MenuCard/
+│   │   ├── Home/           # Home page components
+│   │   │   ├── Home.css
+│   │   │   ├── Home.jsx
+│   │   │   ├── AllTicketsListPage/
+│   │   │   ├── CreateTicketsPage/
+│   │   │   ├── IndividualTicketsViewPage/
+│   │   │   ├── MainPage/
+│   │   ├── Navigation/     # Navigation components
+│   │   │   ├── TopNavigationBar.css
+│   │   │   ├── TopNavigationBar.jsx
 │   │   ├── Services/       # Services-related components
+│   │   │   ├── Services.css
 │   │   │   ├── Services.jsx
-│   │   ├── Account/        # Account-related components
-│   │   │   ├── Account.jsx
-│   │   │   ├── Profile/
-│   │   │   │   ├── ProfilePage.jsx
-│   │   │   ├── KC/         # Knowledge Centre
-│   │   │   │   ├── KnowledgeCentre.jsx
-│   │   │   ├── Feedback/
-│   │   │       ├── Feedback.jsx
-│   ├── pages/              # Page components (if applicable)
-│   ├── App.jsx             # Main App component
-│   ├── index.jsx           # Entry point
-│   └── index.css           # Global styles
+│   │   │   ├── ElectricityUsage/
+│   │   │   ├── InternetPlans/
+│   │   │   ├── RoomCleaningService/
+│   │   ├── Stay/           # Stay-related components
+│   │       ├── Stay.css
+│   │       ├── Stay.jsx
+│   │       ├── BookingDetailsBox/
+│   │       ├── PaymentHistory/
+│   │       ├── SummaryBox/
+│   ├── websocketService.js
+├── .env                    # Environment variables
 ├── .gitignore              # Git ignore file
+├── eslint.config.js        # ESLint configuration
+├── index.html              # HTML entry point
 ├── package.json            # Project dependencies and scripts
-└── README.md               # Project documentation
+├── README.md               # Project documentation
+├── vite.config.js          # Vite configuration
 ```
+
+---
+## 📄 Page Structure
+
+### 🔐 Authentication
+- `/login`
+- `/register`
+
+### 👥 Resident Pages
+- `/home`
+- `/food`
+- `/stay`
+- `/cafe`
+- `/services`
+- `/account`
+- `/create-ticket-full-page`
+- `/order-history`
+
+### 🛡️ Admin Pages
+- `/admin-notice-page`
+- `/admin-account`
+
+### 📚 Common Pages
+- `/profile`
+- `/knowledge-centre`
+- `/feedback`
+- `/ticket-list-full-page`
+- `/ticket/:id`
 
 ---
 
@@ -169,8 +248,16 @@ This project follows a structured color scheme for a consistent and visually app
 ### 🛠 Installation
 
 Make sure you have the following installed:
-- [React.js](https://www.freecodecamp.org/news/how-to-install-react-a-step-by-step-guide/&ved=2ahUKEwjNuOKlkKGMAxW8R2wGHYclDWcQFnoECCQQAQ&usg=AOvVaw1t2elEHdsmdZirarHeLMnh) (v14 or higher)
 - [npm](https://www.npmjs.com/) (package manager)
+- node v19.6.0
+- vite v6.2.2
+- razorpay v2.9.6
+- react-icons v5.5.0
+- react-router-dom v7.4.0
+- react-stomp v5.1.0
+- react v18.3.1
+- sockjs-client v1.6.1
+- sockjs v0.3.24
 
 1. **Clone the Repository**:
    ```
@@ -181,7 +268,7 @@ Make sure you have the following installed:
 2. **Install Dependencies & Start the server**:
    ```
    npm install
-   npm start
+   npm run dev
    ```
 3. **Open in Browser**:
    ```
@@ -189,9 +276,25 @@ Make sure you have the following installed:
    ```
 
 ---
-## Contributing
+## Contributions
 Contributions are welcome! Feel free to fork the repo and submit pull requests.
 
+### 💡 Future Enhancement Ideas
+- **Email Alerts**: Notify users via email for ticket status updates and escalations.
+- **Role-Based Dashboards**: Different dashboards for staff, management, and admins.
+- **Media Uploads**: Allow image/file uploads in tickets and café menu items.
+- **Analytics**: Add dashboards showing food, rent, and utilities usage stats for admins.
+- **PDF Receipts**: Auto-generate downloadable PDF bills after successful payments.
+- **Laundry Services**: Add a module to manage laundry requests and billing.
+- **Virtual Wallet**: Introduce virtual coins for rent, café, or utility payments.
+- **Feedback Surveys**: Show monthly satisfaction pop-ups on the homepage.
+- **Resident Onboarding**: KYC, document upload, and digital signature during registration.
+- **Escalation Notices**: Auto-notify users if their ticket remains unanswered for 2+ days.
+- **In-App Popups**: Use UI-based popups instead of browser alerts for a smoother UX.
+- **Password Recovery**: Add "Forgot Password" support on the login screen.
+- **Roommate Explorer**: Discover roommate profiles and switch rooms via an interactive room map.
+- **Dynamic Meal Management**: Let admins add or remove meal options on the fly.
+- **Order Arrival Notification**: Send a message to user's mobile number once an order arrives in the café.
 ---
 ## Acknowledgments
 Built with ❤️ by Dharshan Kumar.
