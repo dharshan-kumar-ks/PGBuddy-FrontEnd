@@ -8,15 +8,17 @@ import FoodPreference from './CafeGrid/FoodPreference';
 import CafeGrid from './CafeGrid/CafeGrid';
 import OrderSummary from './OrderSummary/OrderSummary';
 
+// Renders the Cafe component to display the café menu and manage user interactions.
+// Takes no input and returns a JSX element representing the café page.
 function Cafe() {
   const [cartItems, setCartItems] = useState([]); // Array to store cart items with quantities
-  const [filter, setFilter] = useState(null);
+  const [filter, setFilter] = useState(null); // State to manage the filter (e.g., veg, non-veg).
   const [showOrderSummary, setShowOrderSummary] = useState(true); // State to toggle order summary visibility
   const [cafeItems, setCafeItems] = useState([]); // State to store cafe items fetched from backend
   const navigate = useNavigate(); // Initialize navigation
 
   useEffect(() => {
-    // Fetch cafe items from backend on component mount
+    // Fetch café items from the backend when the component mounts.
     const token = localStorage.getItem('token'); // Retrieve token from localStorage
 
     axios
@@ -29,10 +31,11 @@ function Cafe() {
         setCafeItems(response.data);
       })
       .catch((error) => {
-        console.error('Error fetching cafe items:', error);
+        console.error('Error fetching café items:', error);
       });
   }, []);
 
+  // Handle adding an item to the cart.
   const handleAddItem = (item) => {
     setCartItems((prevItems) => {
       const existingItem = prevItems.find((cartItem) => cartItem.id === item.id);
@@ -48,6 +51,7 @@ function Cafe() {
     });
   };
 
+  // Handle updating the quantity of an item in the cart.
   const handleUpdateQuantity = (itemId, change) => {
     setCartItems((prevItems) => {
       const existingItem = prevItems.find((cartItem) => cartItem.id === itemId);
@@ -83,6 +87,7 @@ function Cafe() {
     <div className="cafe-container">
       <TopNavigationBar />
       <div className="food-preference-row">
+        {/* Filter buttons for veg and non-veg items. */}
         <FoodPreference filter={filter} onFilterChange={handleFilterChange} />
         <button className="history-button" onClick={handleHistoryClick}>
           <img
@@ -98,6 +103,7 @@ function Cafe() {
       <div className="cafe-wrapper">
         {/* Left Column: CafeGrid */}
         <div className="left-column">
+          {/* Render the café grid with filtered items. */}
           <CafeGrid
             cafeItems={cafeItems}
             filter={filter}

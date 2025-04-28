@@ -3,7 +3,7 @@ import './NoticeBoard.css';
 import axios from 'axios'; // Import axios for API calls
 
 function NoticeBoard() {
-  /*
+/*
   const [notices, setNotices] = useState([
     { id: 1, author: "PG Incharge", title: "Dinner Menu Update: Special Paneer Dish Added Tonight", day: "Today", time: "08:00 AM", bookmarked: false },
     { id: 2, author: "PG Incharge", title: "Hot Water Supply Interruption: 9 AM - 11 AM", day: "Today", time: "07:30 AM", bookmarked: false },
@@ -17,11 +17,11 @@ function NoticeBoard() {
   const [notices, setNotices] = useState([]);
 
   // State for search term and pagination
-  const [searchTerm, setSearchTerm] = useState('');
-  const [currentPage, setCurrentPage] = useState(1);
-  const noticesPerPage = 7; // Ensure this is set to 7
+  const [searchTerm, setSearchTerm] = useState(''); // Search term for filtering notices
+  const [currentPage, setCurrentPage] = useState(1); // Current page for pagination
+  const noticesPerPage = 7; // Number of notices to display per page
 
-  // State to toggle filter mode
+  // State to toggle filter mode (bookmarked notices only)
   const [filterBookmarked, setFilterBookmarked] = useState(false);
 
   // Fetch notices from the backend API
@@ -37,28 +37,28 @@ function NoticeBoard() {
         // console.log('API Response:', response.data); // Debug log to check API response
         const formattedNotices = response.data.map((notice) => ({
           id: notice.id,
-          author: notice.authorName,
-          title: notice.title,
-          day: notice.createdAtDay,
-          time: notice.createdAtTime,
-          bookmarked: notice.bookmarked,
+          author: notice.authorName, // Author of the notice
+          title: notice.title, // Title of the notice
+          day: notice.createdAtDay, // Day of creation
+          time: notice.createdAtTime, // Time of creation
+          bookmarked: notice.bookmarked, // Bookmark status
         }));
-        // console.log('Formatted Notices:', formattedNotices); // Debug log to check formatted data
-        setNotices(formattedNotices);
+
+        setNotices(formattedNotices); // Update state with formatted notices
       } catch (error) {
-        console.error('Error fetching notices:', error);
+        console.error('Error fetching notices:', error); // Log error if API call fails
       }
     };
 
-    fetchNotices();
+    fetchNotices(); // Fetch notices on component mount
   }, []);
 
   // Filter notices based on search term and bookmarked state
   const filteredNotices = notices.filter((notice) => {
     const matchesSearch =
-      notice.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      notice.author.toLowerCase().includes(searchTerm.toLowerCase());
-    const matchesFilter = !filterBookmarked || notice.bookmarked;
+      notice.title.toLowerCase().includes(searchTerm.toLowerCase()) || // Match search term with title
+      notice.author.toLowerCase().includes(searchTerm.toLowerCase()); // Match search term with author
+    const matchesFilter = !filterBookmarked || notice.bookmarked; // Match bookmarked filter
     return matchesSearch && matchesFilter;
   });
 
@@ -70,7 +70,7 @@ function NoticeBoard() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }, [currentPage]);
 
-  // Reset to first page when search term changes
+  // Reset to the first page when the search term changes
   useEffect(() => {
     setCurrentPage(1);
   }, [searchTerm]);
@@ -82,23 +82,22 @@ function NoticeBoard() {
 
   // Handle search input change
   const handleSearchChange = (e) => {
-    setSearchTerm(e.target.value);
+    setSearchTerm(e.target.value); // Update search term state
   };
 
-  // Handle bookmark toggle (placeholder functionality)
+  // Handle bookmark toggle
   const toggleBookmark = async (id) => {
     try {
-      // Find the notice to toggle
-      const noticeToToggle = notices.find((notice) => notice.id === id);
+      const noticeToToggle = notices.find((notice) => notice.id === id); // Find the notice to toggle
       if (!noticeToToggle) {
         console.warn(`Notice with id ${id} not found.`);
         return;
       }
 
-      // Send POST request to backend to update bookmark status
-      const newBookmarkedStatus = !noticeToToggle.bookmarked;
-      console.log(`Toggling bookmark for notice ${id} to ${newBookmarkedStatus}`);
+      const newBookmarkedStatus = !noticeToToggle.bookmarked; // Toggle bookmark status
       const token = localStorage.getItem('token'); // Retrieve token from localStorage
+
+      // Send POST request to update bookmark status
       await axios.post(
         `${import.meta.env.VITE_BACKEND_URL}/api/notices/${id}/bookmark`,
         newBookmarkedStatus,
@@ -114,16 +113,15 @@ function NoticeBoard() {
       const updatedNotices = notices.map((notice) =>
         notice.id === id ? { ...notice, bookmarked: newBookmarkedStatus } : notice
       );
-      setNotices(updatedNotices);
-      console.log('Updated notices:', updatedNotices);
+      setNotices(updatedNotices); // Update notices state
     } catch (error) {
-      console.error('Error updating bookmark status:', error);
+      console.error('Error updating bookmark status:', error); // Log error if API call fails
     }
   };
 
-  // Handle page change
+  // Handle page change for pagination
   const handlePageChange = (pageNumber) => {
-    setCurrentPage(pageNumber);
+    setCurrentPage(pageNumber); // Update current page state
   };
 
   // Generate pagination buttons
@@ -178,12 +176,11 @@ function NoticeBoard() {
       <div className="search-bar-container">
         <button
           className="filter-button"
-          onClick={() => setFilterBookmarked(!filterBookmarked)}
+          onClick={() => setFilterBookmarked(!filterBookmarked)} // Toggle bookmarked filter
         >
-          {filterBookmarked ? "Show All" : "Filter"}
+          {filterBookmarked ? "Show All" : "Filter"} {/* Toggle button text */}
         </button>
         <div className="search-bar-wrapper">
-          {/*<span className="search-icon">🔍</span>*/}
           <div className="search-icon">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
               <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
@@ -194,7 +191,7 @@ function NoticeBoard() {
             className="search-bar"
             placeholder="Search notices..."
             value={searchTerm}
-            onChange={handleSearchChange}
+            onChange={handleSearchChange} // Update search term
           />
         </div>
       </div>
@@ -202,7 +199,7 @@ function NoticeBoard() {
       {/* Notice List Box */}
       <div className="notice-box">
         {filteredNotices.length === 0 ? (
-          <p className="no-results">No notices found.</p>
+          <p className="no-results">No notices found.</p> // Display message if no notices match
         ) : (
           <table className="notice-table">
             <tbody>
@@ -211,7 +208,7 @@ function NoticeBoard() {
                   <td className="bookmark-column">
                     <span
                       className={`bookmark-icon ${notice.bookmarked ? 'bookmarked' : ''}`}
-                      onClick={() => toggleBookmark(notice.id)}
+                      onClick={() => toggleBookmark(notice.id)} // Toggle bookmark
                     >
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -226,33 +223,33 @@ function NoticeBoard() {
                       </svg>
                     </span>
                   </td>
-                  <td className="author-column">{notice.author}</td>
+                  <td className="author-column">{notice.author}</td> {/* Display author */}
                   <td className="title-column">
                     <a href="#" className="notice-title">
-                      {notice.title}
+                      {notice.title} {/* Display title */}
                     </a>
                   </td>
-                  <td className="day-column">{notice.day}</td>
-                  <td className="time-column">{notice.time}</td>
+                  <td className="day-column">{notice.day}</td> {/* Display day */}
+                  <td className="time-column">{notice.time}</td> {/* Display time */}
                 </tr>
               ))}
             </tbody>
           </table>
         )}
 
-        {/* Pagination (only show if there are notices) */}
+        {/* Pagination */}
         {filteredNotices.length > 0 && (
           <div className="pagination">
             <button
-              onClick={() => handlePageChange(currentPage - 1)}
-              disabled={currentPage === 1}
+              onClick={() => handlePageChange(currentPage - 1)} // Go to previous page
+              disabled={currentPage === 1} // Disable if on the first page
             >
               &lt;
             </button>
-            {getPaginationButtons()}
+            {getPaginationButtons()} {/* Render pagination buttons */}
             <button
-              onClick={() => handlePageChange(currentPage + 1)}
-              disabled={currentPage === totalPages}
+              onClick={() => handlePageChange(currentPage + 1)} // Go to next page
+              disabled={currentPage === totalPages} // Disable if on the last page
             >
               &gt;
             </button>

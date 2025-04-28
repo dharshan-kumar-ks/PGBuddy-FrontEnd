@@ -5,18 +5,25 @@ import TopNavigationBar from '../Navigation/TopNavigationBar';
 import MenuCard from './MenuCard/MenuCard';
 
 function Food() {
+  // State to manage the selected meal type (Breakfast, Lunch, Dinner)
   const [mealType, setMealType] = useState('Breakfast');
+
+  // State to track the selected meal and day
   const [selectedMeal, setSelectedMeal] = useState('default');
   const [selectedDay, setSelectedDay] = useState('Today');
+
+  // State to show/hide notification
   const [showNotification, setShowNotification] = useState(true);
 
+  // State to manage meal options with vote counts
+  const [mealOptionsState, setMealOptionsState] = useState([]);
+
+  // Close the notification banner
   const handleCloseNotification = () => {
     setShowNotification(false);
   };
 
-  // State to manage meal options with counts
-  const [mealOptionsState, setMealOptionsState] = useState([]);
-
+  // Generate the week menu dynamically
   const weekMenu = Array.from({ length: 4 }, (_, index) => {
     const date = new Date();
     date.setDate(date.getDate() + index);
@@ -24,16 +31,16 @@ function Food() {
     return {
       day: index === 0 ? 'Today' : index === 1 ? 'Tom' : dayNames[date.getDay()],
       date: `${date.getDate()} ${date.toLocaleString('default', { month: 'short' })}`,
-      counter: '0/2',
+      counter: '0/2', // Placeholder counter
     };
   });
 
-  // Fetch meal options and their corresponding vote counts from the backend
+  // Fetch meal options and their vote counts from the backend
   useEffect(() => {
     const fetchMealOptionsAndCounts = async () => {
       try {
         console.log('Fetching meal options for:', {
-          mealDate: '2025-04-01',
+          mealDate: '2025-04-01', // Hardcoded date for now
           mealTime: mealType.toUpperCase(),
         });
 
@@ -49,16 +56,17 @@ function Food() {
 
         console.log('API response:', response.data);
 
+        // Map the API response to the required format
         const mappedData = response.data.map((item) => ({
           day: item.mealDayType,
           mealType: item.mealTimeType,
           meals: [
             {
               id: item.id,
-              name: item.meal.mealItems.join(', '),
-              description: `+ ${item.meal.mealAddOn.join(', ')}`,
-              image: `/${item.meal.mealImageUrl}`,
-              count: 0, // Initialize count to 0
+              name: item.meal.mealItems.join(', '), // Combine meal items into a single string
+              description: `+ ${item.meal.mealAddOn.join(', ')}`, // Add meal add-ons
+              image: `/${item.meal.mealImageUrl}`, // Meal image URL
+              count: 0, // Initialize vote count to 0
             },
           ],
         }));
@@ -79,21 +87,21 @@ function Food() {
                     },
                   }
                 );
-                return { ...meal, count: voteCountResponse.data };
+                return { ...meal, count: voteCountResponse.data }; // Update meal with vote count
               })
             );
-            return { ...option, meals: updatedMeals };
+            return { ...option, meals: updatedMeals }; // Update option with updated meals
           })
         );
 
-        setMealOptionsState(updatedMealOptions);
+        setMealOptionsState(updatedMealOptions); // Update state with fetched meal options
       } catch (error) {
-        console.error('Error fetching meal options or vote counts:', error);
+        console.error('Error fetching meal options or vote counts:', error); // Log error
       }
     };
 
     fetchMealOptionsAndCounts();
-  }, [mealType]);
+  }, [mealType]); // Re-fetch meal options when mealType changes
 
   // Fetch vote counts for all meals
   const fetchVoteCounts = async () => {
@@ -111,26 +119,26 @@ function Food() {
                   },
                 }
               );
-              return { ...meal, count: voteCountResponse.data };
+              return { ...meal, count: voteCountResponse.data }; // Update meal with vote count
             })
           );
-          return { ...option, meals: updatedMeals };
+          return { ...option, meals: updatedMeals }; // Update option with updated meals
         })
       );
-      setMealOptionsState(updatedMealOptions);
+      setMealOptionsState(updatedMealOptions); // Update state with fetched vote counts
     } catch (error) {
-      console.error('Error fetching vote counts:', error);
+      console.error('Error fetching vote counts:', error); // Log error
     }
   };
 
   useEffect(() => {
-    fetchVoteCounts();
-  }, []); // Fetch vote counts when the component mounts
+    fetchVoteCounts(); // Fetch vote counts when the component mounts
+  }, []);
 
-  // Directly use all fetched meal options as the current meal options
+  // Flatten the meal options to get the current meal options
   const currentMealOptions = mealOptionsState.flatMap(option => option.meals);
 
-  // Skip option with a count
+  // State to manage the "Skip" option
   const [skipOption, setSkipOption] = useState({
     id: 'skip',
     name: `Skip ${mealType}`,
@@ -139,7 +147,7 @@ function Food() {
     count: 0,
   });
 
-  // Update skip option name when mealType changes
+  // Update the "Skip" option name when mealType changes
   React.useEffect(() => {
     setSkipOption((prev) => ({
       ...prev,
@@ -147,8 +155,9 @@ function Food() {
     }));
   }, [mealType]);
 
+  // Handle day selection
   const handleDayClick = (day, index) => {
-    setSelectedDay(day);
+    setSelectedDay(day); // Update selected day
     setSelectedMeal(null); // Reset selected meal when switching days
 
     const targetDate = new Date('2025-04-01'); // Start date
@@ -219,7 +228,7 @@ function Food() {
       return; // Prevent duplicate voting requests
     }
 
-    setSelectedMeal(mealId);
+    setSelectedMeal(mealId); // Update selected meal
 
     if (mealId === 'skip') {
       // Increment skip option count locally
@@ -252,7 +261,7 @@ function Food() {
         // Fetch the updated vote counts
         fetchVoteCounts();
       } catch (error) {
-        console.error('Error voting for meal:', error);
+        console.error('Error voting for meal:', error); // Log error
         if (error.response) {
           console.error('Error response from backend:', {
             status: error.response.status,
@@ -331,85 +340,90 @@ function Food() {
 
   return (
     <div className="food-container">
-      {/* Top Navigation */}
+      {/* Top Navigation Bar */}
       <TopNavigationBar />
 
-      {/* Menu for the Week */}
+      {/* Weekly Menu Section */}
       <section className="menu-week">
         <h2>Menu for the week</h2>
         <div className="days-list-tabs">
+          {/* Render buttons for each day in the week menu */}
           {weekMenu.map((menu, index) => (
             <button
               key={index}
-              className={`day ${menu.day === selectedDay ? 'active' : ''}`}
-              onClick={() => handleDayClick(menu.day, index)}
+              className={`day ${menu.day === selectedDay ? 'active' : ''}`} // Highlight selected day
+              onClick={() => handleDayClick(menu.day, index)} // Handle day selection
             >
-              <span>{menu.day}</span>
-              <span>{menu.date}</span>
-              <span className="counter">{menu.counter}</span>
+              <span>{menu.day}</span> {/* Display day name */}
+              <span>{menu.date}</span> {/* Display date */}
+              <span className="counter">{menu.counter}</span> {/* Placeholder for meal counter */}
             </button>
           ))}
         </div>
       </section>
 
+      {/* Notification Banner */}
       {showNotification && (
         <div className="notification">
-          <span className="clock-icon">⏰</span>
-          <span>Your window to set tomorrow's preferences will close at 5 PM today</span>
+          <span className="clock-icon">⏰</span> {/* Clock icon */}
+          <span>Your window to set tomorrow's preferences will close at 5 PM today</span> {/* Notification message */}
           <button className="close-btn" onClick={handleCloseNotification}>
-            &times;
+            &times; {/* Close button */}
           </button>
         </div>
       )}
 
       {/* Meal Type Tabs */}
       <div className="meal-type-tabs">
+        {/* Render buttons for each meal type */}
         <button
-          className={mealType === 'Breakfast' ? 'active' : ''}
+          className={mealType === 'Breakfast' ? 'active' : ''} // Highlight active meal type
           onClick={() => {
-            setMealType('Breakfast');
-            setSelectedMeal('default');
+            setMealType('Breakfast'); // Set meal type to Breakfast
+            setSelectedMeal('default'); // Reset selected meal
           }}
         >
           Breakfast
         </button>
         <button
-          className={mealType === 'Lunch' ? 'active' : ''}
+          className={mealType === 'Lunch' ? 'active' : ''} // Highlight active meal type
           onClick={() => {
-            setMealType('Lunch');
-            setSelectedMeal('default');
+            setMealType('Lunch'); // Set meal type to Lunch
+            setSelectedMeal('default'); // Reset selected meal
           }}
         >
           Lunch
         </button>
         <button
-          className={mealType === 'Dinner' ? 'active' : ''}
+          className={mealType === 'Dinner' ? 'active' : ''} // Highlight active meal type
           onClick={() => {
-            setMealType('Dinner');
-            setSelectedMeal('default');
+            setMealType('Dinner'); // Set meal type to Dinner
+            setSelectedMeal('default'); // Reset selected meal
           }}
         >
           Dinner
         </button>
       </div>
 
-      {/* Meal Options */}
+      {/* Meal Options Section */}
       <section className="meal-options">
+        {/* Render meal options */}
         {currentMealOptions.map((meal) => (
           <MenuCard
-            key={meal.id}
-            meal={meal}
-            selectedMeal={selectedMeal}
-            onMealSelect={handleMealSelect}
-            mealType={mealType}
+            key={meal.id} // Unique key for each meal
+            meal={meal} // Pass meal data to MenuCard
+            selectedMeal={selectedMeal} // Pass selected meal state
+            onMealSelect={handleMealSelect} // Handle meal selection
+            mealType={mealType} // Pass current meal type
           />
         ))}
+        {/* Render Skip Option */}
         <MenuCard
-          meal={skipOption}
-          selectedMeal={selectedMeal}
-          onMealSelect={handleMealSelect}
-          mealType={mealType}
-          isSkipOption={true}
+          meal={skipOption} // Pass skip option data
+          selectedMeal={selectedMeal} // Pass selected meal state
+          onMealSelect={handleMealSelect} // Handle meal selection
+          mealType={mealType} // Pass current meal type
+          isSkipOption={true} // Indicate this is the skip option
         />
       </section>
     </div>

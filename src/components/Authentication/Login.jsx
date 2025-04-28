@@ -4,17 +4,17 @@ import './Common.css'; // Optional: for styling
 // ADDED: Import the logo image
 import logo from '/logo-1.png';
 
+// Renders the Login component to handle user authentication.
+// Takes no input and returns a JSX element representing the login form.
 function Login() {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
-  const navigate = useNavigate();
-
-  //console.log('Hi');  // ADDED: Log a message for debugging
+  const [email, setEmail] = useState(''); // State to manage the email input.
+  const [password, setPassword] = useState(''); // State to manage the password input.
+  const [error, setError] = useState(''); // State to manage error messages.
+  const navigate = useNavigate(); // React Router hook for navigation.
 
   const handleLogin = async (e) => {
-    e.preventDefault();
-    
+    e.preventDefault(); // Prevent default form submission behavior.
+
     try {
       console.log('Sending request with body:', { email, password }); // ADDED: Log the request body for debugging
 
@@ -77,9 +77,10 @@ function Login() {
 
   return (
     <div className="common-container">
-      {/* ADDED: Add the logo image - <img src={logo} alt="PG Buddy Logo" className="form-logo" /> - */}
+      {/* ADDED: Add the logo image */}
       <img src={logo} alt="PG Buddy Logo" className="form-logo" />  
       <h2>Login</h2>
+      {/* Form for user login. */}
       <form onSubmit={handleLogin}>
         <div>
           <label>Email:</label>

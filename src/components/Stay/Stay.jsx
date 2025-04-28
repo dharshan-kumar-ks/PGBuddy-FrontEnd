@@ -8,14 +8,15 @@ import LedgerSummary from './SummaryBox/LedgerSummary';
 import './Stay.css';
 
 function Stay() {
-  const [activeTab, setActiveTab] = useState('ledger'); // 'ledger' or 'payment-plans'
+  const [activeTab, setActiveTab] = useState('ledger'); // State to track the active tab ('ledger' or 'penalty-structure')
   const [summaryData, setSummaryData] = useState({
-    dues: '₹45,001',
-    amountPaid: '₹45,001',
-    outstanding: '₹0',
+    dues: '₹45,001', // Default dues
+    amountPaid: '₹45,001', // Default amount paid
+    outstanding: '₹0', // Default outstanding amount
   });
 
   /*
+  // Uncomment this useEffect to fetch summary data from the backend
   useEffect(() => {
     const fetchData = async () => {
       const token = localStorage.getItem('token'); // Retrieve token from localStorage
@@ -24,55 +25,58 @@ function Stay() {
           Authorization: `Bearer ${token}`, // Add token to Authorization header
         },
       });
-      setSummaryData(response.data);
+      setSummaryData(response.data); // Update state with fetched data
     };
 
-    fetchData();
+    fetchData(); // Fetch data on component mount
   }, []);
   */
 
   return (
     <div className="stay-container">
-      {/* Top Navigation */}
+      {/* Top Navigation Bar */}
       <TopNavigationBar />
 
       {/* Stay Section */}
       <section className="stay-section">
+        {/* Page Heading */}
         <h1>Payment and Contract Details</h1>
 
-        {/* Booking Details */}
+        {/* Booking Details Section */}
         <BookingDetails />
 
-        {/* Penalty Structure  -  <PenaltyStructure />*/}
-    
+        {/* Ledger Summary Section */}
         <LedgerSummary 
-          dues={summaryData.dues} 
-          amountPaid={summaryData.amountPaid} 
-          outstanding={summaryData.outstanding} 
+          dues={summaryData.dues} // Pass dues to LedgerSummary
+          amountPaid={summaryData.amountPaid} // Pass amount paid to LedgerSummary
+          outstanding={summaryData.outstanding} // Pass outstanding amount to LedgerSummary
         />
 
-        {/* Tabs */}
+        {/* Tabs for switching between Ledger and Penalty Structure */}
         <div className="stay-tabs">
+          {/* Ledger Tab */}
           <button
-            className={`stay-tab ${activeTab === 'ledger' ? 'active' : ''}`}
-            onClick={() => setActiveTab('ledger')}
+            className={`stay-tab ${activeTab === 'ledger' ? 'active' : ''}`} // Highlight active tab
+            onClick={() => setActiveTab('ledger')} // Set active tab to 'ledger'
           >
             Ledger
           </button>
+
+          {/* Penalty Structure Tab */}
           <button
-            className={`stay-tab ${activeTab === 'penalty-structure' ? 'active' : ''}`}
-            onClick={() => setActiveTab('penalty-structure')}
+            className={`stay-tab ${activeTab === 'penalty-structure' ? 'active' : ''}`} // Highlight active tab
+            onClick={() => setActiveTab('penalty-structure')} // Set active tab to 'penalty-structure'
           >
-            Penalty Structure 
+            Penalty Structure
           </button>
         </div>
 
         {/* Ledger Content */}
         {activeTab === 'ledger' && (
           <Ledger
-            dues={summaryData.dues}
-            amountPaid={summaryData.amountPaid}
-            outstanding={summaryData.outstanding}
+            dues={summaryData.dues} // Pass dues to Ledger
+            amountPaid={summaryData.amountPaid} // Pass amount paid to Ledger
+            outstanding={summaryData.outstanding} // Pass outstanding amount to Ledger
           />
         )}
 

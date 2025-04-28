@@ -4,20 +4,21 @@ import './ProfilePage.css';
 import TopNavigationBar from '../../Navigation/TopNavigationBar';
 import AdminTopNavigationBar from '../../AdminPages/AdminNavigation/AdminTopNavigationBar';
 
-// passing NavigationBar as a prop to ProfilePage 
-// Dynamically change the NavigationBar for Admin and Resident users
+// Renders the ProfilePage component to display and edit user profile information.
+// Takes NavigationBar as input and returns a JSX element.
 function ProfilePage({ NavigationBar }) {
   const location = useLocation(); // Access location to retrieve state
 
-  // Map string identifiers to actual components
+  // Map string identifiers to actual components for dynamic navigation bar rendering.
   const navigationBarMap = {
     AdminTopNavigationBar: AdminTopNavigationBar,
     TopNavigationBar: TopNavigationBar,
   };
 
-  // Resolve the navigation bar component
+  // Resolve the navigation bar component based on location state or fallback to default.
   const SelectedNavigationBar = navigationBarMap[location.state?.NavigationBar] || NavigationBar;
 
+  // State to manage user profile details.
   const [user, setUser] = useState({
     fullName: '',
     dob: '',
@@ -29,8 +30,10 @@ function ProfilePage({ NavigationBar }) {
     companyName: '',
   });
 
+  // State to toggle between view and edit modes.
   const [isEditing, setIsEditing] = useState(false);
 
+  // Fetch user details from the backend when the component mounts.
   useEffect(() => {
     const userId = localStorage.getItem('userId');
     const token = localStorage.getItem('token'); // Retrieve token from localStorage
@@ -42,6 +45,7 @@ function ProfilePage({ NavigationBar }) {
       })
         .then((response) => response.json())
         .then((data) => {
+          // Populate user state with fetched data.
           setUser({
             fullName: data.name || '',
             dob: data.dateOfBirth || '',
@@ -59,10 +63,12 @@ function ProfilePage({ NavigationBar }) {
     }
   }, []);
 
+  // Toggle between edit and view modes.
   const handleEditToggle = () => {
     setIsEditing(!isEditing);
   };
 
+  // Handle changes to input fields in edit mode.
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setUser((prevUser) => ({
@@ -71,6 +77,7 @@ function ProfilePage({ NavigationBar }) {
     }));
   };
 
+  // Save updated user details to the backend.
   const handleSave = () => {
     const userId = localStorage.getItem('userId');
     if (!userId) {
@@ -78,7 +85,7 @@ function ProfilePage({ NavigationBar }) {
       return;
     }
 
-    // Format date to YYYY-MM-DD
+    // Format date to YYYY-MM-DD for backend compatibility.
     const formatDate = (date) => {
       if (!date) {
         console.warn('Date of Birth is empty. Sending null to backend.');
@@ -140,20 +147,26 @@ function ProfilePage({ NavigationBar }) {
 
   return (
     <div className="profile-page-container">
+      {/* Main container for the profile page layout. */}
       <SelectedNavigationBar />
       <div className="profile-content">
+        {/* Page heading for profile information. */}
         <h1>Profile Information</h1>
         <div className="profile-card">
+          {/* Header section displaying user's avatar and basic details. */}
           <div className="profile-header">
             <div className="profile-avatar">
+              {/* Display the first letter of the user's name as an avatar. */}
               <span>{user.fullName.charAt(0)}</span>
             </div>
             <div className="profile-name">
+              {/* Display user's full name and email. */}
               <h2>{user.fullName}</h2>
               <p>{user.email}</p>
             </div>
           </div>
           <div className="profile-details">
+            {/* Section for displaying and editing user details. */}
             <div className="detail-item">
               <label>Date of Birth</label>
               {isEditing ? (
@@ -167,6 +180,7 @@ function ProfilePage({ NavigationBar }) {
                 <span>{user.dob}</span>
               )}
             </div>
+            
             <div className="detail-item">
               <label>Gender</label>
               {isEditing ? (
@@ -260,6 +274,7 @@ function ProfilePage({ NavigationBar }) {
             </div>
           </div>
           <div className="profile-actions">
+            {/* Buttons for toggling edit mode and saving changes. */}
             <button className="edit-button" onClick={isEditing ? handleSave : handleEditToggle}>
               {isEditing ? 'Save Profile' : 'Edit Profile'}
             </button>

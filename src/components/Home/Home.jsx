@@ -7,20 +7,19 @@ import './Home.css';
 function Home() {
   return (
     <div className="home-container">
-      {/* Top Navigation */}
+      {/* Top Navigation Bar */}
       <TopNavigationBar />
 
-      {/* Two-Column Layout */}
+      {/* Main content area with a two-column layout */}
       <div className="home-wrapper">
-        {/* Left Column: NoticeBoard */}
+        {/* Left Column: Displays the NoticeBoard section */}
         <div className="left-column">
           <NoticeBoard />
         </div>
 
-        {/* Right Column: Tickets */}
+        {/* Right Column: Displays the Tickets section */}
         <div className="right-column">
-         {/* <Tickets /> */}
-         <Tickets />
+          <Tickets />
         </div>
       </div>
     </div>

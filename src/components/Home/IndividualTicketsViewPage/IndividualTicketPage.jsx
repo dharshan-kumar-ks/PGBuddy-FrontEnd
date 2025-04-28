@@ -8,97 +8,103 @@ import './IndividualTicketPage.css';
 import axios from 'axios';
 
 function IndividualTicketPage() {
-  const location = useLocation();
-  const navigate = useNavigate();
-  const { ticket } = location.state || {};
+  const location = useLocation(); // Access location to retrieve ticket data
+  const navigate = useNavigate(); // Hook to navigate between pages
+  const { ticket } = location.state || {}; // Extract ticket from location state
 
+  // Retrieve user role and user ID from localStorage
   const userRole = localStorage.getItem('userRole');
   const userId = localStorage.getItem('userId');
   const token = localStorage.getItem('token');
-  const NavigationBar = userRole === 'ADMIN' ? AdminTopNavigationBar : TopNavigationBar;
+  const NavigationBar = userRole === 'ADMIN' ? AdminTopNavigationBar : TopNavigationBar; // Use appropriate navigation bar
 
-  const [messages, setMessages] = useState([]);
-  const [newMessage, setNewMessage] = useState('');
-  const [userName, setUserName] = useState('');
-  const [assignedToName, setAssignedToName] = useState('');
-  const [createdByName, setCreatedByName] = useState('');
-  const messagesEndRef = useRef(null);
+  // State variables
+  const [messages, setMessages] = useState([]); // Chat messages
+  const [newMessage, setNewMessage] = useState(''); // New message input
+  const [userName, setUserName] = useState(''); // Current user's name
+  const [assignedToName, setAssignedToName] = useState(''); // Assigned user's name
+  const [createdByName, setCreatedByName] = useState(''); // Ticket creator's name
+  const messagesEndRef = useRef(null); // Reference to scroll to the latest message
 
-  // Scroll to latest message
+  // Scroll to the latest message when messages change
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [messages]);
 
-  // Load chat history
+  // Load chat history for the ticket
   useEffect(() => {
     if (ticket?.id) {
       axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/chat/history/${ticket.id}`, {
         headers: { Authorization: `Bearer ${token}` },
       })
-      .then((res) => setMessages(res.data))
-      .catch(console.error);
+      .then((res) => setMessages(res.data)) // Update messages state with chat history
+      .catch(console.error); // Log error if API call fails
     }
   }, [ticket?.id]);
 
-  // WebSocket connection
+  // Establish WebSocket connection for real-time chat
   useEffect(() => {
     if (!ticket?.id) return;
 
     const onMessageReceived = (chatMessage) => {
       if (chatMessage.ticketId === ticket?.id) {
-        setMessages((prevMessages) => [...prevMessages, chatMessage]);
+        setMessages((prevMessages) => [...prevMessages, chatMessage]); // Add new message to chat
       }
     };
 
-    connectWebSocket(onMessageReceived, () => window.location.pathname.startsWith('/ticket/'));
-    return () => disconnectWebSocket();
+    connectWebSocket(onMessageReceived, () => window.location.pathname.startsWith('/ticket/')); // Connect WebSocket
+    return () => disconnectWebSocket(); // Disconnect WebSocket on component unmount
   }, [ticket?.id]);
 
-  // Fetch usernames for rendering
+  // Fetch user names for rendering
   useEffect(() => {
     if (ticket?.assignedTo) {
       axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/users/${ticket.assignedTo}`, {
         headers: { Authorization: `Bearer ${token}` },
-      }).then((res) => setAssignedToName(res.data.name)).catch(console.error);
+      }).then((res) => setAssignedToName(res.data.name)).catch(console.error); // Fetch assigned user's name
     }
     if (ticket?.userId) {
       axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/users/${ticket.userId}`, {
         headers: { Authorization: `Bearer ${token}` },
-      }).then((res) => setCreatedByName(res.data.name)).catch(console.error);
+      }).then((res) => setCreatedByName(res.data.name)).catch(console.error); // Fetch ticket creator's name
     }
     const id = localStorage.getItem('userId');
     if (id) {
       axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/users/${id}`, {
         headers: { Authorization: `Bearer ${token}` },
-      }).then((res) => setUserName(res.data.name)).catch(console.error);
+      }).then((res) => setUserName(res.data.name)).catch(console.error); // Fetch current user's name
     }
   }, [ticket?.assignedTo, ticket?.userId]);
 
+  // Handle sending a new message
   const handleSendMessage = () => {
-    if (!newMessage.trim()) return;
+    if (!newMessage.trim()) return; // Prevent sending empty messages
 
     const chatMessage = {
-      sender: userId,
-      recipient: userRole === 'ADMIN' ? ticket?.userId : ticket?.assignedTo,
-      content: newMessage,
-      ticketId: ticket?.id,
+      sender: userId, // Current user ID
+      recipient: userRole === 'ADMIN' ? ticket?.userId : ticket?.assignedTo, // Determine recipient based on role
+      content: newMessage, // Message content
+      ticketId: ticket?.id, // Ticket ID
     };
 
-    sendMessage(chatMessage);
-    setNewMessage('');
+    sendMessage(chatMessage); // Send message via WebSocket
+    setNewMessage(''); // Clear input field
   };
 
+  // Render the sender's name for each message
   const renderMessageSender = (msg) => {
-    if (msg.sender == userId) return userName;
-    if (msg.sender == ticket?.userId) return createdByName;
-    if (msg.sender == ticket?.assignedTo) return assignedToName;
-    return 'Unknown';
+    if (msg.sender == userId) return userName; // Current user
+    if (msg.sender == ticket?.userId) return createdByName; // Ticket creator
+    if (msg.sender == ticket?.assignedTo) return assignedToName; // Assigned user
+    return 'Unknown'; // Fallback for unknown sender
   };
 
+  // Navigate back to the tickets list
   const handleBackToTickets = () => {
     navigate(userRole === 'ADMIN' ? '/admin-dashboard' : '/user-dashboard');
   };
 
+  // Mark the ticket as resolved
   const handleMarkResolved = () => {
     axios.put(`${import.meta.env.VITE_BACKEND_URL}/api/tickets/${ticket.id}/resolve`, {}, {
       headers: { Authorization: `Bearer ${token}` },
@@ -113,6 +119,7 @@ function IndividualTicketPage() {
     });
   };
 
+  // Render fallback UI if no ticket is selected
   if (!ticket) {
     return (
       <div className="individual-ticket-page-container">
@@ -125,15 +132,18 @@ function IndividualTicketPage() {
 
   return (
     <div className="individual-ticket-page-container">
+      {/* Top Navigation Bar */}
       <NavigationBar />
       <header className="individual-ticket-page-header">Ticket #{ticket.id}</header>
       <p className="individual-ticket-page-category-text">{ticket.category}</p>
 
+      {/* Main Content: Two-Column Layout */}
       <div className="individual-ticket-page-form-grid">
         {/* Left Column: Chat Box */}
         <div className="individual-ticket-page-left-column">
           <div className="individual-ticket-page-chat-box">
             <div className="individual-ticket-page-chat-messages">
+              {/* Render chat messages */}
               {messages.map((msg, index) => (
                 <div
                   key={index}
@@ -150,8 +160,9 @@ function IndividualTicketPage() {
                   </div>
                 </div>
               ))}
-              <div ref={messagesEndRef} />
+              <div ref={messagesEndRef} /> {/* Scroll to latest message */}
             </div>
+            {/* Message Input */}
             <div className="individual-ticket-page-chat-input">
               <input
                 type="text"
@@ -167,6 +178,7 @@ function IndividualTicketPage() {
         {/* Right Column: Ticket Info */}
         <div className="individual-ticket-page-right-column">
           <div className="individual-ticket-page-right-column-box">
+            {/* Ticket Details */}
             <div className="individual-ticket-page-form-group">
               <label>Ticket Title</label>
               <p className="individual-ticket-page-ticket-title-field">{ticket.title}</p>

@@ -2,10 +2,13 @@ import React, { useState } from 'react';
 import './PostBox.css';
 import axios from 'axios';
 
+// Renders the PostBox component to allow admins to create and manage posts.
+// Takes no input and returns a JSX element representing the post creation box.
 function PostBox() {
   const [noticeTitle, setNoticeTitle] = useState(''); // State for the notice title
   const [successPopup, setSuccessPopup] = useState(false); // State for success popup
 
+  // Handles the publish action when the form is submitted.
   const handlePublish = async (e) => {
     e.preventDefault();
 
@@ -30,9 +33,11 @@ function PostBox() {
   return (
     <div className="post-box">
       <h3>Publish Notice</h3>
+      {/* Form for publishing a notice */}
       <form onSubmit={handlePublish}>
         <div className="form-group">
           <label>Notice Title</label>
+          {/* Textarea for entering the notice title */}
           <textarea
             value={noticeTitle}
             onChange={(e) => setNoticeTitle(e.target.value)}
@@ -41,10 +46,12 @@ function PostBox() {
           />
         </div>
         <div className="form-actions">
+          {/* Button to submit the notice */}
           <button type="submit" className="publish-button">Publish Notice</button>
         </div>
       </form>
 
+      {/* Success popup displayed after successful submission */}
       {successPopup && (
         <div className="success-popup">
           <div className="popup-content">

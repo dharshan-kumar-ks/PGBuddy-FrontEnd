@@ -6,11 +6,11 @@ import './Common.css'; // Optional: for styling
 import logo from '/logo-1.png';
 
 function Register() {
-  const [email, setEmail] = useState(''); // CHANGE: Renamed username to email
-  const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
-  const [success, setSuccess] = useState('');
-  const navigate = useNavigate();
+  const [name, setName] = useState(''); // State to manage the name input.
+  const [email, setEmail] = useState(''); // State to manage the email input.
+  const [password, setPassword] = useState(''); // State to manage the password input.
+  const [error, setError] = useState(''); // State to manage error messages.
+  const navigate = useNavigate(); // React Router hook for navigation.
 
 const handleRegister = async (e) => {
     e.preventDefault();

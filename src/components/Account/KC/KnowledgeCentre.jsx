@@ -90,6 +90,8 @@ const groupedHouseRules = [
   },
 ];
 
+// Renders the KnowledgeCentre component to display house rules and staff details.
+// Takes NavigationBar as input and returns a JSX element.
 function KnowledgeCentre({ NavigationBar }) {
   const location = useLocation(); // Access location to retrieve state
 
@@ -104,6 +106,7 @@ function KnowledgeCentre({ NavigationBar }) {
 
   return (
     <div className="knowledge-centre-container">
+      {/* Render the resolved navigation bar component. */}
       <ResolvedNavigationBar />
       <div className="knowledge-centre-content">
         {/* Left Section: House Rules */}
@@ -112,10 +115,12 @@ function KnowledgeCentre({ NavigationBar }) {
           <p>These rules are designed to ensure a safe, comfortable, and respectful living environment for all residents.</p>
           {groupedHouseRules.map((group, index) => (
             <div key={index} className="rules-group">
+              {/* Render heading for each group of house rules. */}
               <h3>{group.heading}</h3>
               <ul className="rules-list">
                 {group.rules.map((rule, ruleIndex) => (
                   <li key={ruleIndex} className="rule-item">
+                    {/* Display rule number and text. */}
                     <span className="rule-number">{ruleIndex + 1}.</span>
                     <span>{rule}</span>
                   </li>
@@ -132,15 +137,17 @@ function KnowledgeCentre({ NavigationBar }) {
           <div className="staff-list">
             {staffData.map((staff) => (
               <div key={staff.id} className="staff-card">
+                {/* Render staff profile picture with fallback image on error. */}
                 <img
                   src={staff.profilePicture}
                   alt={staff.name}
                   className="staff-picture"
                   onError={(e) => {
-                    e.target.src = 'https://dummyimage.com/150x150/cccccc/000000&text=No+Image'; // Updated fallback image
+                    e.target.src = 'https://dummyimage.com/150x150/cccccc/000000&text=No+Image';
                   }}
                 />
                 <div className="staff-info">
+                  {/* Display staff name, role, and contact number. */}
                   <h3>{staff.name}</h3>
                   <p className="staff-role">{staff.role}</p>
                   <p className="staff-contact">{staff.contactNumber}</p>

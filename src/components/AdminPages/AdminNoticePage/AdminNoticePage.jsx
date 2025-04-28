@@ -4,20 +4,22 @@ import NoticeBoard from '../../Home/MainPage/LeftSideNoticeBoardSection/NoticeBo
 import PostBox from './PostBox.jsx';
 import './AdminNoticePage.css';
 
+// Renders the AdminNoticePage component to display notices and post management for admins.
+// Takes no input and returns a JSX element representing the admin notice page.
 function AdminNoticePage() {
   return (
     <div className="home-container">
-      {/* Top Navigation */}
+      {/* Render the top navigation bar for admin. */}
       <AdminTopNavigationBar />
 
-      {/* Two-Column Layout */}
+      {/* Two-column layout for notices and post management. */}
       <div className="home-wrapper">
-        {/* Left Column: NoticeBoard */}
+        {/* Left column: Notice board section. */}
         <div className="left-column">
           <NoticeBoard />
         </div>
 
-        {/* Right Column: Tickets */}
+        {/* Right column: Post management section. */}
         <div className="right-column">
           <PostBox />
         </div>

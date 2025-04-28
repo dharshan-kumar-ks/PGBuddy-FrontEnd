@@ -2,15 +2,16 @@ import React from 'react';
 import './PenaltyStructure.css';
 
 function PenaltyStructure() {
+  // Penalty structure data
   const penalties = [
-    { date: '8th of each month', amount: '₹100' },
-    { date: '11th of each month', amount: '₹300' },
-    { date: '14th of each month', amount: '₹300' },
-    { date: '17th of each month', amount: '₹600' },
-    { date: '20th of each month', amount: '₹600' },
-    { date: '23rd of each month', amount: '₹900' },
-    { date: '26th of each month', amount: '₹900' },
-    { date: '30th of each month', amount: '₹1,200' },
+    { date: '8th of each month', amount: '₹100' }, // Penalty for 8th
+    { date: '11th of each month', amount: '₹300' }, // Penalty for 11th
+    { date: '14th of each month', amount: '₹300' }, // Penalty for 14th
+    { date: '17th of each month', amount: '₹600' }, // Penalty for 17th
+    { date: '20th of each month', amount: '₹600' }, // Penalty for 20th
+    { date: '23rd of each month', amount: '₹900' }, // Penalty for 23rd
+    { date: '26th of each month', amount: '₹900' }, // Penalty for 26th
+    { date: '30th of each month', amount: '₹1,200' }, // Penalty for 30th
   ];
 
   return (
@@ -33,14 +34,17 @@ function PenaltyStructure() {
 
       {/* Penalty Table */}
       <div className="penalty-table">
+        {/* Table Header */}
         <div className="table-header">
-          <span className="header-date">Date</span>
-          <span className="header-amount">Penalty Amount</span>
+          <span className="header-date">Date</span> {/* Header for penalty date */}
+          <span className="header-amount">Penalty Amount</span> {/* Header for penalty amount */}
         </div>
+
+        {/* Table Rows */}
         {penalties.map((penalty, index) => (
           <div key={index} className="table-row">
-            <span className="row-date">{penalty.date}</span>
-            <span className="row-amount">{penalty.amount}</span>
+            <span className="row-date">{penalty.date}</span> {/* Display penalty date */}
+            <span className="row-amount">{penalty.amount}</span> {/* Display penalty amount */}
           </div>
         ))}
       </div>

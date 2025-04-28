@@ -1,15 +1,16 @@
 import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom'; // Import useNavigate
+import { useNavigate } from 'react-router-dom'; // Import useNavigate for navigation
 import axios from 'axios';
 import './TicketListBox.css';
 
 function TicketListBox({ tickets, searchQuery, filters, onSearchChange }) {
-  const navigate = useNavigate(); // Define navigate using useNavigate
-  const [userNames, setUserNames] = useState({}); // State to store user names
+  const navigate = useNavigate(); // Hook to navigate between pages
+  const [userNames, setUserNames] = useState({}); // State to store user names mapped by user IDs
 
+  // Fetch user names for assigned tickets
   useEffect(() => {
     const fetchUserNames = async () => {
-      const uniqueUserIds = [...new Set(tickets.map((ticket) => ticket.assignedTo))]; // Get unique user IDs
+      const uniqueUserIds = [...new Set(tickets.map((ticket) => ticket.assignedTo))]; // Extract unique user IDs
       const userNameMap = {};
       const token = localStorage.getItem('token'); // Retrieve token from localStorage
 
@@ -25,7 +26,7 @@ function TicketListBox({ tickets, searchQuery, filters, onSearchChange }) {
             console.log(`Response for userId ${userId}:`, response.data); // Debug log
             userNameMap[userId] = response.data.name || response.data.email || 'Unknown User'; // Fallback to email or placeholder if name is null
           } catch (error) {
-            console.error(`Error fetching user name for userId ${userId}:`, error);
+            console.error(`Error fetching user name for userId ${userId}:`, error); // Log error
           }
         }
       }
@@ -35,8 +36,9 @@ function TicketListBox({ tickets, searchQuery, filters, onSearchChange }) {
     };
 
     fetchUserNames();
-  }, [tickets]);
+  }, [tickets]); // Re-run effect when tickets change
 
+  // Priority and status mappings for display
   const priorityMapping = {
     HIGH: 'High',
     MEDIUM: 'Medium',
@@ -52,52 +54,56 @@ function TicketListBox({ tickets, searchQuery, filters, onSearchChange }) {
   const filteredTickets = tickets
     .map((ticket) => ({
       ...ticket,
-      priority: priorityMapping[ticket.priority] || ticket.priority, // Map priority to match filter box
-      status: statusMapping[ticket.status] || ticket.status, // Map status to match filter box
+      priority: priorityMapping[ticket.priority] || ticket.priority, // Map priority to display-friendly format
+      status: statusMapping[ticket.status] || ticket.status, // Map status to display-friendly format
     }))
     .filter((ticket) => {
       const matchesSearch =
-        String(ticket.id).toLowerCase().includes(searchQuery.toLowerCase()) || // Convert ticket.id to string
-        ticket.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        (ticket.assignedTo && String(ticket.assignedTo).toLowerCase().includes(searchQuery.toLowerCase())); // Handle assignedTo being null or undefined
+        String(ticket.id).toLowerCase().includes(searchQuery.toLowerCase()) || // Search by ticket ID
+        ticket.title.toLowerCase().includes(searchQuery.toLowerCase()) || // Search by title
+        (ticket.assignedTo && String(ticket.assignedTo).toLowerCase().includes(searchQuery.toLowerCase())); // Search by assignedTo
 
       const matchesPriority =
-        filters.priorities.length === 0 || filters.priorities.includes(ticket.priority);
+        filters.priorities.length === 0 || filters.priorities.includes(ticket.priority); // Filter by priority
 
       const matchesCategory =
-        filters.categories.length === 0 || filters.categories.includes(ticket.category);
+        filters.categories.length === 0 || filters.categories.includes(ticket.category); // Filter by category
 
       const matchesStatus =
-        filters.statuses.length === 0 || filters.statuses.includes(ticket.status);
+        filters.statuses.length === 0 || filters.statuses.includes(ticket.status); // Filter by status
 
       const ticketDate = ticket.requestDate
         ? new Date(
             ticket.requestDate.split(',')[0].split('/').reverse().join('-') + ' ' + ticket.requestDate.split(',')[1]
           )
-        : null; // Handle missing or undefined requestDate
+        : null; // Parse requestDate into a Date object
 
       const matchesDate =
         !filters.dateRange[0] ||
         !filters.dateRange[1] ||
-        (ticketDate && ticketDate >= filters.dateRange[0] && ticketDate <= filters.dateRange[1]);
+        (ticketDate && ticketDate >= filters.dateRange[0] && ticketDate <= filters.dateRange[1]); // Filter by date range
 
-      return matchesSearch && matchesPriority && matchesCategory && matchesStatus && matchesDate;
+      return matchesSearch && matchesPriority && matchesCategory && matchesStatus && matchesDate; // Combine all filters
     });
 
+  // Handle ticket row click to navigate to ticket details
   const handleTicketClick = (ticket) => {
-    navigate(`/ticket/${ticket.id}`, { state: { ticket } });
+    navigate(`/ticket/${ticket.id}`, { state: { ticket } }); // Navigate to ticket details page
   };
 
   return (
     <div className="ticket-list-box">
+      {/* Search bar for filtering tickets */}
       <div className="search-bar">
         <input
           type="text"
           placeholder="Search"
           value={searchQuery}
-          onChange={(e) => onSearchChange(e.target.value)}
+          onChange={(e) => onSearchChange(e.target.value)} // Update search query
         />
       </div>
+
+      {/* Tickets table */}
       <div className="tickets-table">
         <table>
           <thead>
@@ -115,24 +121,24 @@ function TicketListBox({ tickets, searchQuery, filters, onSearchChange }) {
           <tbody>
             {filteredTickets.map((ticket) => (
               <tr key={ticket.id} onClick={() => handleTicketClick(ticket)} style={{ cursor: 'pointer' }}>
-                <td>#{ticket.id}</td>
-                <td>{ticket.title}</td>
+                <td>#{ticket.id}</td> {/* Display ticket ID */}
+                <td>{ticket.title}</td> {/* Display ticket title */}
                 <td>
-                  <span className={`priority ${(ticket.priority || '').toLowerCase()}`}>{ticket.priority}</span>
+                  <span className={`priority ${(ticket.priority || '').toLowerCase()}`}>{ticket.priority}</span> {/* Display priority */}
                 </td>
                 <td>
                   <span className="category">
-                    <i className={`icon-${(ticket.category || '').toLowerCase()}`}></i>
-                    {ticket.category.charAt(0).toUpperCase() + ticket.category.slice(1).toLowerCase()}
+                    <i className={`icon-${(ticket.category || '').toLowerCase()}`}></i> {/* Display category icon */}
+                    {ticket.category.charAt(0).toUpperCase() + ticket.category.slice(1).toLowerCase()} {/* Display category */}
                   </span>
                 </td>
-                <td>{userNames[ticket.assignedTo] || ticket.assignedTo}</td>
+                <td>{userNames[ticket.assignedTo] || ticket.assignedTo}</td> {/* Display assigned user */}
                 <td>
-                  <span className={`status ${(ticket.status || '').toLowerCase()}`}>{ticket.status}</span>
+                  <span className={`status ${(ticket.status || '').toLowerCase()}`}>{ticket.status}</span> {/* Display status */}
                 </td>
-                <td>{new Date(ticket.createdAt).toLocaleString()}</td> {/* Display the created date */}
+                <td>{new Date(ticket.createdAt).toLocaleString()}</td> {/* Display created date */}
                 <td>
-                  <button className="more-options">...</button>
+                  <button className="more-options">...</button> {/* Placeholder for more options */}
                 </td>
               </tr>
             ))}

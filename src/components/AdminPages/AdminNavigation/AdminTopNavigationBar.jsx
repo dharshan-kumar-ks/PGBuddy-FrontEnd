@@ -2,8 +2,10 @@ import React from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import './AdminTopNavigationBar.css';
 
+// Renders the AdminTopNavigationBar component to display the navigation bar for admin users.
+// Takes no input and returns a JSX element representing the admin navigation bar.
 function AdminTopNavigationBar() {
-  const location = useLocation();
+  const location = useLocation(); // Access the current location to determine active links.
   const navigate = useNavigate();
 
   return (
@@ -13,6 +15,8 @@ function AdminTopNavigationBar() {
         <span className="icon">📃</span>
         <span>Notices</span>
       </Link>
+
+      {/* Navigation link to the admin tickets page. */}
       <Link
         to="/ticket-list-full-page"
         state={{ NavigationBar: 'AdminTopNavigationBar' }}
@@ -21,6 +25,8 @@ function AdminTopNavigationBar() {
         <span className="icon">🎟️</span>
         <span>Tickets</span>
       </Link>
+
+      {/* Navigation link to the admin account page. */}
       <Link to="/admin-account" className={`nav-item ${location.pathname === '/admin-account' ? 'active' : '' || location.pathname === '/profile' ? 'active' : '' || location.pathname === '/knowledge-centre' ? 'active' : '' || location.pathname === '/feedback' ? 'active' : ''}`}>
         <span className="icon">👤</span>
         <span>Account</span>
