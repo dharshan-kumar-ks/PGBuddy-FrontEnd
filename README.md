@@ -18,11 +18,16 @@ This repo contains the **frontend** code for PGBuddy, built with React. If you'r
 </p>
 
 ---
-
 ## ☁️ Hosting
 
-This project is hosted on **Vercel** cloud and can be accessed at:  
-🔗 [PG Buddy Website](https://pg-buddy-front-end.vercel.app)
+This project is fully cloud-hosted.  
+You can access the live website here: 🔗 [PG Buddy Website](https://pg-buddy-front-end.vercel.app)
+
+If you prefer to interact directly with the backend (e.g., via Postman or your own frontend), you can use this backend URL:  🔗 [Backend API](https://pgbuddy.onrender.com)
+
+- 🖥️ **Backend**: Hosted on **Render** (running inside a Docker container)
+- 🗄️ **Database**: Hosted on **Railway** (SQL database)
+- 🌐 **Frontend**: Hosted on **Vercel**
 
 **Test Credentials:**  
 - Resident user:
@@ -33,6 +38,10 @@ This project is hosted on **Vercel** cloud and can be accessed at:
   - **Password:** `admin123` 
 
 Or, you can create your own profile as a resident user using the **Registration** page.
+
+⚡ **Important Note**:
+- The backend may take up to **3 minutes** for the initial boot-up when opening the website because it goes into **sleep mode** after **30 minutes of inactivity** (to optimize cloud resource usage and reduce costs).
+- Once the server is awake, subsequent API calls will be much faster (in milliseconds).
 
 ---
 
@@ -152,6 +161,22 @@ pg-buddy/
 ├── vite.config.js          # Vite configuration
 ```
 
+### 🧠 Project Architecture Flow (Mind Map)
+
+- **User Request**
+  - ⬇️
+- **Frontend** (React App - Hosted on Vercel)
+  - ⬇️ API calls (Axios / Fetch)
+- **Backend** (Spring Boot - Hosted on Render)
+  - ⬇️ Filters (JWT Authentication / Token Validation)
+- **Controllers** (Handle incoming API/WebSocket requests)
+  - ⬇️
+- **Services** (Business Logic)
+  - ⬇️
+- **Repositories** (Database Access)
+  - ⬇️
+- **Database** (SQL - Hosted on Railway)
+
 ---
 ## 📄 Page Structure
 
@@ -270,7 +295,11 @@ Make sure you have the following installed:
    npm install
    npm run dev
    ```
-3. **Open in Browser**:
+3. **Change the port number of backend**: (optional)
+   ```
+    VITE_BACKEND_URL=http://localhost:8081
+   ```
+4. **Open in Browser**:
    ```
    http://localhost:5173
    ```
@@ -295,6 +324,8 @@ Contributions are welcome! Feel free to fork the repo and submit pull requests.
 - **Roommate Explorer**: Discover roommate profiles and switch rooms via an interactive room map.
 - **Dynamic Meal Management**: Let admins add or remove meal options on the fly.
 - **Order Arrival Notification**: Send a message to user's mobile number once an order arrives in the café.
+- **Usage Data Export**: Allow residents to download their internet/electricity usage reports as CSV files.
+- **Mobile-First UI**: Optimize and rededign the frontend UI for mobile screens.
 ---
 ## Acknowledgments
 Built with ❤️ by Dharshan Kumar.
