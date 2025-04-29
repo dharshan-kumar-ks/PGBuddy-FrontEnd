@@ -161,7 +161,11 @@ pg-buddy/
 ├── vite.config.js          # Vite configuration
 ```
 
-### 🧠 Project Architecture Flow (Mind Map)
+### 🧠 Project Architecture Flow
+
+This project follows a modular, layered architecture that cleanly separates concerns across frontend, backend, authentication, business logic, and data access layers.
+
+#### 🔄 Flow of a Typical Request
 
 - **User Request**
   - ⬇️
@@ -176,6 +180,11 @@ pg-buddy/
 - **Repositories** (Database Access)
   - ⬇️
 - **Database** (SQL - Hosted on Railway)
+
+#### 🖼️ Sequence Diagram
+
+For a more detailed visualization of the request and WebSocket flow, refer to the sequence diagram below:
+<img width="1200" alt="Architecture Sequence Diagram" src="./app_ui_images/sequence-diagram.jpg" />
 
 ---
 ## 📄 Page Structure
